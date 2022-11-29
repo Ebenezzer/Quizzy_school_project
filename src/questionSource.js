@@ -6,13 +6,12 @@ function treatHTTPResponseACB(response){
     return response.json(); 
  }
 
-function getQuestions(limit, categories){
-    return fetch(BASE_URL + 'questions', {
+function getQuestions(searchParams){
+    return fetch('https://trivia8.p.rapidapi.com/questions?'+new URLSearchParams(searchParams), {
         method: 'GET',
-        params: {limit: limit, categories: categories},
         headers: {
-          'X-RapidAPI-Key': API_KEY,
-          'X-RapidAPI-Host': 'trivia8.p.rapidapi.com'
+            'X-RapidAPI-Key': '0ba596d58dmshd52325f6e61ac3bp12c081jsncce51346ba85',
+            'X-RapidAPI-Host': 'trivia8.p.rapidapi.com'
         }
     }).then(treatHTTPResponseACB); 
 }
