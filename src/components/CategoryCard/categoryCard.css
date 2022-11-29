@@ -1,0 +1,20 @@
+.categoryCard{
+    position: relative;
+    width: 350px;
+    height: 200px;
+    background-color: beige;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    font-family: sans-serif;
+    font-size: 2rem;
+    box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
+    transition: transform 200ms;
+}
+
+.categoryCard:hover{
+    scale: 1.1;
+    cursor: pointer;
+    transition: 200ms;
+}

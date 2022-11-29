@@ -1,20 +1,24 @@
 import { getQuestions } from "../questionSource";
 import resolvePromise from "../resolvePromise";
+import GameView from "../Views/gameView/gameView";
 import React from "react";
+import promiseNoData from "../Views/promiseNoData";
+import CategoryView from "../Views/categoryView/categoryView";
 
 export default
-function Game(props){
+function Game(){
     const [promiseState] = React.useState({});  // no setter --> fixed!
     const [, reRender] = React.useState();  // updates the component
-
+    
     function notifyACB(){reRender(new Object());}
-    function findQuestionsACB(){
-        resolvePromise(getQuestions({limit: 3, categories: "history"}), promiseState, notifyACB)
+    function findQuestionsACB(category){
+        resolvePromise(getQuestions({limit: 3, categories: category}), promiseState, notifyACB);
     }
-    return(
-        <div>
-            <button onClick={findQuestionsACB}>Click for questions</button>
-            <div>{promiseState.data}</div>
-        </div>
-    );
-}    
+    
+    return (<div>
+        <CategoryView onFindQuestions={findQuestionsACB}/>
+        {console.log(promiseState.data)}
+        {promiseNoData(promiseState)
+        || <GameView questions={promiseState.data}/>}
+    </div>)
+}

@@ -1,0 +1,13 @@
+.categoryGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* padding: 30px; */
+    /* gap: 50px; */
+    height: 100vh;
+    width: 100%;
+    place-items: center;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: gray;
+}
