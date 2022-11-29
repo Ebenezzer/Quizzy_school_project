@@ -68,3 +68,32 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+this project is based on an object for users in the form of:
+{
+playerId: Individual identification,
+username: Name chosen by user,
+score: Number of games won,
+games: [gameid1, gameid2]
+}
+
+Games are saved in firebase in the form of:
+{
+gameId: Individual identification of game,
+player1: Individual identification of starting player,
+player2: Individual identification of second player,
+turn: playerId,
+winner: playerId or undefined,
+currentRound: int,
+score: {
+player1: int,
+player2: int,
+},
+result: {
+round1: [[true, false, false], [true, false, true]],
+round2: [(undefined if not completed), [false, true, true]],
+round3: [(undefined if not completed), (undefined if not completed)],
+round4: [(undefined if not completed), (undefined if not completed)],
+round5: [(undefined if not completed), (undefined if not completed)]
+}
+}
