@@ -4,7 +4,7 @@ export default
 function GameView(props){
     function renderQuestionsCB(question){
         return(
-            <div>{question.question}</div>
+            <QuestionCard/>
         )
     }
     return(

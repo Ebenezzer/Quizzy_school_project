@@ -10,11 +10,16 @@
     font-family: sans-serif;
     font-size: 2rem;
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
-    transition: transform 200ms;
+    transition: transform 2000ms, position 2000ms;
 }
 
 .categoryCard:hover{
+    position: absolute;
+    width: 60%;
+    height: 50%;
+    top: 5%;
+    left: 20%;
     scale: 1.1;
     cursor: pointer;
-    transition: 200ms;
+    transition: 2000ms;
 }
