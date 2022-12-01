@@ -1,5 +1,8 @@
 function HomeView(props){
-    return <div> <h1>Hello</h1></div>
+    return <div>
+         <h1>Quizzy</h1>
+         <button className="">new game</button>
+         </div>
 }
 
 export default HomeView;

@@ -1,13 +1,13 @@
 import './App.css';
-import GameList from './components/gameList';
-import HomePresenter from './Presenters/homePresenter';
-function App() {
+import Home from './Presenters/homePresenter';
+import GameModel from './ameModel';
+
+export default
+function App(props) {
   return (
     <div className="App">
-      <HomePresenter/>
-      <GameList></GameList>
+      <Home model = {props.GameModel}/>
     </div>
   );
 }
 
-export default App;
