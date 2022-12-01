@@ -9,7 +9,8 @@ function LogIn(){
     const [email, setEmail ] = React.useState("")
     const [password, setPassword] = React.useState("")
 
-    function signInACB(){
+    function signInACB(){                    //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
+                                             //email,password & user credentials are accessible to other parts of the program
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
         // Signed in 
@@ -20,6 +21,14 @@ function LogIn(){
         const errorCode = error.code;
         const errorMessage = error.message;
         });
+    }
+
+    function setEmailACB(emailInput){ //functionn created by me in order to keep track of the custom event
+        setEmail(emailInput)
+    }
+
+    function setPasswordACB(passwordInput){
+        setPassword(passwordInput)
     }
 
     function createAccountACB(){
@@ -40,7 +49,9 @@ function LogIn(){
         });
     }
 
-    return <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB}/>
+    return <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
+    sendEmail = {setEmailACB} sendPassword = {setPasswordACB}/>
 }
+// observer function to check if an user is signed out or logged in before showcasing the page
 
 export default LogIn;

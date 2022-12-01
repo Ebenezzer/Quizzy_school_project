@@ -19,8 +19,8 @@ function LoginView(props){
     }
 
     return <div>
-        <input placeholder = "enter your email" onChange = {setEmailACB}></input>
-        <input placeholder = "enter your password" onChange = {setPasswordACB}></input>
+        <input type = {"email"} placeholder = "enter your email" onChange = {setEmailACB}></input>
+        <input type = {"password"} placeholder = "enter your password" onChange = {setPasswordACB}></input>
 
         <button onClick = {clickLogInACB}>Log In</button>
         <button onClick={clickCreateAccountACB}>Create Account</button>
