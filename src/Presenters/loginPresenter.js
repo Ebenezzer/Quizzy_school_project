@@ -1,13 +1,26 @@
-import loginView from "../Views/loginView/loginView";
+import LoginView from "../Views/loginView/loginView";
 import React from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../firebase/firebaseModel";
 
 function LogIn(){
 
     const auth = getAuth(app);
-    const [email, setEmailACB ] = React.useState("")
-    const [password, setPasswordACB] = React.useState("")
+    const [email, setEmail ] = React.useState("")
+    const [password, setPassword] = React.useState("")
+
+    function signInACB(){
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+        })
+        .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        });
+    }
 
     function createAccountACB(){
         createUserWithEmailAndPassword(auth, email, password)
@@ -27,7 +40,7 @@ function LogIn(){
         });
     }
 
-    return <loginView onCreateAccount = {createAccountACB}/>
+    return <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB}/>
 }
 
 export default LogIn;
