@@ -90,10 +90,9 @@ player1: int,
 player2: int,
 },
 result: {
-round1: [[true, false, false], [true, false, true]],
-round2: [(undefined if not completed), [false, true, true]],
-round3: [(undefined if not completed), (undefined if not completed)],
-round4: [(undefined if not completed), (undefined if not completed)],
-round5: [(undefined if not completed), (undefined if not completed)]
-}
+    round1: [[true, false, false], [true, false, true]],
+    round2: [(undefined if not completed), [false, true, true]],
+    round3: [(undefined if not completed), (undefined if not completed)],
+    round4: [(undefined if not completed), (undefined if not completed)],
+    round5: [(undefined if not completed), (undefined if not completed)]
 }

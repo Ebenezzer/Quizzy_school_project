@@ -1,0 +1,50 @@
+.gridParent{
+    border-style: solid;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.gridItemNameLeft{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.gridItemNameRight{
+    grid-column: 4;
+    grid-row: 1;
+}
+
+.gridItemScoresLeft{
+    grid-column: 2;
+    grid-row: 2/6
+}
+
+.gridItemScoresRight{
+    grid-column: 4;
+    grid-row: 2/6
+}
+
+.gridParentScores{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.round1{
+    grid-column: 1/3;
+    grid-row: 1
+}
+
+.alignCenter{
+    text-align: center;
+}
+
+.alignLeft{
+    text-align: left;
+}
+
+.alignRight{
+    text-align: right;
+}
+
