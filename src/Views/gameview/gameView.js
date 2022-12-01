@@ -3,9 +3,9 @@ import React from "react";
 export default
 function GameView(props){
     function renderQuestionsCB(question){
-        return(
-            <QuestionCard/>
-        )
+        // return(
+        //     <QuestionCard/>
+        // )
     }
     return(
         <div>
