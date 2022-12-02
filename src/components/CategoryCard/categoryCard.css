@@ -14,12 +14,7 @@
 }
 
 .categoryCard:hover{
-    position: absolute;
-    width: 60%;
-    height: 50%;
-    top: 5%;
-    left: 20%;
     scale: 1.1;
     cursor: pointer;
-    transition: 2000ms;
+    transition: 200ms;
 }
