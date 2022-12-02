@@ -2,8 +2,6 @@
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* padding: 30px; */
-    /* gap: 50px; */
     height: 100vh;
     width: 100%;
     place-items: center;
@@ -11,14 +9,13 @@
     justify-content: center;
     text-align: center;
     background-color: gray;
+    column-rule: dotted;
 }
 
 .answer{
     position: relative;
     width: 80%;
     height: 60%;
-    margin-top: 5%;
-    margin-left: 15%;
     background-color: beige;
     display: grid;
     justify-content: center;
@@ -27,16 +24,20 @@
     font-family: sans-serif;
     font-size: 2rem;
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
+    transition: 200ms;
+}
+
+.answer:hover{
+    scale: 1.1;
+    cursor: pointer;
 }
 
 .questionCard{
     position: relative;
-    column-count: 2;
+    grid-column: span 2;
     width: 70%;
     height: 40vh;
     padding: 30px;
-    margin-top: 5%;
-    margin-left: 15%;
     background-color: beige;
     display: grid;
     justify-content: center;
