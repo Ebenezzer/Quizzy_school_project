@@ -1,48 +1,72 @@
+import resolvePromise from "./resolvePromise";
+
 class GameModel{
-    constructor(){
-    this.games = [
-        {
-            gameId: 1,
-            player1: 10,
-            player2: 20,
-            turn: 2,
-            winner: undefined,
-            currentRound: 10,
-            score: {
-            player1: 2,
-            player2: 3,
-            },
-            result: {
-            round1: [[true, false, false], [true, false, true]],
-            round2: [undefined, [false, true, true]],
-            round3: [undefined, undefined],
-            round4: [undefined, undefined],
-            round5: [undefined, undefined]
-            }
-            },
-            {
-                gameId: 2,
-                player1: 10,
-                player2: 20,
-                turn: 3,
-                winner: undefined,
-                currentRound: 20,
-                score: {
-                player1: 2,
-                player2: 3,
-                },
-                result: {
-                round1: [[true, false, false], [true, false, true]],
-                round2: [[false, true, true],undefined],
-                round3: [undefined, undefined],
-                round4: [undefined, undefined],
-                round5: [undefined, undefined]
-                }
-            }
-    ];
-}
-    getMyGames(){
+    constructor(gameArray=[]){
+        this.observers=[];
+        this.games = gameArray;
+        this.searchGameIDPromiseState = {};
+        this.currentGamePromiseState = {};
     }
+    
+    addObserver(addObserverCB){
+        this.observers = [...this.observers, addObserverCB]
+    }
+
+    removeObserver(observerToRemove){
+        function removeObserverCB(observer){
+            return observerToRemove !== observer;
+        }
+        this.observers = [...this.observers].filter(removeObserverCB)
+    }
+
+    notifyObservers(payload){
+        try {
+            this.observers.forEach(function invokeObserverCB(obs){obs(payload);})
+          }
+          catch(err) {
+            {console.error(err)}
+          }
+    }
+
+    addGame(gameToAdd){
+        function testNoDuplicatesCB(object){ return object.gameId !== gameToAdd.gameId; };
+
+        function testDuplicatesCB(obj){ return obj.gameId === gameToAdd.gameId; };
+        
+        if(this.games.filter(testDuplicatesCB).length===0){
+            this.games = [...this.games.filter(testNoDuplicatesCB), gameToAdd];
+            this.notifyObservers({addedGame: gameToAdd});
+        }
+    }
+    
+    removeGame(gameToRemove){
+        function isNotInGamesCB(obj){ 
+            return gameToRemove.gameId !== obj.gameId};
+
+        function isInGamesCB(obj)
+        { return gameToRemove.gameId === obj.gameId}; 
+
+        if(this.games.find(isInGamesCB) !== undefined){
+            this.games = this.games.filter(isNotInGamesCB) 
+            this.notifyObservers({removedGame: gameToRemove});
+        }
+    }
+
+    setCurrentGame(gameId){
+        function notifyACB(){    
+            this.notifyObservers();
+            }
+        if (this.currentGameID!==gameId){
+            if (id){
+                this.currentGameID=gameId
+                this.notifyObservers({idCurrentGame: gameId})
+                return resolvePromise(getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
+            }
+        }
+    }
+
+    
 }
 
-export default GameModel;
+export default DinnerModel;
+
