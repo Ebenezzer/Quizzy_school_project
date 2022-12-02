@@ -4,6 +4,7 @@ import GameView from "../Views/gameView/gameView";
 import React from "react";
 import promiseNoData from "../Views/promiseNoData";
 import CategoryView from "../Views/categoryView/categoryView";
+import Show from "../components/show/show";
 
 export default
 function Game(){
@@ -13,12 +14,12 @@ function Game(){
     function notifyACB(){reRender(new Object());}
     function findQuestionsACB(category){
         resolvePromise(getQuestions({limit: 3, categories: category}), promiseState, notifyACB);
+        window.location.hash = "#game"
     }
     
     return (<div>
-        <CategoryView onFindQuestions={findQuestionsACB}/>
-        {console.log(promiseState.data)}
-        {promiseNoData(promiseState)
-        || <GameView questions={promiseState.data}/>}
+        <Show hash="#category"><CategoryView onFindQuestions={findQuestionsACB}/></Show>
+        <Show hash="#game">{promiseNoData(promiseState)
+        || <GameView questions={promiseState.data}/>}</Show>
     </div>)
 }
