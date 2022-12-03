@@ -1,9 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
+import GameResultsView from './Views/gameResultsViewTest';
 
-function App() {
+function App(props){
   return (
-    <div className="App"></div>
+    <div className="App">
+      <GameResultsView model={props.model}/>
+    </div>
   );
 }
 

@@ -1,13 +1,12 @@
 export default
 function GameResultsView(props){
     function renderHeadline(turn){
-        return turn == props.playerData.playerId ? "Your turn" : "Opponents turn"};
-
+        return turn == props.playerData.playerId ? "Your turn" : "Opponents turn"
+    }
     function getPlayerObject(playerId){
         return playerId == props.playerData.playerId ? props.playerData : props.opponentData;  
         //perhaps put in model, function returning the player object with a certain id 
     }
-
     function renderScores(result, playerNr){
         function renderPointCB(point){
             return point ? <div>1</div> : <div>0</div> //render 1 for correct answer and 0 for wrong
@@ -27,7 +26,6 @@ function GameResultsView(props){
             result[1].map(renderPointCB)
     }
     
-
     return <div>
         <div>{renderHeadline(props.turn)}</div>
         <div className="gridParent">
