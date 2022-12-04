@@ -4,48 +4,42 @@ import GameList from "../components/gameList/gameList";
 
 export default
 function Home(props){
+    function getMyGamesCB(object)
+    { 
+        return object.currentRound !== 10; 
+    }
 
- return <div>
-    <HomeView/>
-    <GameList getGamesFromModel = {[
+    function getOpponentsGamesCB(object)
+    { 
+        return object.currentRound === 10;
+    }
+    const currentGames = [
         {
-            gameId: 1,
             player1: 10,
             player2: 20,
-            turn: 2,
-            winner: undefined,
             currentRound: 10,
-            score: {
-            player1: 2,
-            player2: 3,
-            },
-            result: {
-            round1: [[true, false, false], [true, false, true]],
-            round2: [undefined, [false, true, true]],
-            round3: [undefined, undefined],
-            round4: [undefined, undefined],
-            round5: [undefined, undefined]
-            }
-            },
-            {
-                gameId: 2,
-                player1: 10,
-                player2: 20,
-                turn: 3,
-                winner: undefined,
-                currentRound: 20,
-                score: {
-                player1: 2,
-                player2: 3,
-                },
-                result: {
-                round1: [[true, false, false], [true, false, true]],
-                round2: [[false, true, true],undefined],
-                round3: [undefined, undefined],
-                round4: [undefined, undefined],
-                round5: [undefined, undefined]
-                }
-            }
-    ]}/>
+        },
+        {
+            player1: 10,
+            player2: 20,
+            currentRound: 20,
+        },
+        {
+            player1: 10,
+            player2: 60,
+            currentRound: 60,
+        },
+        {
+            player1: 50,
+            player2: 10,
+            currentRound: 10,
+        }
+
+    ]
+ return <div>
+    <HomeView/>
+    <GameList currentGame = {currentGames.filter(getMyGamesCB)} turn = {"Your turn"}/>
+    <GameList currentGame = {currentGames.filter(getOpponentsGamesCB)} turn = {"Opponent's turn"}/>
+
     </div>
 }

@@ -65,6 +65,10 @@ class GameModel{
         }
     }
 
+    getPlayerObject(playerID){
+    // get player information from Firebase
+    }
+
     
 }
 
