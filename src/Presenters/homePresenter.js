@@ -6,33 +6,33 @@ export default
 function Home(props){
     function getMyGamesCB(object)
     { 
-        return object.currentRound !== 10; 
+        return object.currentRound !== "username1"; 
     }
 
     function getOpponentsGamesCB(object)
     { 
-        return object.currentRound === 10;
+        return object.currentRound === "username1";
     }
     const currentGames = [
         {
-            player1: 10,
-            player2: 20,
-            currentRound: 10,
+            player1: "username1",
+            player2: "username2",
+            currentRound: "username1",
         },
         {
-            player1: 10,
-            player2: 20,
-            currentRound: 20,
+            player1: "username1",
+            player2: "username2",
+            currentRound: "username2",
         },
         {
-            player1: 10,
-            player2: 60,
-            currentRound: 60,
+            player1: "username1",
+            player2: "username6",
+            currentRound: "username6",
         },
         {
-            player1: 50,
-            player2: 10,
-            currentRound: 10,
+            player1: "username5",
+            player2: "username1",
+            currentRound: "username1",
         }
 
     ]
