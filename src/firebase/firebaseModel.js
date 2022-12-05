@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 
-export default
+
 // Initialise firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -62,4 +62,4 @@ function firebaseModelPromise() {
 } */
 
 
-//export {observerRecap, firebaseModelPromise}
+export {observerRecap, firebaseModelPromise}

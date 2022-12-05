@@ -1,11 +1,11 @@
 import LoginView from "../Views/loginView/loginView";
 import React from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../firebase/firebaseModel";
+//import app from "../firebase/firebaseModel";
 
 function LogIn(){
 
-    const auth = getAuth(app);
+    const auth = getAuth(); //before getAuth(app)
     const [email, setEmail ] = React.useState("")
     const [password, setPassword] = React.useState("")
 
