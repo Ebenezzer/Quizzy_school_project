@@ -1,5 +1,5 @@
 import './App.css';
-import GameResultsView from './Views/gameResultsViewTest';
+import GameResultsView from './Views/gameResultsView/gameResultsViewTest';
 
 function App(props){
   return (

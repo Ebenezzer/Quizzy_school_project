@@ -31,6 +31,14 @@
     text-align: right;
 }
 
+.totalScore{
+    display: flex;
+    grid-column: 3;
+    grid-row: 1;
+    align-items: center;
+    justify-self: center;
+}
+
 .gridItemScoresLeft{
     grid-column: 2;
     grid-row: 2/7;
@@ -49,11 +57,15 @@
     height: 100%;
 }
 
-.pointBox{
+.pointBoxLeft{
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: darkcyan;
+}
+
+.pointBoxRight{
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .dot {
@@ -63,7 +75,8 @@
     border-radius: 50%;
     display: inline-block;
     /*source: 
-    https://www.w3schools.com/howto/howto_css_circles.asp*/
+    https://www.w3schools.com/howto/howto_css_circles.asp
+    */
   }
 
 .buttonItem{
