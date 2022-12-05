@@ -1,0 +1,32 @@
+.box {
+    width: 300px;
+    height: 400px;
+    border-radius: 15px;
+    background-color: #D3D3D3;
+    display: inline-block;
+    margin: 20px;
+}
+
+.game-list {
+    display: inline-flex;
+    width: 280px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: 	#F8F8F8;
+    margin: 10px 5px;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.vs-span  {
+    font-weight: bold;
+    justify-content: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.player-icon {
+    border-radius: 4px;
+    padding: 5px;
+    width: 35px;   
+}
