@@ -1,0 +1,96 @@
+.header{
+    margin-top: 1%;
+}
+.gridParent{
+    height:80vh;
+    width:75%;
+    border: 1px solid black;
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.75fr 2fr 0.5fr;
+    grid-template-rows: 1fr 0.75fr 0.75fr 0.75fr 0.75fr 0.75fr 1fr;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.gridItemNameLeft{
+    display: flex;
+    flex-direction: row;
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+    text-align: left;
+}
+
+.gridItemNameRight{
+    display: flex;
+    flex-direction:row-reverse;
+    grid-column: 4;
+    grid-row: 1;
+    align-items: center;
+    text-align: right;
+}
+
+.totalScore{
+    display: flex;
+    grid-column: 3;
+    grid-row: 1;
+    align-items: center;
+    justify-self: center;
+}
+
+.gridItemScoresLeft{
+    grid-column: 2;
+    grid-row: 2/7;
+}
+
+.gridItemScoresRight{
+    grid-column: 4;
+    grid-row: 2/7;
+}
+
+.gridParentScores{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    height: 100%;
+}
+
+.pointBoxLeft{
+    display: flex;
+    align-items: center;
+}
+
+.pointBoxRight{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.dot {
+    height: 30px;
+    width: 30px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    /*source: 
+    https://www.w3schools.com/howto/howto_css_circles.asp
+    */
+  }
+
+.buttonItem{
+    grid-column: 3;
+    grid-row: 7;
+    height: 50%;
+    align-self: center;
+}
+
+.alignLeft{
+    text-align: left;
+}
+
+.alignRight{
+    text-align: right;
+}
+

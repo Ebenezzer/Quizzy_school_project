@@ -74,7 +74,8 @@ this project is based on an object for users in the form of:
 playerId: Individual identification,
 username: Name chosen by user,
 score: Number of games won,
-games: [gameid1, gameid2]
+games: [gameId1, gameId2],
+profilePicture: png
 }
 
 Games are saved in firebase in the form of:
@@ -83,17 +84,12 @@ gameId: Individual identification of game,
 player1: Individual identification of starting player,
 player2: Individual identification of second player,
 turn: playerId,
-winner: playerId or undefined,
+winner: playerId or null,
 currentRound: int,
-score: {
+score: {player1: int, player2: int}
 player1: int,
 player2: int,
 },
-result: {
-round1: [[true, false, false], [true, false, true]],
-round2: [(undefined if not completed), [false, true, true]],
-round3: [(undefined if not completed), (undefined if not completed)],
-round4: [(undefined if not completed), (undefined if not completed)],
-round5: [(undefined if not completed), (undefined if not completed)]
-}
+resultPlayer1: list of lenth 15, "correct", "incorrect" or null (not completed)
+resultPlayer2: list of lenth 15, "correct", "incorrect" or null (not completed)
 }
