@@ -11,7 +11,7 @@ function GameView(props){
         if (currentQuestionIndex<props.questions.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
         }else{
-            window.location.hash = "#category";
+            window.location.hash = "#gameResults";
             console.log(roundArray);
         }
     }
