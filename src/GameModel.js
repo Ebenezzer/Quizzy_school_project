@@ -23,7 +23,7 @@ class GameModel{
         try {
             this.observers.forEach(function invokeObserverCB(obs){obs(payload);})
           }
-          catch(err) {
+        catch(err) {
             {console.error(err)}
           }
     }
@@ -52,18 +52,24 @@ class GameModel{
         }
     }
 
+    getGameDetails(gameId) {
+        //TODO
+    }
+
     setCurrentGame(gameId){
         function notifyACB(){    
             this.notifyObservers();
             }
         if (this.currentGameID!==gameId){
-            if (id){
+            if (gameId){
                 this.currentGameID=gameId
                 this.notifyObservers({idCurrentGame: gameId})
-                return resolvePromise(getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
+                return resolvePromise(this.getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
             }
         }
     }
+
+    
 
     getPlayerObject(playerID){
     // get player information from Firebase
@@ -72,5 +78,5 @@ class GameModel{
     
 }
 
-export default DinnerModel;
+export default GameModel;
 
