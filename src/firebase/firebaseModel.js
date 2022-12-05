@@ -1,13 +1,10 @@
-//import firebase from "firebase/app";
-
-import {initializeApp} from "firebase/app";
-import { getDatabase, ref, set, onValue, child, push, update } from "firebase/database";
-import "firebase/database";
+import firebase from "firebase/app";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 
+export default
 // Initialise firebase
-export const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 
 const REF = "quizzy11"
@@ -65,4 +62,4 @@ function firebaseModelPromise() {
 } */
 
 
-export {observerRecap, firebaseModelPromise}
+//export {observerRecap, firebaseModelPromise}
