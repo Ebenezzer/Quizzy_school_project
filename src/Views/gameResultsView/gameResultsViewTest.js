@@ -22,7 +22,10 @@ function GameResultsView(props){
     function renderPlayerName(name){
         return <div>{name}</div>
     }
-    function renderScoreGrid(resultList, playerNr){
+    function renderScoreGrid(result, playerNr){
+        function toList(lists){
+            //TODO
+        }
         function renderScoresCB(score){
             if (playerNr == 1){
                 return !score ? 
@@ -37,10 +40,13 @@ function GameResultsView(props){
                         <div className="pointBoxRight"><img src="https://i.imgur.com/60PVLis.png" widht="30" height="30" alt="text"/></div> : 
                         <div className="pointBoxRight"><img src="https://cdn2.iconfinder.com/data/icons/web-and-apps-interface/32/Cancel-512.png" widht="3" height="30" alt="text"/></div> 
         }
-        return resultList.map(renderScoresCB);
+        return result.map(renderScoresCB);
     }
     function goToGameACB(){
         window.location.hash = "#category";
+    }
+    function goToHomeACB(){
+        window.location.hash = "#home";
     }
     function isPlayerTurn(){
         return props.gameData.turn !== props.playerData.playerId;
@@ -49,7 +55,10 @@ function GameResultsView(props){
     return <div>
         <div className="header">Your Turn</div>
         <div className="gridParent">
-            <div className="totalScore"><div>2 : 4</div></div>  
+            <div className="totalScore">
+                <div>Score</div>
+                <div>2 : 4</div>
+            </div>  
             <div className="gridItemNameLeft">
                 {renderProfilePic("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png")}
                 {renderPlayerName("Player1")}
@@ -68,7 +77,8 @@ function GameResultsView(props){
                     {renderScoreGrid(exampleResult2, 2)}
                 </div>
             </div>
-            <button disabled={0} onClick={goToGameACB} className="buttonItem" >Play</button>
+            <button onClick={goToHomeACB} className="buttonBack">Back</button>
+            <button disabled={0} onClick={goToGameACB} className="buttonPlay">Play</button>
         </div>
     </div>
 }
