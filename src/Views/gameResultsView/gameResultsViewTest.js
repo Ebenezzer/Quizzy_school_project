@@ -68,7 +68,7 @@ function GameResultsView(props){
                     {renderScoreGrid(exampleResult2, 2)}
                 </div>
             </div>
-            <button disabled={props.isPlayerTurn} onClick={goToGameACB} className="buttonItem" >Play</button>
+            <button disabled={0} onClick={goToGameACB} className="buttonItem" >Play</button>
         </div>
     </div>
 }
