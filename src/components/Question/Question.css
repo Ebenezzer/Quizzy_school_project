@@ -1,4 +1,4 @@
-.answerGridContainer{
+.answer-grid-container{
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -22,7 +22,7 @@
     align-items: center;
     border-radius: 2rem;
     font-family: sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
     transition: 200ms;
 }
@@ -46,4 +46,26 @@
     font-family: sans-serif;
     font-size: 2rem;
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.questionCard:hover{
+    scale: 1.1;
+}
+
+.correct-answer{
+    background-color: rgb(94, 212, 94);
+}
+
+.incorrect-answer{
+    background-color: rgb(236, 95, 95);
+}
+
+.disabled-class{
+    pointer-events: none;
+}
+
+.enabled-class{
+    pointer-events: all;
 }

@@ -1,13 +1,13 @@
 import { getQuestions } from "../questionSource";
 import resolvePromise from "../resolvePromise";
-import GameView from "../Views/gameview/gameView";
+import GameView from "../Views/gameView/gameView";
 import React from "react";
-import promiseNoData from "../Views/promiseNoData";
+import promiseNoData from "../Views/promiseNoData/promiseNoData";
 import CategoryView from "../Views/categoryView/categoryView";
 import Show from "../components/show/show";
 
 export default
-function Game(){
+function Game(props){
     const [promiseState] = React.useState({});  // no setter --> fixed!
     const [, reRender] = React.useState();  // updates the component
     
@@ -18,8 +18,8 @@ function Game(){
     }
     
     return (<div>
-        <Show hash="#category"><CategoryView onFindQuestions={findQuestionsACB}/></Show>
+        <Show hash="#category"><CategoryView model={props.model} onFindQuestions={findQuestionsACB}/></Show>
         <Show hash="#game">{promiseNoData(promiseState)
-        || <GameView questions={promiseState.data}/>}</Show>
+        || <GameView questions={promiseState.data} model={props.model}/>}</Show>
     </div>)
 }
