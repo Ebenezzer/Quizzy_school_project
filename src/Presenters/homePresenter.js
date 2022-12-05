@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-export default function Home() {
-  return (
-    <div>
-      
-    </div>
-  )
-=======
 import React from "react";
 import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
@@ -62,5 +52,4 @@ function Home(props){
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"}/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"}/>
     </div>
->>>>>>> edina's-branch
 }
