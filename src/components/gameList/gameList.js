@@ -4,7 +4,7 @@ export default
 function GameList(props){ 
     function renderGameDetails(games){
         function doOnClick(){
-            console.log("game between" + games.player1 + " and " + games.player2)   
+            window.location.hash = "gameResults"
         }
             return (
                 <div className="game-list" onClick={doOnClick}> 
