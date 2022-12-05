@@ -1,4 +1,7 @@
 import "./gameResultsView.css"
+import profilePic from "../../Assets/Images/profile_pic.png"
+import correct from "../../Assets/Images/correct.png"
+import incorrect from "../../Assets/Images/incorrect.png"
 
 export default
 function GameResultsView(props){
@@ -31,14 +34,14 @@ function GameResultsView(props){
                 return !score ? 
                     <div className="pointBoxLeft"><span className="dot"></span></div> : 
                     score == "correct" ? 
-                        <div className="pointBoxLeft"><img src="https://i.imgur.com/60PVLis.png" widht="30" height="30" alt="text"/></div> : 
-                        <div className="pointBoxLeft"><img src="https://cdn2.iconfinder.com/data/icons/web-and-apps-interface/32/Cancel-512.png" widht="3" height="30" alt="text"/></div> 
+                        <div className="pointBoxLeft"><img src={correct} widht="30" height="30" alt="text"/></div> : 
+                        <div className="pointBoxLeft"><img src={incorrect} widht="3" height="30" alt="text"/></div> 
             }
             return !score ? 
                     <div className="pointBoxRight"><span className="dot"></span></div> : 
                     score == "correct" ? 
-                        <div className="pointBoxRight"><img src="https://i.imgur.com/60PVLis.png" widht="30" height="30" alt="text"/></div> : 
-                        <div className="pointBoxRight"><img src="https://cdn2.iconfinder.com/data/icons/web-and-apps-interface/32/Cancel-512.png" widht="3" height="30" alt="text"/></div> 
+                        <div className="pointBoxRight"><img src={correct} widht="30" height="30" alt="text"/></div> : 
+                        <div className="pointBoxRight"><img src={incorrect} widht="3" height="30" alt="text"/></div> 
         }
         return result.map(renderScoresCB);
     }
@@ -60,11 +63,11 @@ function GameResultsView(props){
                 <div>2 : 4</div>
             </div>  
             <div className="gridItemNameLeft">
-                {renderProfilePic("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png")}
+                {renderProfilePic(profilePic)}
                 {renderPlayerName("Player1")}
             </div>
             <div className="gridItemNameRight">
-                {renderProfilePic("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png")}
+                {renderProfilePic(profilePic)}
                 {renderPlayerName("Player2")}
             </div>
             <div className="gridItemScoresLeft">
