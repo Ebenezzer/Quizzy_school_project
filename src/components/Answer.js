@@ -1,10 +1,39 @@
 import React, { useState } from 'react'
 
 export default function Answer(props) {
-    const [isCorrect, setIsCorrect] = useState(false)
-    const [isIncorrect, setIsIncorrect] = useState(false)
+
+    const [currentAnswer, setCurrentAnswer] = useState(props.currentAnswer);
+    const answer = props.answer;
+    const isCorrect = currentAnswer && answer === props.correctAnswer;
+    const isIncorrect = currentAnswer === answer && currentAnswer !== props.correctAnswer;
+    const correctAnswerClass = isCorrect ? "correct-answer" : "";
+    const incorrectAnswerClass = isIncorrect ? "incorrect-answer" : "";
+    const enableClass = currentAnswer ? "disabled-class" : "enabled-class";
+
+    function observerACB(payload){
+        if(payload.currentAnswer=== "reset"){
+            setCurrentAnswer(null);
+        }
+        if (payload.currentAnswer && payload.currentAnswer!=="reset"){
+            setCurrentAnswer(payload.currentAnswer)
+        }
+    }
+
+    function chooseAnswerACB(){
+        props.onUpdateCurrentAnswer(answer);
+    }
+
+    function componentWasCreatedACB(){   //   1. the component has been created
+        props.model.addObserver(observerACB)
+        return function isTakenDownACB(){props.model.removeObserver(observerACB)}
+    }   
+    React.useEffect( componentWasCreatedACB, [] );
 
     return (
-        <div className='answer' onClick={props.onChosenAnswer(props.answer)}>{props.answer}</div>
+        <div 
+        className={`answer ${correctAnswerClass} ${incorrectAnswerClass} ${enableClass}`}
+        onClick={chooseAnswerACB}>
+            {answer}
+        </div>
     )
 }
