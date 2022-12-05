@@ -52,20 +52,28 @@ class GameModel{
         }
     }
 
-    setCurrentGame(gameId){
+    setScore(){
+        //todo this.score
+    }
+
+/*     setCurrentGame(gameId){
         function notifyACB(){    
             this.notifyObservers();
             }
         if (this.currentGameID!==gameId){
-            if (id){
+            if (gameId){
                 this.currentGameID=gameId
                 this.notifyObservers({idCurrentGame: gameId})
                 return resolvePromise(getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
             }
         }
+    } */
+
+    getGameDetails(){
+        //todo
     }
 
     
 }
 
-export default DinnerModel;
+export default GameModel;

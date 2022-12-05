@@ -75,6 +75,7 @@ playerId: Individual identification,
 username: Name chosen by user,
 score: Number of games won,
 games: [gameid1, gameid2]
+profilePicture: png
 }
 
 Games are saved in firebase in the form of:
