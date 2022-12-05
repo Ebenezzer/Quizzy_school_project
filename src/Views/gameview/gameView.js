@@ -5,7 +5,7 @@ import { shuffleArray } from "../../helpFunctions";
 export default
 function GameView(props){
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-    const [roundArray, setRoundArray] = useState([false])
+    const [roundArray, setRoundArray] = useState([])
 
     function updateQuestionACB(){
         if (currentQuestionIndex<props.questions.length-1){
