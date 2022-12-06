@@ -69,10 +69,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+deployed site: https://quizzy-c18b6.web.app/ 
+
+note (things that don't yet work):
+
+create two readme files, one in root and on in src
+
 this project is based on an object for users in the form of:
 {
 playerId: Individual identification,
-username: Name chosen by user,
+username: Name chosen by user,  // add to user object in firebase 
 score: Number of games won,
 games: [gameId1, gameId2],
 profilePicture: png
@@ -93,3 +99,6 @@ player2: int,
 resultPlayer1: list of lenth 15, "correct", "incorrect" or null (not completed)
 resultPlayer2: list of lenth 15, "correct", "incorrect" or null (not completed)
 }
+
+//use incognito mode for new deploys
+// realtime database : when you create something (such as a game) you can retreive a corresponding ID, create our path that you can then use the id to get to the game information 

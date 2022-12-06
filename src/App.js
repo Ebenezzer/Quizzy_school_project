@@ -20,7 +20,9 @@ function App() {
       <Show hash="#home">
         <Home/>
       </Show>
-      <LogIn/>
+      <Show hash= "#login">
+        <LogIn/>
+      </Show>
 
       </div>
   );
