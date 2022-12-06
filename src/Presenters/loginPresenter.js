@@ -1,12 +1,12 @@
 import LoginView from "../Views/loginView/loginView";
 import React from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-//import app from "../firebase/firebaseModel";
+import {app} from "../firebase/firebaseModel";
 
 function LogIn(){
 
-    const auth = getAuth(); //before getAuth(app)
-    const [email, setEmail ] = React.useState("")
+    const auth = getAuth(app)
+    const [email, setEmail ] = React.useState("") // definiera email och password i modelen/application state för att kunna ändra det här
     const [password, setPassword] = React.useState("")
 
     function signInACB(){                    //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 

@@ -1,11 +1,13 @@
-import firebase from "firebase/app";
+import {initializeApp} from "firebase/app";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
+import firebase from "firebase/compat/app";
 
 
 // Initialise firebase
-firebase.initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
+//const database = getDatabase();
+//const auth = firebase.getAuth(app);
 
 const REF = "quizzy11"
 
@@ -33,9 +35,8 @@ function firebaseModelPromise() {
         return Promise.all(GamePromiseArray).then(createModelACB)
 
     }
-    return firebase.database().ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
-}
-
+    //return firebase.database().ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
+} 
 
 /* function updateFirebaseFromModel(model){
     model.addObserver(observerACB)
@@ -62,4 +63,4 @@ function firebaseModelPromise() {
 } */
 
 
-export {observerRecap, firebaseModelPromise}
+export {app, observerRecap, firebaseModelPromise}
