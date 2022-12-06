@@ -4,8 +4,10 @@ import Show from './components/show/show';
 import Game from './Presenters/gamePresenter';
 import GameModel from './GameModel';
 import Home from './Presenters/homePresenter';
+import LogIn from './Presenters/loginPresenter';
 
 export default
+
 
 function App() {
   const model = new GameModel();
@@ -18,6 +20,7 @@ function App() {
       <Show hash="#home">
         <Home/>
       </Show>
+      <LogIn/>
 
       </div>
   );
