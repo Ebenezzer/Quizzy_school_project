@@ -7,17 +7,19 @@ function GameView(props){
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [roundArray, setRoundArray] = useState([])
 
-    function updateQuestionACB(){
+    function updateQuestionACB(currentAnswer){
         if (currentQuestionIndex<props.questions.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
+            if (currentAnswer === props.questions[currentQuestionIndex].correctAnswer){
+                setRoundArray((roundArray)=> [...roundArray, true])
+            }
+            if (currentAnswer !== props.questions[currentQuestionIndex].correctAnswer){
+                setRoundArray((roundArray)=> [...roundArray, false])
+            }
         }else{
             window.location.hash = "#gameResults";
             console.log(roundArray);
         }
-    }
-
-    function updateRoundArrayCB(isCorrectAnswer){
-        setRoundArray(roundArray => [...roundArray, isCorrectAnswer])
     }
 
     return(
@@ -26,8 +28,7 @@ function GameView(props){
             correctAnswer={props.questions[currentQuestionIndex].correctAnswer}
             answers = {shuffleArray([props.questions[currentQuestionIndex].correctAnswer, ...props.questions[currentQuestionIndex].incorrectAnswers])}
             model={props.model}
-            onNewQuestion={updateQuestionACB}
-            onUpdateRoundArray={updateRoundArrayCB}/>
+            onNewQuestion={updateQuestionACB}/>
         </div>
     );
 }    

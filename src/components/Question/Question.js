@@ -8,12 +8,6 @@ export default function Question(props) {
 
   function observerACB(payload) {
     if (payload.currentAnswer==="reset"){
-      if (payload.currentAnswer === props.correctAnswer){
-        props.onUpdateRoundArray(true)
-      }
-      if (payload.currentAnswer !== props.correctAnswer){
-        props.onUpdateRoundArray(false)
-      }
       setCurrentAnswer(null)
     }
     if (payload.currentAnswer && payload.currentAnswer!=="reset"){
@@ -32,7 +26,7 @@ export default function Question(props) {
   }
 
   function newQuestionACB(){
-    props.onNewQuestion()
+    props.onNewQuestion(currentAnswer)
     updateCurrentAnswerACB("reset")
     props.model.notifyObservers({answer: ""})
   }
