@@ -1,6 +1,6 @@
 import { getQuestions } from "../questionSource";
 import resolvePromise from "../resolvePromise";
-import GameView from "../Views/gameView/gameView";
+import GameView from "../Views/gameview/gameView";
 import React from "react";
 import promiseNoData from "../Views/promiseNoData/promiseNoData";
 import CategoryView from "../Views/categoryView/categoryView";

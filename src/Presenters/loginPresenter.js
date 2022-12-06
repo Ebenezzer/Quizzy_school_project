@@ -15,11 +15,15 @@ function LogIn(){
         .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        console.log(user);
+        alert("Signed in")
         // ...
         })
         .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorCode,errorMessage)
+        alert(errorCode)
         });
     }
 
