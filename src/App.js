@@ -1,5 +1,5 @@
 import './App.css';
-import GameResultsView from './Views/gameResultsView/gameResultsViewTest';
+import GameResultsView from './Views/gameResultsView/gameResultsView';
 import Show from './components/show/show';
 import Game from './Presenters/gamePresenter';
 import GameModel from './GameModel';
