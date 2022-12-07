@@ -1,4 +1,6 @@
 import resolvePromise from "./resolvePromise";
+import firebase from "firebase/compat/app"; //to be used when retreiving player information
+
 
 class GameModel{
     constructor(gameArray=[]){

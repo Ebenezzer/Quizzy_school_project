@@ -35,32 +35,71 @@ function firebaseModelPromise() {
         return Promise.all(GamePromiseArray).then(createModelACB)
 
     }
-    //return firebase.database().ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
+    return firebase.database().ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
 } 
 
-/* function updateFirebaseFromModel(model){
+ function updateFirebaseFromModel(model){
     model.addObserver(observerACB)
 
     function observerACB(payload){
-        if (payload && payload.setNumber){
-            firebase.database().ref(REF+"/numberOfGuests").set(model.numberOfGuests)
+        if (payload && payload.playerId){
+            firebase.database().ref(REF+"/player").set(model.player)
         } 
 
-        if (payload && payload.idCurrentDish){
-            firebase.database().ref(REF+"/currentDish").set(model.currentDish)
+        if (payload && payload.idCurrentGame){
+            firebase.database().ref(REF+"/currentGame").set(model.currentGame)
         } 
 
-        if (payload && payload.addedDish){
-            console.log(REF+"/addToMenu/"+ payload.addedDish.id)
-            firebase.database().ref(REF+"/addToMenu/"+ payload.addedDish.id).set("dishName")
+        if (payload && payload.addedGame){
+            console.log(REF+"/addGame/"+ payload.addedDish.id)
+            firebase.database().ref(REF+"/addGame/"+ payload.addedGame.id).set("gameId")
         }
 
-        if (payload && payload.removedDish){
-            firebase.database().ref(REF+"/addToMenu/"+ payload.removedDish.id).set(null)
+        if (payload && payload.removeGame){
+            firebase.database().ref(REF+"/addGame/"+ payload.removedGame.id).set(null)
         }
+
+        if (payload && payload.score){
+            firebase.database().ref(REF+ "/score/" + payload.playerId.id).set(model.score)
+        }
+
     }
     return model;
-} */
+}
 
 
-export {app, observerRecap, firebaseModelPromise}
+function updateModelFromFirebase(model) {
+    firebase.database().ref(REF+"/player").on("value", 
+    function playerChangedInFirebaseACB(firebaseData){ model.getPlayerObject(firebaseData.val());}
+    );
+
+    firebase.database().ref(REF+"/currentGame").on("value", 
+    function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());}
+    );
+
+    function fetchGameBasedOnID(gameid){
+        //return getGameDetails(gameid)
+    }
+
+    function addFirebaseDishACB(data){
+        function testNoDuplicatesCB(object){ 
+            return object.id === +data.key };
+
+        if (!model.games.find(testNoDuplicatesCB)){
+            fetchGameBasedOnID(+data.key).then(function addGameACB(game){model.addGame(game)} )
+        }
+    }
+
+     firebase.database().ref(REF+"/addGame/").on("game_added", addFirebaseDishACB);
+
+     firebase.database().ref(REF+"/addGame/").on("game_removed", 
+     function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});}
+     );
+
+    firebase.database().ref(REF+"/player").on("value",
+    function changeScoreFirebaseAC(firebaseData){model.setPlayerScore(firebaseData.val());}
+    );
+    return model;
+}
+
+export {app, observerRecap, firebaseModelPromise, updateFirebaseFromModel,updateModelFromFirebase}
