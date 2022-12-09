@@ -71,13 +71,9 @@ class GameModel{
         }
     }
 
-    
-
     getPlayerObject(playerID){
-    // get player information from Firebase
+    // get player object from Firebase
     }
-
-    
 }
 
 export default GameModel;
