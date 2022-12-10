@@ -1,3 +1,10 @@
+body{
+  background: linear-gradient(109.6deg, rgba(79, 148, 243, 0.73) 11.2%, rgba(140, 105, 193, 0.87) 91.2%);
+  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  font-size: larger;
+}
+
 .App {
   text-align: center;
 }
