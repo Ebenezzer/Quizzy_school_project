@@ -20,13 +20,13 @@ function LoginView(props){
 
     return <div className = "container">
         <label for = "email"><b>Email</b></label>
-        <input type = {"email"} placeholder = "enter your email" onChange = {setEmailACB} name="email" required></input>
+        <input type = {"email"} placeholder = "enter your email" onChange = {setEmailACB} name="email" id = "email" required></input>
 
         <label for = "password"><b>Password</b></label>
         <input type = {"password"} placeholder = "enter your password" onChange = {setPasswordACB} name="password" required></input>
 
-        <button onClick = {clickLogInACB}>Log In</button>
-        <button onClick={clickCreateAccountACB}>Create Account</button>
+        <button onClick = {clickLogInACB} id="addBtn">Log In</button>
+        <button onClick={clickCreateAccountACB} id="addBtn">Create Account</button>
     </div>
 }
 

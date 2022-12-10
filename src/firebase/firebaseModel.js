@@ -2,6 +2,8 @@ import {initializeApp} from "firebase/app";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 import firebase from "firebase/compat/app";
+import profilePic from "../Assets/Images/profile_pic.png"
+
 
 
 // Initialise firebase
@@ -9,7 +11,8 @@ const app = initializeApp(firebaseConfig);
 //const database = getDatabase();
 //const auth = firebase.getAuth(app);
 
-const REF = "quizzy11"
+const REF = "quizzy11";
+const userEmail = document.getElementById('email')
 
 function observerRecap(model) {
     model.addObserver(observerACB) 
@@ -43,7 +46,13 @@ function firebaseModelPromise() {
 
     function observerACB(payload){
         if (payload && payload.playerId){
-            firebase.database().ref(REF+"/player").set(model.player)
+            firebase.database().ref(REF+"/users/" + userEmail.value).set({
+                playerId : null,
+                username: null,
+                score: null,
+                games: [],
+                profilePicture: profilePic,
+            })
         } 
 
         if (payload && payload.idCurrentGame){
