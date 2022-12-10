@@ -1,4 +1,5 @@
 import "./homeView.css"
+import quizzy_icon from "../../Assets/Images/quizzy_icon.png";
 
 function HomeView(props){
     function newGameButtonOnClick(){
@@ -20,6 +21,7 @@ function HomeView(props){
     }
     
     return <div>
+         <img className= "logo" src={quizzy_icon}/>
          <h1>Quizzy</h1>
          <button onClick={newGameButtonOnClick} className="new-game">New game</button>
          <button onClick={practiceButtonOnClick} className="new-game">Practice</button>
