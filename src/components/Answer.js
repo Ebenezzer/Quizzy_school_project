@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import 'animate.css';
 
 export default function Answer(props) {
 
@@ -31,7 +32,7 @@ export default function Answer(props) {
 
     return (
         <div 
-        className={`answer ${correctAnswerClass} ${incorrectAnswerClass} ${enableClass}`}
+        className={`answer ${correctAnswerClass} ${incorrectAnswerClass} ${enableClass} animate__animated animate__fadeInUp`}
         onClick={chooseAnswerACB}>
             {answer}
         </div>

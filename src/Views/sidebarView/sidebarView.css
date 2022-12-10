@@ -1,0 +1,55 @@
+#sidebar{
+    position: absolute;
+    width: 350px;
+    background: rgb(254, 255, 241);
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-right: solid;
+    background: linear-gradient(rgba(79, 148, 243), rgba(140, 105, 193));
+    box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
+    align-items: center;
+    justify-content: center;
+}
+
+#gridParent{
+    display: grid;
+    color: rgb(0, 0, 0);
+}
+
+#exitAndLogo{
+    height: 70px;
+
+}
+
+.sidebarContent{
+    display: grid;
+    height: 50px;
+    border-bottom: 2px solid;
+    vertical-align: center;
+    transition: 200ms;
+}
+
+.sidebarContent:hover{
+    background: linear-gradient(rgb(114, 171, 251), rgb(192, 155, 248));
+    cursor: pointer;
+}
+
+.hideSidebar{
+    display: none;
+}
+
+.showSidebar{
+    display: all;
+}
+
+#hamburgerButton{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: xx-large;
+}
+
+#hamburgerButton:hover{
+    cursor: pointer;
+}
