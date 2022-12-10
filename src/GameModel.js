@@ -73,10 +73,8 @@ class GameModel{
         //TODO this.currentPlayerId
     }
 
-    
-
     getPlayerObject(playerId){
-    // get player information from Firebase
+    // TODO get player information from Firebase
     }
 
     getOpponentId(){

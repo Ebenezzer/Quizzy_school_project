@@ -25,9 +25,9 @@ function GameResultsView(props){
     function renderPlayerName(name){
         return <div>{name}</div>
     }
-    function renderScoreGrid(result, playerNr){
-        function toList(lists){
-            //TODO
+    function renderScoreGrid(results, playerNr){
+        function listReducerCB(accumulator, list){
+            return [...accumulator, ...list];
         }
         function renderScoresCB(score){
             if (playerNr == 1){
@@ -43,7 +43,7 @@ function GameResultsView(props){
                         <div className="pointBoxRight"><img src={correct} widht="30" height="30" alt="text"/></div> : 
                         <div className="pointBoxRight"><img src={incorrect} widht="3" height="30" alt="text"/></div> 
         }
-        return result.map(renderScoresCB);
+        return results.reduce(listReducerCB, []).map(renderScoresCB);
     }
     function goToGameACB(){
         window.location.hash = "#category";
@@ -60,6 +60,7 @@ function GameResultsView(props){
         <div className="gridParent">
             <div className="totalScore">
                 <div>Score</div>
+                {/*<div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>*/}
                 <div>2 : 4</div>
             </div>  
             <div className="gridItemNameLeft">
