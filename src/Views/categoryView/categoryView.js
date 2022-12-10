@@ -2,6 +2,7 @@ import React from "react";
 import CategoryCard from "../../components/CategoryCard/categoryCard";
 import { shuffleArray } from "../../helpFunctions";
 import "./categoryView.css"
+import historyIMG from "../../Assets/Images/vecteezy_quill-writing-on-paper-cartoon-vector-icon-illustration_6096481.jpg"
 
 export default
 function CategoryView(props){
@@ -23,7 +24,7 @@ function CategoryView(props){
     }
     return(
         <div className="categoryGrid">
-            <CategoryCard model={props.model} category={categories[0]} onFindQuestions={findQuestionsACB}/>
+            <CategoryCard model={props.model} category={categories[0]} onFindQuestions={findQuestionsACB} image={historyIMG}/>
             <CategoryCard model={props.model} category={categories[1]} onFindQuestions={findQuestionsACB}/>
             <CategoryCard model={props.model} category={categories[2]} onFindQuestions={findQuestionsACB}/>
             <CategoryCard model={props.model} category={categories[3]} onFindQuestions={findQuestionsACB}/>

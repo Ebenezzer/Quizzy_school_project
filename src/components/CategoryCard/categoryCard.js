@@ -6,7 +6,7 @@ function CategoryCard(props){
         props.onFindQuestions(props.category)
     }
     return(
-        <div className="categoryCard" onClick={findQuestionsACB}>
+        <div className="categoryCard" onClick={findQuestionsACB} style={{backgroundImage: props.image}}>
             {props.category}
         </div>
     )
