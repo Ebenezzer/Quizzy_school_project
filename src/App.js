@@ -25,8 +25,7 @@ function App() {
       <Show hash= "#login">
         <LogIn/>
       </Show>
-
-      </div>
+    </div>
   );
 }
 

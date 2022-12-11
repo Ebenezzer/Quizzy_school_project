@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise";
-import firebase from "firebase/compat/app"; //to be used when retreiving player information
+//import firebase from "firebase/compat/app"; //to be used when retreiving player information
 
 
 class GameModel{
@@ -79,11 +79,11 @@ class GameModel{
     // TODO get player information from Firebase
     }
 
-    getOpponentId(){
+    /*getOpponentId(){
         return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
             getGameDetails(this.currentGameId).player1 :
             getGameDetails(this.currentGameId).player2;
-    }
+    }*/
 }
 
 export default GameModel;

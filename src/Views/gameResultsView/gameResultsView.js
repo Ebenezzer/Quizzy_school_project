@@ -6,8 +6,8 @@ import incorrect from "../../Assets/Images/incorrect.png"
 export default
 function GameResultsView(props){
     
-    const exampleResult1 = ["correct", "correct", "incorrect", null, null, null, null, null, null, null, null, null, null, null, null];
-    const exampleResult2 = ["correct", "correct", "incorrect", "incorrect", "correct", "correct", null, null, null, null, null, null, null, null, null];
+    const exampleResult1 = [["correct", "correct", "incorrect"], [null, null, null], [null, null, null], [null, null, null], [null, null, null]];
+    const exampleResult2 = [["correct", "incorrect", "incorrect"], ["correct", "correct", "incorrect"], [null, null, null], [null, null, null], [null, null, null]]
     
     function renderHeader(turn){
         return turn == props.playerData.playerId ? "Your turn" : "Opponents turn";
@@ -20,10 +20,10 @@ function GameResultsView(props){
         return props.gameData.score.player1.toString() + " : " + props.gameData.score.player2.toString();
     }
     function renderProfilePic(pic){
-        return <img src={pic} widht="40" height="40" alt="text"/>
+        return <img src={pic} widht="50" height="50" alt="text"/>
     }
     function renderPlayerName(name){
-        return <div>{name}</div>
+        return <div className="name">{name}</div>
     }
     function renderScoreGrid(results, playerNr){
         function listReducerCB(accumulator, list){
@@ -51,9 +51,6 @@ function GameResultsView(props){
     function goToHomeACB(){
         window.location.hash = "#home";
     }
-    function isPlayerTurn(){
-        return props.gameData.turn !== props.playerData.playerId;
-    }
     
     return <div>
         <div className="header">Your Turn</div>
@@ -61,7 +58,7 @@ function GameResultsView(props){
             <div className="totalScore">
                 <div>Score</div>
                 {/*<div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>*/}
-                <div>2 : 4</div>
+                <div>2 : 3</div>
             </div>  
             <div className="gridItemNameLeft">
                 {renderProfilePic(profilePic)}
