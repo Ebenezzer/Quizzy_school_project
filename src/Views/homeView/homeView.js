@@ -21,9 +21,11 @@ function HomeView(props){
          <div className="popup-model" id="model">
         <div className="modal-content">
          <span className="close" onClick={closeModel}>&times;</span>
+            <br></br>
             <h2>New Game</h2>
-            <label>Username</label> <br></br>
-            <input type="text" id="username"></input>
+            <label>Invite friend</label> <br></br>
+            <input type="text" id="username" className="input-name" placeholder="Username"></input>
+            <br></br>
             <button className="btn-invite" onClick={onInviteClick}>Invite</button>
          </div>
          </div>
