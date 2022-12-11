@@ -14,10 +14,15 @@ function HomeView(props){
         var username = document.getElementById('username').value;
         console.log("Invite sent to: " + username);
     }
+
+    function practiceButtonOnClick(){
+        window.location.hash = "category"
+    }
     
     return <div>
          <h1>Quizzy</h1>
          <button onClick={buttonOnClick} className="new-game">New game</button>
+         <button onClick={practiceButtonOnClick} className="new-game">Practice</button>
          <div className="popup-model" id="model">
         <div className="modal-content">
          <span className="close" onClick={closeModel}>&times;</span>
