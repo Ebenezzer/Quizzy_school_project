@@ -1,18 +1,41 @@
 import {initializeApp} from "firebase/app";
+import {getDatabase, ref, set} from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 import firebase from "firebase/compat/app";
+import "firebase/database";
 import profilePic from "../Assets/Images/profile_pic.png"
 
 
 
 // Initialise firebase
 const app = initializeApp(firebaseConfig);
-//const database = getDatabase();
-//const auth = firebase.getAuth(app);
-
-const REF = "quizzy11";
+const db = getDatabase(app);
+const REF="quizzy11";
 const userEmail = document.getElementById('email')
+
+set(ref(db, REF+ "/users"),{
+    playerId : null,
+    username: null,
+    score: null,
+    games: ["game1", "game2"],
+    profilePicture: profilePic,
+})
+
+/* function writeData(userId, name, email){
+    const db = getDatabase(app);
+    const reference = ref(db, "users/" + userId)
+
+set(reference,{
+    username: name,
+    email: email
+});
+
+}
+
+writeData("twossielola", "lola", "lola@gmail.com") */
+
+
 
 function observerRecap(model) {
     model.addObserver(observerACB) 
@@ -20,7 +43,6 @@ function observerRecap(model) {
         console.log(payload);    // when notified, update state with current value
         }
 }
-
 
 function firebaseModelPromise() {
     function makeBigPromiseACB(firebaseData) {
@@ -38,15 +60,16 @@ function firebaseModelPromise() {
         return Promise.all(GamePromiseArray).then(createModelACB)
 
     }
-    return firebase.database().ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
+    return ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
 } 
 
- function updateFirebaseFromModel(model){
+
+function updateFirebaseFromModel(model){
     model.addObserver(observerACB)
 
     function observerACB(payload){
         if (payload && payload.playerId){
-            firebase.database().ref(REF+"/users/" + userEmail.value).set({
+            set(ref(db, REF+"users/" + userEmail.target.value),{
                 playerId : null,
                 username: null,
                 score: null,
@@ -56,59 +79,26 @@ function firebaseModelPromise() {
         } 
 
         if (payload && payload.idCurrentGame){
-            firebase.database().ref(REF+"/currentGame").set(model.currentGame)
+            ref(REF+"/currentGame").set(model.currentGame)
         } 
 
         if (payload && payload.addedGame){
             console.log(REF+"/addGame/"+ payload.addedDish.id)
-            firebase.database().ref(REF+"/addGame/"+ payload.addedGame.id).set("gameId")
+            ref(REF+"/addGame/"+ payload.addedGame.id).set("gameId")
         }
 
         if (payload && payload.removeGame){
-            firebase.database().ref(REF+"/addGame/"+ payload.removedGame.id).set(null)
+            ref(REF+"/addGame/"+ payload.removedGame.id).set(null)
         }
 
         if (payload && payload.score){
-            firebase.database().ref(REF+ "/score/" + payload.playerId.id).set(model.score)
+            ref(REF+ "/score/" + payload.playerId.id).set(model.score)
         }
 
     }
     return model;
 }
 
+export {app,db, REF, firebaseModelPromise, updateFirebaseFromModel}
 
-function updateModelFromFirebase(model) {
-    firebase.database().ref(REF+"/player").on("value", 
-    function playerChangedInFirebaseACB(firebaseData){ model.getPlayerObject(firebaseData.val());}
-    );
 
-    firebase.database().ref(REF+"/currentGame").on("value", 
-    function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());}
-    );
-
-    function fetchGameBasedOnID(gameid){
-        //return getGameDetails(gameid)
-    }
-
-    function addFirebaseDishACB(data){
-        function testNoDuplicatesCB(object){ 
-            return object.id === +data.key };
-
-        if (!model.games.find(testNoDuplicatesCB)){
-            fetchGameBasedOnID(+data.key).then(function addGameACB(game){model.addGame(game)} )
-        }
-    }
-
-     firebase.database().ref(REF+"/addGame/").on("game_added", addFirebaseDishACB);
-
-     firebase.database().ref(REF+"/addGame/").on("game_removed", 
-     function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});}
-     );
-
-    firebase.database().ref(REF+"/player").on("value",
-    function changeScoreFirebaseAC(firebaseData){model.setPlayerScore(firebaseData.val());}
-    );
-    return model;
-}
-
-export {app, observerRecap, firebaseModelPromise, updateFirebaseFromModel,updateModelFromFirebase}

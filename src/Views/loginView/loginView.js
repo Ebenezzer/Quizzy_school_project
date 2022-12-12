@@ -4,10 +4,12 @@ function LoginView(props){
 
     function clickLogInACB(){
         props.onLogin()
+        window.location.hash = "#home";
     }
 
     function clickCreateAccountACB(){
         props.onCreateAccount()
+        window.location.hash = "#home";
     }
 
     function setEmailACB(email){
@@ -18,7 +20,15 @@ function LoginView(props){
         props.sendPassword(password.target.value)
     }
 
+    function setUsernameACB(username){
+        props.sendUsername(username.target.value)
+    }
+
     return <div className = "container">
+
+        <label for = "username"><b>Username</b></label>
+        <input type = {"username"} placeholder = "enter your username" onChange = {setUsernameACB} name="username" id = "username" required></input>
+
         <label for = "email"><b>Email</b></label>
         <input type = {"email"} placeholder = "enter your email" onChange = {setEmailACB} name="email" id = "email" required></input>
 
