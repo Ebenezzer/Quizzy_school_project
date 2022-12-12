@@ -14,13 +14,6 @@ const db = getDatabase(app);
 const REF="quizzy11";
 const userEmail = document.getElementById('email')
 
-set(ref(db, REF+ "/users"),{
-    playerId : null,
-    username: null,
-    score: null,
-    games: ["game1", "game2"],
-    profilePicture: profilePic,
-})
 
 /* function writeData(userId, name, email){
     const db = getDatabase(app);

@@ -15,18 +15,7 @@ function LogIn(){
     const [username, setUsername] = React.useState("")
     const [loggedin, setLogin] = React.useState("") // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
-    function checkAuth(){
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const uid = user.uid;
-                window.location.hash = "#home";
-            } else {
-                window.location.hash = "#login";
-            }
-        })
-    }
-
-    function signOut(){
+    function signingOut(){
         signOut(auth).then(() => {
             console.log("Sign-out successful")
           }).catch((error) => {
@@ -105,7 +94,7 @@ function LogIn(){
     }
 
     return <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
-    sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB}/>
+    sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB} onSignOut = {signingOut}/>
 }
 // observer function to check if an user is signed out or logged in before showcasing the page
 
