@@ -1,5 +1,6 @@
 import "./gameResultsView.css"
-import profilePic from "../../Assets/Images/profile_pic.png"
+import profilePicMan from "../../Assets/Images/man.png"
+import profilePicWoman from "../../Assets/Images/woman.png"
 import correct from "../../Assets/Images/correct.png"
 import incorrect from "../../Assets/Images/incorrect.png"
 
@@ -61,11 +62,11 @@ function GameResultsView(props){
                 <div>2 : 3</div>
             </div>  
             <div className="gridItemNameLeft">
-                {renderProfilePic(profilePic)}
+                {renderProfilePic(profilePicMan)}
                 {renderPlayerName("Player1")}
             </div>
             <div className="gridItemNameRight">
-                {renderProfilePic(profilePic)}
+                {renderProfilePic(profilePicWoman)}
                 {renderPlayerName("Player2")}
             </div>
             <div className="gridItemScoresLeft">

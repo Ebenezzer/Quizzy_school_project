@@ -1,10 +1,12 @@
 .header{
     margin-top: 2%;
     margin-bottom: 2%;
-    color: rgb(255, 251, 247);
-    font-weight:600;
-    font-size: 32px;
+    color: rgb(255, 254, 247);
+    font-family: 'Varela Round', sans-serif;
+    font-weight:bold;
+    font-size: 36px;
     pointer-events: none;
+    text-shadow: 4px 4px 5px rgba(60, 64, 67, 0.3);
 }
 
 .gridParent{
@@ -26,7 +28,6 @@
     grid-row: 1;
     align-items: center;
     text-align: left;
-    font-size:medium;
 }
 
 .gridItemNameRight{
@@ -36,13 +37,14 @@
     grid-row: 1;
     align-items: center;
     text-align: right;
-    font-size:medium;
 }
 .name{
     font-weight: bold;
+    font-family: 'Varela Round', sans-serif;
     margin-inline-end: 5%;
     margin-inline-start: 5%;
     pointer-events: none;
+    font-size: 16px;
 }
 
 .totalScore{
@@ -51,7 +53,8 @@
     grid-column: 3;
     grid-row: 1;
     align-self: center;  
-    font-size: medium;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
     font-weight: bold;
     color:#bbb;
     pointer-events: none;
@@ -111,7 +114,7 @@
     grid-row: 7;
     height: 40%;
     width:70px;
-    border-radius: 10px;
+    border-radius: 20px;
     border-width: 1px ;
     justify-content: center;
     align-items: center;
@@ -119,6 +122,8 @@
     justify-self: left;
     background-color: #6A5AE0;
     box-shadow: #bbb 2.4px 2.4px 3.2px;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
 }
 
 .buttonBack{
@@ -128,7 +133,7 @@
     grid-row: 7;
     height: 40%;
     width: 70px;
-    border-radius: 10px;
+    border-radius: 20px;
     border-width: 1px ;
     justify-content: center;
     align-items: center;
@@ -136,6 +141,8 @@
     justify-self: right;
     background-color: #6A5AE0; 
     box-shadow: #bbb 2.4px 2.4px 3.2px;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
 }
 
 .alignLeft{

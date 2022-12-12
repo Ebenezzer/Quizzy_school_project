@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import "./sidebarView.css"
 import {AiOutlineClose} from 'react-icons/ai'
 import {GiHamburgerMenu} from 'react-icons/gi'
+import {RxHamburgerMenu} from 'react-icons/rx'
+
 
 export default function SidebarView() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -12,7 +14,7 @@ export default function SidebarView() {
     return (
         <div>
             <div id='hamburgerButton' onClick={()=>{setShowSidebar(true)}}>
-                <GiHamburgerMenu/>
+                <RxHamburgerMenu/>
             </div>
             <div id='sidebar' className={showSidebarClass}>
                 <div id="gridParent">
