@@ -1,9 +1,8 @@
 import LoginView from "../Views/loginView/loginView";
 import React from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut} from "firebase/auth";
+import { getAuth} from "firebase/auth";
 import {app,db, REF} from "../firebase/firebaseModel";
-import {ref, set} from "firebase/database";
-import profilePic from "../Assets/Images/profile_pic.png"
+import { createAccount, signIn, signingOut } from "../firebase/firebaseAuthentication";
 
 
 import Show from "../components/show/show";
@@ -16,37 +15,12 @@ function LogIn(){
     const [username, setUsername] = React.useState("")
     const [loggedin, setLogin] = React.useState("") // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
-    function signingOut(){
-        signOut(auth).then(() => {
-            console.log("Sign-out successful")
-          }).catch((error) => {
-            console.log("An error happened")
-          });
+    function createAccountACB(){
+        createAccount(auth, email, password, username)
     }
-    function signInACB(){                    //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
-                                             //email,password & user credentials are accessible to other parts of the program
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {  // export
-        // Signed in 
-        const user = userCredential.user;
-            set(ref(db, REF+ "/users/"+ user.uid),{
-                playerId : null,
-                username: username,
-                score: null,
-                games: ["game1", "game2"],
-                profilePicture: profilePic,
-            })
-            console.log(user);
-            alert("Signed in")
-        // ...
-        })
-        .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode,errorMessage)
-        alert(errorCode)
-        });
 
+    function signInACB(){
+        signIn(auth, email, password, username)
     }
 
     function setEmailACB(emailInput){ //functionn created by me in order to keep track of the custom event
@@ -61,43 +35,10 @@ function LogIn(){
         setUsername(usernameInput)
     }
 
-    function createAccountACB(){
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        set(ref(db, REF+ "/users/"+ user.uid),{
-            playerId : null,
-            username: username,
-            score: null,
-            games: ["game1", "game2"],
-            profilePicture: profilePic,
-        })
-         console.log(user);
-        alert("Account created")
-        // ...
-        })
-        .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode,errorMessage)
-        alert(errorCode)
-        // ..
-        });
-
-        set(ref(db, REF+ "/users/"+ username),{
-            playerId : null,
-            username: null,
-            score: null,
-            games: ["game1", "game2"],
-            profilePicture: profilePic,
-        })
-    }
-
     return <div>
         <Show hash="#login">
             <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
-            sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB} onSignOut = {signingOut}/>
+            sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB}/>
         </Show>
     </div>
 }

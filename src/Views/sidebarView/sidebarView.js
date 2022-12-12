@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import "./sidebarView.css"
 import {AiOutlineClose} from 'react-icons/ai'
 import {GiHamburgerMenu} from 'react-icons/gi'
+import { signingOut } from '../../firebase/firebaseAuthentication'
+import { getAuth } from 'firebase/auth'
+import { app } from '../../firebase/firebaseModel'
+
+const auth = getAuth(app)
 
 export default function SidebarView() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -23,6 +28,7 @@ export default function SidebarView() {
                     <div id='play' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Play</div>
                     <div id='practice' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Practice</div>
                     <div id='leaderboard' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Leaderboard</div>
+                    <div id='signout' className='sidebarContent' onClick={()=>{window.location.hash="#login"; signingOut(auth); setShowSidebar(false)}}>Sign Out</div>
                 </div>
             </div>
         </div>

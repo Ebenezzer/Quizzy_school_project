@@ -12,10 +12,6 @@ function LoginView(props){
         window.location.hash = "#home";
     }
 
-    function clickSignOutACB(){
-        props.onSignOut()
-    }
-
     function setEmailACB(email){
         props.sendEmail(email.target.value)
     }
@@ -43,7 +39,6 @@ function LoginView(props){
 
         <button onClick = {clickLogInACB} id="addBtn">Log In</button>
         <button onClick={clickCreateAccountACB} id="addBtn">Create Account</button>
-        <button onClick = {clickSignOutACB}>Sign out</button>
     </div>
 }
 

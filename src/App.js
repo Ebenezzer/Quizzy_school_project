@@ -5,23 +5,15 @@ import Game from './Presenters/gamePresenter';
 import GameModel from './GameModel';
 import Home from './Presenters/homePresenter';
 import LogIn from './Presenters/loginPresenter';
-import { getAuth, onAuthStateChanged} from 'firebase/auth';
+import { getAuth} from 'firebase/auth';
 import { app } from './firebase/firebaseModel';
+import { authChange } from './firebase/firebaseAuthentication';
+import SidebarView from './Views/sidebarView/sidebarView';
+
 
 const auth = getAuth(app)
+authChange(auth)
 
-  onAuthStateChanged(auth, (user) => {
-      if (user) {
-          const uid = user.uid;
-          window.location.hash = "#home";
-          console.log("user logged in")
-      } else {
-          window.location.hash = "#login";
-          console.log("user not logged in")
-      }
-  })
-
-import SidebarView from './Views/sidebarView/sidebarView';
 
 export default
 
