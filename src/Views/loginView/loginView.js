@@ -24,6 +24,8 @@ function LoginView(props){
         props.sendUsername(username.target.value)
     }
 
+    
+
     return <div className = "container">
 
         <label for = "username"><b>Username</b></label>

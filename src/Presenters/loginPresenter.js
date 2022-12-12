@@ -15,6 +15,24 @@ function LogIn(){
     const [username, setUsername] = React.useState("")
     const [loggedin, setLogin] = React.useState("") // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
+    function checkAuth(){
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                window.location.hash = "#home";
+            } else {
+                window.location.hash = "#login";
+            }
+        })
+    }
+
+    function signOut(){
+        signOut(auth).then(() => {
+            console.log("Sign-out successful")
+          }).catch((error) => {
+            console.log("An error happened")
+          });
+    }
     function signInACB(){                    //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
                                              //email,password & user credentials are accessible to other parts of the program
         signInWithEmailAndPassword(auth, email, password)
