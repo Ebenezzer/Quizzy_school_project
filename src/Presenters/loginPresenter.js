@@ -6,6 +6,7 @@ import {ref, set} from "firebase/database";
 import profilePic from "../Assets/Images/profile_pic.png"
 
 
+import Show from "../components/show/show";
 
 function LogIn(){
 
@@ -93,8 +94,12 @@ function LogIn(){
         })
     }
 
-    return <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
-    sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB} onSignOut = {signingOut}/>
+    return <div>
+        <Show hash="#login">
+            <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
+            sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB} onSignOut = {signingOut}/>
+        </Show>
+    </div>
 }
 // observer function to check if an user is signed out or logged in before showcasing the page
 

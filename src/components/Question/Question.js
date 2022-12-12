@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import Answer from '../Answer'
 import "./Question.css"
+import 'animate.css';
+import { FiArrowRight } from 'react-icons/fi';
 
 export default function Question(props) {
   const [currentAnswer, setCurrentAnswer] = useState(props.currentAnswer);
   const enableClass = currentAnswer ? "enabled-class" : "disabled-class"; 
+  const [,reRender] = useState()
 
   function observerACB(payload) {
     if (payload.currentAnswer==="reset"){
@@ -26,14 +29,19 @@ export default function Question(props) {
   }
 
   function newQuestionACB(){
+    props.onUpdateRoundArray(currentAnswer)
     props.onNewQuestion(currentAnswer)
     updateCurrentAnswerACB("reset")
     props.model.notifyObservers({answer: ""})
+    reRender()
   }
 
   return (
-    <div className={`answer-grid-container ${enableClass}`}>
-      <div className='questionCard' onClick={newQuestionACB}>{props.question}</div>
+    <div className="answer-grid-container">
+      <div id='question-card' className={`${enableClass} animate__animated animate__fadeInDown`} onClick={newQuestionACB}>
+        <div>{props.question}</div>
+        <div id="next-question" className={`${enableClass} animate__animated animate__fadeIn`}>Next question <FiArrowRight/></div>
+      </div>
       <Answer model={props.model} 
         answer={props.answers[0]} 
         currentAnswer={currentAnswer}

@@ -21,6 +21,7 @@ const auth = getAuth(app)
       }
   })
 
+import SidebarView from './Views/sidebarView/sidebarView';
 
 export default
 
@@ -28,6 +29,7 @@ function App() {
   const model = new GameModel();
   return (
     <div className="App">
+      <SidebarView/>
       <Show hash="#gameResults">
         <GameResultsView model={model}/>
       </Show>
