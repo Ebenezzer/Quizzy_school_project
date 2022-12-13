@@ -1,7 +1,7 @@
 import React from "react";
 import { FiArrowRight } from 'react-icons/fi';
 import "./gameView.css"
-import Answer from '../Answer'
+import Answer from '../../components/Answer'
 
 export default
 function GameView(props){
