@@ -9,7 +9,7 @@ function LogIn(){
     const auth = getAuth(app)
     const [email, setEmail ] = React.useState("") // definiera email och password i modelen/application state för att kunna ändra det här
     const [password, setPassword] = React.useState("")
-
+    
     function signInACB(){                    //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
                                              //email,password & user credentials are accessible to other parts of the program
         signInWithEmailAndPassword(auth, email, password)

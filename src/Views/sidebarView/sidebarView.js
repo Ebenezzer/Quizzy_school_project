@@ -4,6 +4,8 @@ import {AiOutlineClose, AiOutlineHome} from 'react-icons/ai'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {MdOutlineLeaderboard, MdOutlineQuiz} from 'react-icons/md'
 import {BiBrain} from 'react-icons/bi'
+import {RxHamburgerMenu} from 'react-icons/rx'
+
 
 export default function SidebarView() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -14,7 +16,7 @@ export default function SidebarView() {
     return (
         <div>
             <div id='hamburgerButton' onClick={()=>{setShowSidebar(true)}}>
-                <GiHamburgerMenu/>
+                <RxHamburgerMenu/>
             </div>
             <div id='sidebar' className={showSidebarClass}>
                 <div id='exitAndLogo' className='sidebarContent'>

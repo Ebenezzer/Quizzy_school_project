@@ -75,3 +75,18 @@ used to set up an observer that checks for changes in the model. Contains promis
 firebase configuration
 copied code for the configuration of firebase and connection to real time database
 
+Games are saved in firebase in the form of:
+{
+gameId: Individual identification of game,
+player1: Individual identification of starting player,
+player2: Individual identification of second player,
+turn: playerId,
+winner: playerId or null,
+currentRound: int,
+score: {
+    player1: int,
+    player2: int
+},
+resultPlayer1: list of lenth 15, "correct", "incorrect" or null (not completed)
+resultPlayer2: list of lenth 15, "correct", "incorrect" or null (not completed)
+}

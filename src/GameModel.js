@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise";
-import firebase from "firebase/compat/app"; //to be used when retreiving player information
+//import firebase from "firebase/compat/app"; //to be used when retreiving player information
 
 
 class GameModel{
@@ -58,25 +58,35 @@ class GameModel{
     }
 
     getGameDetails(gameId) {
-        //TODO
+        //TODO get game object from firebase
     }
 
     setCurrentGame(gameId){
         function notifyACB(){    
             this.notifyObservers();
             }
-        if (this.currentGameID!==gameId){
+        if (this.currentGameId!==gameId){
             if (gameId){
-                this.currentGameID=gameId
+                this.currentGameId=gameId
                 this.notifyObservers({idCurrentGame: gameId})
                 return resolvePromise(this.getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
             }
         }
     }
 
-    getPlayerObject(playerID){
-    // get player object from Firebase
+    setCurrentPlayer(playerId){
+        //TODO this.currentPlayerId
     }
+
+    getPlayerObject(playerId){
+    // TODO get player information from Firebase
+    }
+
+    /*getOpponentId(){
+        return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
+            getGameDetails(this.currentGameId).player1 :
+            getGameDetails(this.currentGameId).player2;
+    }*/
 }
 
 export default GameModel;
