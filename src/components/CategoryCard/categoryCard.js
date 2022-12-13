@@ -1,4 +1,5 @@
 import "./categoryCard.css"
+import 'animate.css';
 
 export default
 function CategoryCard(props){
@@ -6,7 +7,7 @@ function CategoryCard(props){
         props.onFindQuestions(props.category)
     }
     return(
-        <div className="categoryCard" onClick={findQuestionsACB} style={{backgroundImage: props.image}}>
+        <div className="categoryCard animate__animated animate__fadeIn" onClick={findQuestionsACB} style={{backgroundImage: props.image}}>
             {props.category}
         </div>
     )

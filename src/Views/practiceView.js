@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Question from "../../components/Question/Question";
-import { shuffleArray } from "../../helpFunctions";
+import Question from "../components/Question/Question";
+import { shuffleArray } from "../helpFunctions";
 import "./gameView.css"
 
 export default
@@ -21,7 +21,7 @@ function GameView(props){
         if (currentQuestionIndex<props.questions.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
         }else{
-            window.location.hash = "#gameResults";
+            window.location.hash = "#Home";
             console.log(roundArray);
         }
     }
@@ -33,8 +33,7 @@ function GameView(props){
             answers = {shuffleArray([props.questions[currentQuestionIndex].correctAnswer, ...props.questions[currentQuestionIndex].incorrectAnswers])}
             model={props.model}
             onNewQuestion={updateQuestionACB}
-            onUpdateRoundArray={updateRoundArrayACB}
-            questionNumber={currentQuestionIndex+1}/>
+            onUpdateRoundArray={updateRoundArrayACB}/>
         </div>
     );
 }    
