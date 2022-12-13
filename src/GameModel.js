@@ -4,10 +4,13 @@ import firebase from "firebase/compat/app"; //to be used when retreiving player 
 
 class GameModel{
     constructor(gameArray=[]){
+        this.user = {}
+        this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
+        this.questions = [];
     }
     
     addObserver(addObserverCB){
