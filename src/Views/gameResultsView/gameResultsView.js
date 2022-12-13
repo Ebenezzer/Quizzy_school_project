@@ -6,12 +6,15 @@ import incorrect from "../../Assets/Images/incorrect.png"
 
 export default
 function GameResultsView(props){
-    
+    //dummy data to remove later:
     const exampleResult1 = [["correct", "correct", "incorrect"], [null, null, null], [null, null, null], [null, null, null], [null, null, null]];
     const exampleResult2 = [["correct", "incorrect", "incorrect"], ["correct", "correct", "incorrect"], [null, null, null], [null, null, null], [null, null, null]]
+    const currentRound = 2;
     
     function renderHeader(turn){
-        return turn == props.playerData.playerId ? "Your turn" : "Opponents turn";
+        return props.gameData.winner ? 
+        "" //TODO --> You won! or You lost!
+        :turn == props.playerData.playerId ? "Your turn" : "Opponents turn";
     }
     function getPlayerObject(playerId){
         return playerId == props.playerData.playerId ? props.playerData : props.opponentData;  
@@ -21,7 +24,7 @@ function GameResultsView(props){
         return props.gameData.score.player1.toString() + " : " + props.gameData.score.player2.toString();
     }
     function renderProfilePic(pic){
-        return <img src={pic} widht="50" height="50" alt="text"/>
+        return <img src={pic} widht="55" height="55" alt="text"/>
     }
     function renderPlayerName(name){
         return <div className="name">{name}</div>
@@ -30,20 +33,42 @@ function GameResultsView(props){
         function listReducerCB(accumulator, list){
             return [...accumulator, ...list];
         }
+
         function renderScoresCB(score){
-            if (playerNr == 1){
-                return !score ? 
-                    <div className="pointBoxLeft"><span className="dot"></span></div> : 
-                    score == "correct" ? 
-                        <div className="pointBoxLeft"><img src={correct} widht="30" height="30" alt="text"/></div> : 
-                        <div className="pointBoxLeft"><img src={incorrect} widht="3" height="30" alt="text"/></div> 
+            function renderScoreIcon(playerNr){
+                let pointBox = "";
+                playerNr==1 ? pointBox = "pointBoxLeft" : pointBox = "pointBoxRight"
+    
+                if (!score){
+                    return <div className={pointBox}><span className="dot"></span></div>
+                }
+                if(counter == (currentRound*3)-2){
+                    if(score == "correct"){ 
+                        return <div id='newResultQ1' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
+                    } 
+                    return <div id='newResultQ1' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
+                }
+                if (counter == currentRound*3-1){
+                    if(score == "correct"){
+                        return <div id='newResultQ2' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                    }
+                    return <div id='newResultQ2' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
+                }
+                if (counter == currentRound*3){
+                    if (score == "correct"){ 
+                        return <div id='newResultQ3' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                    }
+                    return <div id='newResultQ3' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div> 
+                } 
+                if (score == "correct"){ 
+                    return<div className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
+                }
+                return <div className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>            
             }
-            return !score ? 
-                    <div className="pointBoxRight"><span className="dot"></span></div> : 
-                    score == "correct" ? 
-                        <div className="pointBoxRight"><img src={correct} widht="30" height="30" alt="text"/></div> : 
-                        <div className="pointBoxRight"><img src={incorrect} widht="3" height="30" alt="text"/></div> 
+            counter = counter + 1;
+            return playerNr == 1 ? renderScoreIcon(1) : renderScoreIcon(2);
         }
+        let counter = 0;
         return results.reduce(listReducerCB, []).map(renderScoresCB);
     }
     function goToGameACB(){
@@ -53,7 +78,7 @@ function GameResultsView(props){
         window.location.hash = "#home";
     }
     
-    return <div>
+    return <div className="fullPage">
         <div className="header">Your Turn</div>
         <div className="gridParent">
             <div className="totalScore">

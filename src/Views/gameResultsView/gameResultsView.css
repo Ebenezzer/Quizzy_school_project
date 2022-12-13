@@ -1,12 +1,16 @@
+.fullPage{
+    height: 100vh;
+}
+
 .header{
     margin-top: 2%;
     margin-bottom: 2%;
-    color: rgb(255, 254, 247);
+    color: #fffef5;
     font-family: 'Varela Round', sans-serif;
     font-weight:bold;
     font-size: 36px;
     pointer-events: none;
-    text-shadow: 4px 4px 5px rgba(60, 64, 67, 0.3);
+    text-shadow: 0px 2px 5px #00000040;
 }
 
 .gridParent{
@@ -17,8 +21,8 @@
     grid-template-columns: 0.5fr 2fr 0.75fr 2fr 0.5fr;
     grid-template-rows: 1.5fr 0.75fr 0.75fr 0.75fr 0.75fr 0.75fr 1fr;
     margin: auto;
-    background-color: rgb(255, 251, 247);
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; 
+    background-color: #fffbf7;
+    box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080; 
 }
 
 .gridItemNameLeft{
@@ -89,9 +93,30 @@
     justify-content: right;
 }
 
+#newResultQ1{
+    animation-name: grow;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-out;
+    animation-delay: 0.3s;
+}
+
+#newResultQ2{
+    animation-name: grow;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-out;
+    animation-delay: 0.6s;
+}
+
+#newResultQ3{
+    animation-name: grow;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-out;
+    animation-delay: 0.9s;
+}
+
 .dot {
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
@@ -112,7 +137,7 @@
     flex-direction: row;
     grid-column: 4;
     grid-row: 7;
-    height: 40%;
+    height: 50%;
     width:70px;
     border-radius: 20px;
     border-width: 1px ;
@@ -131,7 +156,7 @@
     flex-direction: row;
     grid-column: 2;
     grid-row: 7;
-    height: 40%;
+    height: 50%;
     width: 70px;
     border-radius: 20px;
     border-width: 1px ;
@@ -153,3 +178,8 @@
     text-align: right;
 }
 
+@keyframes grow{
+    0% { transform: scale(1); }
+    50% { transform: scale(2); }
+    100% { transform: scale(1); }
+}

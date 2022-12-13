@@ -90,9 +90,9 @@ player2: Individual identification of second player,
 turn: playerId,
 winner: playerId or null,
 currentRound: int,
-score: {player1: int, player2: int}
-player1: int,
-player2: int,
+score: {
+    player1: int,
+    player2: int,
 },
 resultPlayer1: list of lenth 15, "correct", "incorrect" or null (not completed)
 resultPlayer2: list of lenth 15, "correct", "incorrect" or null (not completed)
