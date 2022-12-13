@@ -30,7 +30,7 @@ function Home(props){
             player1: "username1",
             player2: "username2",
             currentRound: "username2",
-            winner: "username2"
+            winner: null
         },
         {
             player1: "username1",
@@ -42,7 +42,7 @@ function Home(props){
             player1: "username5",
             player2: "username1",
             currentRound: "username1",
-            winner: "username1"
+            winner: null
         }
 
     ]

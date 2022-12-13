@@ -6,6 +6,7 @@ import GameModel from './GameModel';
 import Home from './Presenters/homePresenter';
 import LogIn from './Presenters/loginPresenter';
 import SidebarView from './Views/sidebarView/sidebarView';
+import Leaderboard from './Presenters/leaderboardPresenter';
 
 export default
 
@@ -25,6 +26,9 @@ function App() {
       <Show hash= "#login">
         <LogIn/>
       </Show>
+      <Show hash="#leaderboard">
+        <Leaderboard/>
+      </Show> 
 
       </div>
   );
