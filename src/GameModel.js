@@ -1,5 +1,6 @@
 import resolvePromise from "./resolvePromise";
-import firebase from "firebase/compat/app"; //to be used when retreiving player information
+import { signIn, createAccount } from "./firebase/firebaseModel";
+
 
 
 class GameModel{
@@ -8,6 +9,11 @@ class GameModel{
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
+        this.email = "";
+        this.password = "";
+        this.username = "";
+        this.user = {} // to save data from firebase into
+        this.currentGame = {}
     }
     
     addObserver(addObserverCB){
@@ -19,6 +25,15 @@ class GameModel{
             return observerToRemove !== observer;
         }
         this.observers = [...this.observers].filter(removeObserverCB)
+    }
+
+    createAccountMo(auth, email, password, username){
+        createAccount(auth, email, password)
+
+    }
+
+    signInMo(auth, email, password, username){ 
+        signIn(auth, email, password)
     }
 
     notifyObservers(payload){

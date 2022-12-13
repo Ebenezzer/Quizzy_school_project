@@ -5,35 +5,30 @@ import Game from './Presenters/gamePresenter';
 import GameModel from './GameModel';
 import Home from './Presenters/homePresenter';
 import LogIn from './Presenters/loginPresenter';
-import { getAuth} from 'firebase/auth';
-import { app } from './firebase/firebaseModel';
-import { authChange } from './firebase/firebaseAuthentication';
+import { authChange, auth } from './firebase/firebaseModel';
 import SidebarView from './Views/sidebarView/sidebarView';
+import React, {useState, useEffect} from 'react'
+import { BrowserRouter as Router} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
-
-const auth = getAuth(app)
-authChange(auth)
-
+//    authChange(auth)
 
 export default
 
 function App() {
   const model = new GameModel();
   return (
-    <div className="App">
-      <SidebarView/>
-      <Show hash="#gameResults">
-        <GameResultsView model={model}/>
-      </Show>
-      <Game model={model}/>
-      <Show hash="#home">
-        <Home/>
-      </Show>
-      <Show hash= "#login">
-        <LogIn/>
-      </Show>
-
+    <Router>
+      <Routes>
+      <div className="App">
+        <Route path ="/sidebarview" element= {<SidebarView/>}/>
+        <Route path ="/gameresults" element= {<GameResultsView model={model}/>}/>
+        <Route path ="/game" element= {<Game model={model}/>}/>
+        <Route path ="/home" element= {<Home/>}/>
+        <Route path ="/login" element= {<LogIn/>}/>
       </div>
+      </Routes>
+    </Router>
   );
 }
 

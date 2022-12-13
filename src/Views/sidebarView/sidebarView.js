@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "./sidebarView.css"
 import {AiOutlineClose} from 'react-icons/ai'
 import {GiHamburgerMenu} from 'react-icons/gi'
-import { signingOut } from '../../firebase/firebaseAuthentication'
+import { signingOut } from '../../firebase/firebaseModel'
 import { getAuth } from 'firebase/auth'
 import { app } from '../../firebase/firebaseModel'
 

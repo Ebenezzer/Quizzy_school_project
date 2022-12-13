@@ -6,15 +6,25 @@ import App from "./App"
 import promiseNoData from "./Views/promiseNoData/promiseNoData"
 import { updateFirebaseFromModel } from "./firebase/firebaseModel"
 import { updateModelFromFirebase } from "./firebase/firebaseModel"
+import { authChange, auth } from './firebase/firebaseModel';
+import { useNavigate } from 'react-router-dom'
+
+
 
 // Define the ReactRoot component
 function ReactRoot(){
 
+
     const [promiseState] = React.useState({})
     const [,reRender] = React.useState();
+    const [user, isUser] = React.useState(false); // React.useState(userCredential)
+
+
+    authChange(auth)
 
     function rootComponent(){
     resolvePromise(firebaseModelPromise(),promiseState, notifyACB);
+    // set up listener to see if usercrendetial exists
     }
     React.useEffect(rootComponent, []);
 
