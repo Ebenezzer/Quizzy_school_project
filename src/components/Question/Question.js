@@ -5,8 +5,7 @@ import 'animate.css';
 import { FiArrowRight } from 'react-icons/fi';
 
 export default function Question(props) {
-  const [currentAnswer, setCurrentAnswer] = useState(props.currentAnswer);
-  const enableClass = currentAnswer ? "enabled-class" : "disabled-class"; 
+
   const [,reRender] = useState()
 
   function observerACB(payload) {
@@ -36,29 +35,5 @@ export default function Question(props) {
     reRender()
   }
 
-  return (
-    <div className="answer-grid-container">
-      <div id='question-card' className={`${enableClass} animate__animated animate__fadeInDown`} onClick={newQuestionACB}>
-        <div>{props.question}</div>
-        <div id="next-question" className={`${enableClass} animate__animated animate__fadeIn`}>Next question <FiArrowRight/></div>
-      </div>
-      <Answer model={props.model} 
-        answer={props.answers[0]} 
-        currentAnswer={currentAnswer}
-        correctAnswer={props.correctAnswer}
-        onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
-      <Answer model={props.model} 
-        answer={props.answers[1]} 
-        correctAnswer={props.correctAnswer}
-        onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
-      <Answer model={props.model} 
-        answer={props.answers[2]} 
-        correctAnswer={props.correctAnswer}
-        onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
-      <Answer model={props.model} 
-        answer={props.answers[3]} 
-        correctAnswer={props.correctAnswer}
-        onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
-    </div>
-  )
+
 }

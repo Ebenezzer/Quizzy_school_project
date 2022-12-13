@@ -5,36 +5,29 @@ import "./gameView.css"
 
 export default
 function GameView(props){
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-    const [roundArray, setRoundArray] = useState([])
-
-    function updateRoundArrayACB(currentAnswer){
-        if (currentAnswer === props.questions[currentQuestionIndex].correctAnswer){
-            setRoundArray((roundArray)=> [...roundArray, true])
-        }
-        if (currentAnswer !== props.questions[currentQuestionIndex].correctAnswer){
-            setRoundArray((roundArray)=> [...roundArray, false])
-        }
-    }
-
-    function updateQuestionACB(){
-        if (currentQuestionIndex<props.questions.length-1){
-            setCurrentQuestionIndex(currentQuestionIndex+1);
-        }else{
-            window.location.hash = "#gameResults";
-            console.log(roundArray);
-        }
-    }
-
-    return(
-        <div>
-            <Question question={props.questions[currentQuestionIndex].question}
-            correctAnswer={props.questions[currentQuestionIndex].correctAnswer}
-            answers = {shuffleArray([props.questions[currentQuestionIndex].correctAnswer, ...props.questions[currentQuestionIndex].incorrectAnswers])}
-            model={props.model}
-            onNewQuestion={updateQuestionACB}
-            onUpdateRoundArray={updateRoundArrayACB}
-            questionNumber={currentQuestionIndex+1}/>
+    return (
+        <div className="answer-grid-container">
+          <div id='question-card' className={`${enableClass} animate__animated animate__fadeInDown`} onClick={newQuestionACB}>
+            <div>{props.question}</div>
+            <div id="next-question" className={`${enableClass} animate__animated animate__fadeIn`}>Next question <FiArrowRight/></div>
+          </div>
+          <Answer model={props.model} 
+            answer={props.answers[0]} 
+            currentAnswer={currentAnswer}
+            correctAnswer={props.correctAnswer}
+            onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
+          <Answer model={props.model} 
+            answer={props.answers[1]} 
+            correctAnswer={props.correctAnswer}
+            onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
+          <Answer model={props.model} 
+            answer={props.answers[2]} 
+            correctAnswer={props.correctAnswer}
+            onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
+          <Answer model={props.model} 
+            answer={props.answers[3]} 
+            correctAnswer={props.correctAnswer}
+            onUpdateCurrentAnswer={updateCurrentAnswerACB}/>
         </div>
-    );
+      );
 }    
