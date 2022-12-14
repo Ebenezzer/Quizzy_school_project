@@ -1,4 +1,4 @@
-import LoginView from "../Views/loginView/loginView";
+import SignupView from "../Views/signupView/signupView";
 import React from "react";
 import { auth } from "../firebase/firebaseModel";
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { createAccount, signIn } from "../firebase/firebaseModel";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
-function LogIn(props){
+function Signup(props){
 
     const navigate = useNavigate();
     const [email, setEmail ] = React.useState(props.model.email) // definiera email och password i modelen/application state för att kunna ändra det här
@@ -44,11 +44,6 @@ function LogIn(props){
         navigate("/home")
     }
 
-    function signInACB(){
-        signIn(auth, email, password, username)
-        navigate("/home")
-    }
-
     function setEmailACB(emailInput){ //functionn created by me in order to keep track of the custom event
         setEmail(emailInput)
     }
@@ -62,10 +57,11 @@ function LogIn(props){
     }
 
     return <div>
-            <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
+            <SignupView onCreateAccount = {createAccountACB} 
             sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB}/>
     </div>
-}
-// observer function to check if an user is signed out or logged in before showcasing the page
 
-export default LogIn;
+
+}
+
+export default Signup;

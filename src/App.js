@@ -18,17 +18,17 @@ export default
 function App() {
   const model = new GameModel();
   return (
+  <div className="App">
     <Router>
       <Routes>
-      <div className="App">
         <Route path ="/sidebarview" element= {<SidebarView/>}/>
         <Route path ="/gameresults" element= {<GameResultsView model={model}/>}/>
         <Route path ="/game" element= {<Game model={model}/>}/>
         <Route path ="/home" element= {<Home/>}/>
-        <Route path ="/login" element= {<LogIn/>}/>
-      </div>
+        <Route path ="/login" element= {<LogIn/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
       </Routes>
     </Router>
+    </div>
   );
 }
 

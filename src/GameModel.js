@@ -12,7 +12,7 @@ class GameModel{
         this.email = "";
         this.password = "";
         this.username = "";
-        this.user = {} // to save data from firebase into
+        this.currentUser = {} // to save data from firebase into
         this.currentGame = {}
     }
     

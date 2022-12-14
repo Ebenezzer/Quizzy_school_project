@@ -1,10 +1,10 @@
-import { NavLink } from 'react-router-dom'
-import './loginView.css';
+import './signupView.css';
 
-function LoginView(props){
+function SignupView(props){
 
-    function clickLogInACB(){
-        props.onLogin()
+
+    function clickCreateAccountACB(){
+        props.onCreateAccount()
     }
 
     function setEmailACB(email){
@@ -33,11 +33,10 @@ function LoginView(props){
         <label htmlFor = "password"><b>Password</b></label>
         <input type = {"password"} placeholder = "enter your password" onChange = {setPasswordACB} name="password" required></input>
 
-        <button onClick = {clickLogInACB} id="addBtn">Log In</button>
-        <p className= "text-sm text-white text-center">No account yet? {''} <NavLink to = "/signup">Sign up</NavLink></p>
+        <button onClick={clickCreateAccountACB} id="addBtn">Sign Up</button>
 
         </div>
     </form>
 }
 
-export default LoginView;
+export default SignupView;

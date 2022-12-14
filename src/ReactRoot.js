@@ -20,7 +20,8 @@ function ReactRoot(){
     const [user, isUser] = React.useState(false); // React.useState(userCredential)
 
 
-    authChange(auth)
+    authChange(auth) // ?? should it be in ReactRoot.js or App.js
+    // i want to be able to have unauth user in Login & Register page but nowhere else
 
     function rootComponent(){
     resolvePromise(firebaseModelPromise(),promiseState, notifyACB);
