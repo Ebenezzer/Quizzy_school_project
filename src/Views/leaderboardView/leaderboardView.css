@@ -1,3 +1,63 @@
-.leaderboard-background {
-    height: 100vh;
+.leaderboard-box {
+    pointer-events: none;
+    min-height: 400px;
+    min-width: 500px;
+    margin: 20px;
+    margin-top: 50px;
+}
+
+.leaderboard-card {
+    border-radius: 10px;
+    background-color: white;
+    padding: 2px;
+    margin: 5px 50px;
+}
+
+.podium-box {
+    pointer-events: none;
+    position: absolute;
+    min-width: 500px;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 230px;
+    margin-left: auto;
+    left: 0;
+    right: 0;
+
+}
+
+.podium-card {
+    margin: 15px;
+}
+
+.leaderboard-image{
+    max-width: 300px;
+    align-self: center;
+}
+
+.leaderboard-podium-box {
+    flex-direction: column;
+    min-height: 700px;
+    border-radius: 15px;
+    background-color: rgb(239, 238, 251);
+    display: inline-flex;
+    margin: 20px;
+    font-size: smaller;
+}
+
+.player-icon {
+    width: 35px; 
+    height: 35px;  
+}
+
+
+
+.star{
+    width: 15px; 
+    display:inline-table;
+    margin-right: 10px;
+}
+
+.leaderboard-title{
+    color: #6A5AE0;
 }
