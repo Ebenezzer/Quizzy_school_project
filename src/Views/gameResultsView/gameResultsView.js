@@ -13,7 +13,7 @@ function GameResultsView(props){
     
     function renderHeader(turn){
         return props.gameData.winner ? 
-        "" //TODO --> You won! or You lost!
+        "" //TODO --> You won! or You lost!, add in a div with class or id with animation ex grow
         :turn == props.playerData.playerId ? "Your turn" : "Opponents turn";
     }
     function getPlayerObject(playerId){
