@@ -1,8 +1,9 @@
 import LoginView from "../Views/loginView/loginView";
 import React from "react";
+import resolvePromise from "../resolvePromise";
 import { auth } from "../firebase/firebaseModel";
 import { NavLink, useNavigate } from 'react-router-dom'
-import { createAccount, signIn } from "../firebase/firebaseModel";
+import { signIn } from "../firebase/firebaseModel";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
@@ -14,7 +15,6 @@ function LogIn(props){
     const [username, setUsername] = React.useState(props.model.username)
     const [loggedin, setLogin] = React.useState(false) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
     const [user, loading, error] = useAuthState(auth) 
-
 
     React.useEffect(() => {
         if (loading) {
@@ -39,13 +39,9 @@ function LogIn(props){
         setUsername(props.model.username)
         }
 
-    function createAccountACB(){
-        createAccount(auth, email, password, username)
-        navigate("/home")
-    }
-
     function signInACB(){
         signIn(auth, email, password, username)
+        //  should I be using resolvePromise here in order to take care of the rendering/firebase issues that might come with unauth user
         navigate("/home")
     }
 
@@ -62,7 +58,7 @@ function LogIn(props){
     }
 
     return <div>
-            <LoginView onCreateAccount = {createAccountACB} onLogin = {signInACB} 
+            <LoginView onLogin = {signInACB} 
             sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB}/>
     </div>
 }

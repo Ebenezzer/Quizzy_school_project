@@ -1,8 +1,8 @@
 import SignupView from "../Views/signupView/signupView";
 import React from "react";
 import { auth } from "../firebase/firebaseModel";
-import { NavLink, useNavigate } from 'react-router-dom'
-import { createAccount, signIn } from "../firebase/firebaseModel";
+import { useNavigate } from 'react-router-dom'
+import { createAccount} from "../firebase/firebaseModel";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
@@ -14,16 +14,17 @@ function Signup(props){
     const [username, setUsername] = React.useState(props.model.username)
     const [loggedin, setLogin] = React.useState(false) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
     const [user, loading, error] = useAuthState(auth) 
+    
 
 
     React.useEffect(() => {
         if (loading) {
-          // maybe trigger a loading screen
-          console.log("loading")
-          return;
+        console.log("loading")
+        return;
         }
-        if (user) navigate("/home");
+        if (user) navigate("/dashboard");
       }, [user, loading]);
+
 
     function wasCreatedACB(){           // 1. the component has been created
         props.model.addObserver(observerACB);      
