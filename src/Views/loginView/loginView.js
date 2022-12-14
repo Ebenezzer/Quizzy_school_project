@@ -24,8 +24,7 @@ function LoginView(props){
 
 
 
-    return <form>
-        <div className = "container">
+    return <div className = "container">
 
         <label htmlFor = "username"><b>Username</b></label>
         <input type = {"username"} placeholder = "enter your username" onChange = {setUsernameACB} name="username" id = "username" required></input>
@@ -41,7 +40,6 @@ function LoginView(props){
         {/*is it okay to use navlink in the view file*/}
 
         </div>
-    </form>
 }
 
 export default LoginView;

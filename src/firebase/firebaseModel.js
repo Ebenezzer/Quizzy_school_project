@@ -12,46 +12,31 @@ import profilePic from "../Assets/Images/profile_pic.png"
 // Initialise firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const auth = getAuth(app);
+const auth = getAuth();
 const REF="quizzy11";
 
 
 const userEmail = document.getElementById('email')
-const userId = auth.currentUser.uid;
+console.log(auth.currentUser)
+//const userId = auth.currentUser.uid;
 
-function signingOut(authen){
-    signOut(authen).then(() => {
+function signingOut(func){
+    signOut(auth).then(() => {
+        func()
         console.log("Sign-out successful")
       }).catch((error) => {
         console.log("An error happened")
       });
 }
 
-function currentUser(){
-    const user = auth.currentUser
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        // ...
-      } else {
-        // No user is signed in.
-      }
-}
-function authChange(authen){
-    onAuthStateChanged(authen, (user) => {
-        if (user) {
-            const uid = user.uid;
-            console.log("uid", uid)
-            console.log("user logged in")
-        } else {
-            console.log("user not logged in")
-        }
-    })
+
+function authChange(setUser){
+    onAuthStateChanged(auth, setUser)
 }
 
-function signIn(authen, email, password, username){ //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
+function signIn(email, password, username){ //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
                                              //email,password & user credentials are accessible to other parts of the program
-    signInWithEmailAndPassword(authen, email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {  // export
         // Signed in 
         const user = userCredential.user;
@@ -76,7 +61,7 @@ function signIn(authen, email, password, username){ //move the signInACB and cre
     }
 
 function createAccount(email, password, username){
-    createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {  // export
             // Signed in 
             const user = userCredential.user;
@@ -122,7 +107,7 @@ function firebaseModelPromise() {
         return Promise.all(GamePromiseArray).then(createModelACB)
 
     }
-    return onValue(ref(db, REF + userId),(makeBigPromiseACB));
+    //return onValue(ref(db, REF + userId),(makeBigPromiseACB));
 } 
 
 

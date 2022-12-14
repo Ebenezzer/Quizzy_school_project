@@ -1,4 +1,4 @@
-import GameResultsView from "..\Views\gameResultsView\gameResultsView.js/";
+import GameResultsView from "../Views/gameResultsView/gameResultsView.js";
 
 export default
 function GameResults(props){

@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise";
-import { signIn, createAccount } from "./firebase/firebaseModel";
+import { authChange } from "./firebase/firebaseModel";
 
 
 
@@ -9,11 +9,11 @@ class GameModel{
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
-        this.email = "";
-        this.password = "";
-        this.username = "";
-        this.currentUser = {} // to save data from firebase into
+        this.currentUser = undefined // to save data from firebase into
         this.currentGame = {}
+        this.addAuthObserver()
+        
+        //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
     addObserver(addObserverCB){
@@ -26,14 +26,16 @@ class GameModel{
         }
         this.observers = [...this.observers].filter(removeObserverCB)
     }
-
-    createAccountMo(auth, email, password, username){
-        createAccount(auth, email, password)
-
-    }
-
-    signInMo(auth, email, password, username){ 
-        signIn(auth, email, password)
+    
+    addAuthObserver(){
+        function authUserACB(user){
+                this.currentUser = user;
+                console.log("user", user)
+                console.log("user logged in")
+                this.notifyObservers({userObject : user })
+            }
+        authChange(authUserACB.bind(this))
+        
     }
 
     notifyObservers(payload){

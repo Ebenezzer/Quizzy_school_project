@@ -1,9 +1,7 @@
 import SignupView from "../Views/signupView/signupView";
 import React from "react";
-import { auth } from "../firebase/firebaseModel";
 import { useNavigate } from 'react-router-dom'
 import { createAccount} from "../firebase/firebaseModel";
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 function Signup(props){
@@ -12,18 +10,11 @@ function Signup(props){
     const [email, setEmail ] = React.useState(props.model.email) // definiera email och password i modelen/application state för att kunna ändra det här
     const [password, setPassword] = React.useState(props.model.password)
     const [username, setUsername] = React.useState(props.model.username)
-    const [loggedin, setLogin] = React.useState(false) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
-    const [user, loading, error] = useAuthState(auth) 
-    
-
+    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
     React.useEffect(() => {
-        if (loading) {
-        console.log("loading")
-        return;
-        }
-        if (user) navigate("/dashboard");
-      }, [user, loading]);
+        if (userLoggedIn) navigate("/home");
+      }, [userLoggedIn]);
 
 
     function wasCreatedACB(){           // 1. the component has been created
@@ -38,10 +29,11 @@ function Signup(props){
         setEmail(props.model.email);    // when notified, update state with current value
         setPassword(props.model.password);
         setUsername(props.model.username)
+        setUserLogin(props.model.currentUser)
         }
 
     function createAccountACB(){
-        createAccount(auth, email, password, username)
+        createAccount(email, password, username)
         navigate("/home")
     }
 

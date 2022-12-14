@@ -6,8 +6,7 @@ import App from "./App"
 import promiseNoData from "./Views/promiseNoData/promiseNoData"
 import { updateFirebaseFromModel } from "./firebase/firebaseModel"
 import { updateModelFromFirebase } from "./firebase/firebaseModel"
-import { authChange, auth } from './firebase/firebaseModel';
-import { useNavigate } from 'react-router-dom'
+import GameModel from "./GameModel"
 
 
 
@@ -19,9 +18,6 @@ function ReactRoot(){
     const [,reRender] = React.useState();
     const [user, isUser] = React.useState(false); // React.useState(userCredential)
 
-
-    authChange(auth) // ?? should it be in ReactRoot.js or App.js
-    // i want to be able to have unauth user in Login & Register page but nowhere else
 
     function rootComponent(){
     resolvePromise(firebaseModelPromise(),promiseState, notifyACB);
@@ -40,7 +36,9 @@ function ReactRoot(){
         updateFirebaseBothWaysACB(promiseState.data)
     }
         
-    return promiseNoData(promiseState) || <App model={promiseState.data}/>
+    //return promiseNoData(promiseState) || <App model={promiseState.data}/>
+    return <App model={new GameModel}/>
+
 
 }
 

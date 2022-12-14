@@ -1,0 +1,10 @@
+import React from "react";
+
+
+function NoUserView(props){
+    return <div>
+        <p> You're not logged in!</p>
+    </div>
+}
+
+export default NoUserView;

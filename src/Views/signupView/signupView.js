@@ -1,4 +1,6 @@
 import './signupView.css';
+import { NavLink } from 'react-router-dom'
+
 
 function SignupView(props){
 
@@ -21,8 +23,7 @@ function SignupView(props){
 
 
 
-    return <form>
-        <div className = "container">
+    return <div className = "container">
 
         <label htmlFor = "username"><b>Username</b></label>
         <input type = {"username"} placeholder = "enter your username" onChange = {setUsernameACB} name="username" id = "username" required></input>
@@ -37,7 +38,6 @@ function SignupView(props){
         <p className= "text-sm text-white text-center">Already have an account? {''} <NavLink to = "/login">Login</NavLink></p>
 
         </div>
-    </form>
 }
 
 export default SignupView;

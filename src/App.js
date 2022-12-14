@@ -1,17 +1,17 @@
 import './App.css';
-import GameResultsView from './Views/gameResultsView/gameResultsView';
-import Show from './components/show/show';
-import Game from './Presenters/gamePresenter';
 import GameModel from './GameModel';
-import Home from './Presenters/homePresenter';
-import LogIn from './Presenters/loginPresenter';
-import { authChange, auth } from './firebase/firebaseModel';
-import SidebarView from './Views/sidebarView/sidebarView';
-import React, {useState, useEffect} from 'react'
-import { BrowserRouter as Router} from 'react-router-dom';
-import {Routes, Route} from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-//    authChange(auth)
+
+
+const GameResults=require('./Presenters/gameResultsPresenter.js').default;
+const Game=require('./Presenters/gamePresenter.js').default;
+const Home=require('./Presenters/homePresenter.js').default;
+const LogIn=require('./Presenters/loginPresenter.js').default;
+const Signup=require('./Presenters/signupPresenter.js').default;
+const Sidebar=require('./Views/sidebarView/sidebarView.js').default;
+
 
 export default
 
@@ -19,15 +19,17 @@ function App() {
   const model = new GameModel();
   return (
   <div className="App">
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path ="/sidebarview" element= {<SidebarView/>}/>
-        <Route path ="/gameresults" element= {<GameResultsView model={model}/>}/>
-        <Route path ="/game" element= {<Game model={model}/>}/>
-        <Route path ="/home" element= {<Home/>}/>
-        <Route path ="/login" element= {<LogIn/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
+        <Route path ="/" element= {<Sidebar/>}> 
+          <Route path ="gameresults" element= {<GameResults model={model}/>}/>
+          <Route path ="game" element= {<Game model={model}/>}/>
+          <Route path ="home" element= {<Home model = {model}/>}/>
+          <Route path ="login" element= {<LogIn model = {model}/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
+          <Route path ="signup" element= {<Signup model = {model}/>}/>
+        </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
     </div>
   );
 }

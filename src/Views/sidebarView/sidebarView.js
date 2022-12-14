@@ -3,16 +3,17 @@ import "./sidebarView.css"
 import {AiOutlineClose} from 'react-icons/ai'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import { signingOut } from '../../firebase/firebaseModel'
-import { getAuth } from 'firebase/auth'
-import { app } from '../../firebase/firebaseModel'
+import { Outlet, useNavigate } from 'react-router'
 
-const auth = getAuth(app)
 
 export default function SidebarView() {
     const [showSidebar, setShowSidebar] = useState(false);
     const showSidebarClass = showSidebar ? "showSidebar" : "hideSidebar"; 
-
-
+    const navigate = useNavigate()
+      
+    function redirectLoginACB(){
+        navigate ("/login")
+    }
 
     return (
         <div>
@@ -28,9 +29,10 @@ export default function SidebarView() {
                     <div id='play' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Play</div>
                     <div id='practice' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Practice</div>
                     <div id='leaderboard' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Leaderboard</div>
-                    <div id='signout' className='sidebarContent' onClick={()=>{window.location.hash="#login"; signingOut(auth); setShowSidebar(false)}}>Sign Out</div>
+                    <div id='signout' className='sidebarContent' onClick={()=>{signingOut(redirectLoginACB); setShowSidebar(false)}}>Sign Out</div>
                 </div>
             </div>
+            <Outlet/> {/* all the children to Sidebar should be rendered here*/}
         </div>
     )
 }
