@@ -45,7 +45,9 @@ function LeaderboardView(props){
            <div className = "leaderboard-box"> 
            <h2 className="leaderboard-title">Leaderboard</h2>
            {props.players.map(renderLeaderboard)}
+           <button className="home-button">Home</button>
            </div>
+
            </div>
 
    )

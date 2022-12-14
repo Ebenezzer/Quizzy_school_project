@@ -1,5 +1,4 @@
 .leaderboard-box {
-    pointer-events: none;
     min-height: 400px;
     min-width: 500px;
     margin: 20px;
@@ -7,6 +6,8 @@
 }
 
 .leaderboard-card {
+    pointer-events: none;
+    box-shadow: 0 1px 2px 0 #d1d1d140, 0 2px 5px 0 #d1d1d140;
     border-radius: 10px;
     background-color: white;
     padding: 2px;
@@ -36,6 +37,7 @@
 }
 
 .leaderboard-podium-box {
+    box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
     flex-direction: column;
     min-height: 700px;
     border-radius: 15px;
@@ -51,7 +53,6 @@
 }
 
 
-
 .star{
     width: 15px; 
     display:inline-table;
@@ -61,3 +62,17 @@
 .leaderboard-title{
     color: #6A5AE0;
 }
+
+.home-button {
+    font-family: "Nunito" !important;
+    border: none;
+    background-color: #6A5AE0;
+    color: white;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
+    width: 65px;
+    height: 25px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
