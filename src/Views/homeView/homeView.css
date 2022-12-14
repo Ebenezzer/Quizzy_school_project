@@ -1,12 +1,19 @@
+body {
+  font-family: "Nunito" !important;
+}
 .new-game{
-    background-color: #D3D3D3;
+    font-family: "Nunito" !important;
+    height: 70px;
+    width: 150px;
+    margin: 20px;
+    background-color: #fbfbfb;
+    border-radius: 15px;
+    border: none;
     color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    justify-content: center;
+    font-size: 20px;
     cursor: pointer;
+    box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
   }
 
   .popup-model{
@@ -23,18 +30,20 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   .modal-content {
-    background-color: #fefefe;
+    border-radius: 15px;
+    font-family: "Nunito" !important;
+    background-color: rgb(239, 238, 251);
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 60%;
-    height: 15%;
+    height: 20%;
   }
   .modal-content h2 {
     margin-top: 0px;;
   }
   .close {
-    color: #aaaaaa;
+    color:#6A5AE0;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -48,6 +57,22 @@
 }
 
 .btn-invite {
-  text-decoration: none;
-
+  font-family: "Nunito" !important;
+  border: none;
+  background-color: #6A5AE0;
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
+  width: 65px;
+  height: 25px;
+  margin-top: 10px;
+  cursor: pointer;
 }
+.input-name{
+  font-family: "Nunito" !important;
+  border:none;
+  border-radius: 5px;
+  height: 20px; 
+}
+
+

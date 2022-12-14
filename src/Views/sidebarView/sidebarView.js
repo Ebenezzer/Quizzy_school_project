@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import "./sidebarView.css"
-import {AiOutlineClose} from 'react-icons/ai'
+import {AiOutlineClose, AiOutlineHome} from 'react-icons/ai'
 import {GiHamburgerMenu} from 'react-icons/gi'
+import {MdOutlineLeaderboard, MdOutlineQuiz} from 'react-icons/md'
+import {BiBrain} from 'react-icons/bi'
 import {RxHamburgerMenu} from 'react-icons/rx'
 
 
@@ -17,15 +19,13 @@ export default function SidebarView() {
                 <RxHamburgerMenu/>
             </div>
             <div id='sidebar' className={showSidebarClass}>
-                <div id="gridParent">
-                    <div id='exitAndLogo' className='sidebarContent'>
-                        <AiOutlineClose onClick={()=>setShowSidebar(false)}/>
-                    </div>
-                    <div id='home' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Home</div>
-                    <div id='play' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Play</div>
-                    <div id='practice' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Practice</div>
-                    <div id='leaderboard' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}>Leaderboard</div>
+                <div id='exitAndLogo' className='sidebarContent'>
+                    <AiOutlineClose onClick={()=>setShowSidebar(false)}/>
                 </div>
+                <div id='home' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><AiOutlineHome/>Home</div>
+                <div id='play' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><MdOutlineQuiz/>Play</div>
+                <div id='practice' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><BiBrain/>Practice</div>
+                <div id='leaderboard' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><MdOutlineLeaderboard/>Leaderboard</div>
             </div>
         </div>
     )

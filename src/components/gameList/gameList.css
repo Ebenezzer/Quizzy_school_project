@@ -1,22 +1,26 @@
 .box {
-    width: 300px;
-    height: 400px;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+    min-height: 400px;
+    min-width: 350px;
     border-radius: 15px;
-    background-color: #D3D3D3;
-    display: inline-block;
+    background-color: rgb(239, 238, 251);
+    display: inline-flex;
     margin: 20px;
 }
 
 .game-list {
-    display: inline-flex;
-    width: 280px;
-    height: 50px;
+    box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
+    display: flex;
     border-radius: 10px;
-    background-color: 	#F8F8F8;
+    background-color: white;
     margin: 10px 5px;
     justify-content: center;
     cursor: pointer;
 }
+
 
 .vs-span  {
     font-weight: bold;
@@ -26,7 +30,7 @@
 }
 
 .player-icon {
-    border-radius: 4px;
-    padding: 5px;
-    width: 35px;   
+    padding: 8px;
+    width: 40px; 
+    height: 40px;  
 }

@@ -4,10 +4,13 @@ import resolvePromise from "./resolvePromise";
 
 class GameModel{
     constructor(gameArray=[]){
+        this.user = {}
+        this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
+        this.questions = [];
     }
     
     addObserver(addObserverCB){
