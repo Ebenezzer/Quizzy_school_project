@@ -9,13 +9,13 @@ function GameView(props){
         props.onUpdateCurrentAnswer(answer)
     }
 
-    function newQuestionACB(){
-        props.onNewQuestionACB()
+    function updateQuestionACB(){
+        props.onUpdateQuestion()
     }
     return (
         <div className="answer-grid-container">
-          <div id='question-card' className={`${props.enabledQuestion} animate__animated animate__fadeInDown`} onClick={newQuestionACB}>
-            <div>{props.question}</div>
+          <div id='question-card' className={`${props.enabledQuestion} animate__animated animate__fadeInDown`} onClick={updateQuestionACB}>
+            <div>{props.question.question}</div>
             <div id="next-question" className={`${props.enabledQuestion} animate__animated animate__fadeIn`}>Next question <FiArrowRight/></div>
           </div>
           <Answer model={props.model} 

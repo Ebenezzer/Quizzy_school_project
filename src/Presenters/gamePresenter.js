@@ -5,11 +5,13 @@ import promiseNoData from "../Views/promiseNoData/promiseNoData";
 import resolvePromise from "../resolvePromise";
 import {getQuestions} from "../questionSource"
 import Show from "../components/show/show";
+import { shuffleArray } from "../helpFunctions";
 
 export default
 function Game(props){
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(props.currentAnswer);
+    // const [answers, setAnswers] = useState();
     const [promiseState] = useState({});  // no setter --> fixed!
     const [, reRender] = useState();  // updates the component
     const roundArray = []
@@ -17,7 +19,8 @@ function Game(props){
     function notifyACB(){reRender(new Object());}
     function findQuestionsACB(category){
         resolvePromise(getQuestions({limit: 3, categories: category}), promiseState, notifyACB);
-        props.model.questions = promiseState.data;
+        setCurrentAnswer(null)
+        setCurrentQuestionIndex(0)
         window.location.hash = "#game"
     }
     
@@ -31,8 +34,9 @@ function Game(props){
     }
 
     function updateQuestionACB(){
-        if (currentQuestionIndex<props.questions.length-1){
+        if (currentQuestionIndex<promiseState.data.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
+            setCurrentAnswer(null);
         }
         else{
             window.location.hash = "#gameResults";
@@ -40,15 +44,22 @@ function Game(props){
         }
     }
 
+    function updateCurrentAnswerACB(answer) {
+        setCurrentAnswer(answer)
+    }
+
     return (<div>
         <Show hash="#category"><CategoryView model={props.model} onFindQuestions={findQuestionsACB}/></Show>
         <Show hash="#game">{promiseNoData(promiseState)
-        || <GameView questions={promiseState.data} model={props.model}
+        || <GameView question={promiseState.data[currentQuestionIndex]} 
+        model={props.model}
         currentAnswer={currentAnswer}
+        correctAnswer={promiseState.data[currentQuestionIndex].correctAnswer}
         enabledAnswer={currentAnswer ? "enabledAnswer" : "disabledAnswer"}
         enabledQuestion={currentAnswer ? "disabledQuestion" : "enabledQuestion"}
         onUpdateQuestion={updateQuestionACB}
         onUpdateRoundArrayACB={updateRoundArrayACB}
-        />}</Show>
+        onUpdateCurrentAnswer={updateCurrentAnswerACB}
+        answers={shuffleArray([promiseState.data[currentQuestionIndex].correctAnswer, ...promiseState.data[currentQuestionIndex].incorrectAnswers])}/>}</Show>
     </div>)
 }
