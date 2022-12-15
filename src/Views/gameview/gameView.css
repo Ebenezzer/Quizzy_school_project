@@ -63,10 +63,6 @@
     background-color: rgb(236, 95, 95);
 }
 
-.disabledClass{
-    pointer-events: none;
-}
-
 #nextQuestion{
     position: absolute;
     right: 20px;
@@ -87,10 +83,22 @@
     font-size: x-large;
 }
 
-.enabledClass{
+.enabledAnswer{
     pointer-events: all;
 } 
 
+.disabledAnswer{
+    pointer-events: none;
+}
+
+.enabledQuestion{
+    pointer-events: all;
+    scale: 1.1;
+} 
+
+.disabledQuestion{
+    pointer-events: none;
+}
 .wrapper{
     height: 100vh;
 }

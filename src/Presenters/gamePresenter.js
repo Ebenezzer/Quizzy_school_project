@@ -2,6 +2,7 @@ import GameView from "../Views/gameView/gameView";
 import React, { useState } from "react";
 import promiseNoData from "../Views/promiseNoData/promiseNoData";
 import { useNavigate } from 'react-router-dom';
+import { shuffleArray } from "../helpFunctions";
 
 export default
 function Game(props){
@@ -11,6 +12,7 @@ function Game(props){
     const [questionsPromiseStateError, setquestionsPromiseStateError] = useState(props.model.questionsPromiseState.error);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(null);
+    const [answers, setAnswers] = useState()
     const [roundArray, setRoundArray] = useState([]);
 
     function observerACB(){
@@ -18,8 +20,9 @@ function Game(props){
         setquestionsPromiseStateData(props.model.questionsPromiseState.data);
         setquestionsPromiseStateError(props.model.questionsPromiseState.error);
         setRoundArray([])
-        setCurrentQuestionIndex(0);
         setCurrentAnswer(null)
+        setCurrentQuestionIndex(0);
+        setAnswers(shuffleArray([props.model.questionsPromiseState.data[currentQuestionIndex].correctAnswer, ...props.model.questionsPromiseState.data[currentQuestionIndex].incorrectAnswers]))
     }
     
     function updateRoundArrayACB(currentAnswer){
@@ -54,15 +57,14 @@ function Game(props){
     return (<div className="wrapper">
         {promiseNoData({promise: questionsPromiseStatePromise, data:questionsPromiseStateData, error: questionsPromiseStateError})
         || <GameView question={questionsPromiseStateData[currentQuestionIndex]}
-        model={props.model}
-        currentAnswer={currentAnswer}
-        correctAnswer={questionsPromiseStateData[currentQuestionIndex].correctAnswer}
-        enabledAnswer={currentAnswer ? "enabledAnswer" : "disabledAnswer"}
-        enabledQuestion={currentAnswer ? "disabledQuestion" : "enabledQuestion"}
-        currentQuestionIndex = {currentQuestionIndex+1}
-        onUpdateQuestion={updateQuestionACB}
-        onUpdateRoundArrayACB={updateRoundArrayACB}
-        onUpdateCurrentAnswer={updateCurrentAnswerACB}
-        answers={[questionsPromiseStateData[currentQuestionIndex].correctAnswer, ...questionsPromiseStateData[currentQuestionIndex].incorrectAnswers]}/>}
+            currentAnswer={currentAnswer}
+            correctAnswer={questionsPromiseStateData[currentQuestionIndex].correctAnswer}
+            enabledAnswer={currentAnswer ? "disabledAnswer" : "enabledAnswer"}
+            enabledQuestion={currentAnswer ? "enabledQuestion": "disabledQuestion"}
+            currentQuestion={currentQuestionIndex+1}
+            onUpdateQuestion={updateQuestionACB}
+            onUpdateRoundArrayACB={updateRoundArrayACB}
+            onUpdateCurrentAnswer={updateCurrentAnswerACB}
+            answers={shuffleArray([props.model.questionsPromiseState.data[currentQuestionIndex].correctAnswer, ...props.model.questionsPromiseState.data[currentQuestionIndex].incorrectAnswers])}/>}
     </div>)
 }
