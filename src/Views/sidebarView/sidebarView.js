@@ -5,6 +5,7 @@ import {GiHamburgerMenu} from 'react-icons/gi'
 import {MdOutlineLeaderboard, MdOutlineQuiz} from 'react-icons/md'
 import {BiBrain} from 'react-icons/bi'
 import {RxHamburgerMenu} from 'react-icons/rx'
+import { Outlet } from 'react-router-dom'
 
 
 export default function SidebarView() {
@@ -27,6 +28,7 @@ export default function SidebarView() {
                 <div id='practice' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><BiBrain/>Practice</div>
                 <div id='leaderboard' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><MdOutlineLeaderboard/>Leaderboard</div>
             </div>
+            <Outlet/>
         </div>
     )
 }
