@@ -11,7 +11,7 @@ const Game=require('./Presenters/gamePresenter.js').default;
 const Home=require('./Presenters/homePresenter.js').default;
 const LogIn=require('./Presenters/loginPresenter.js').default;
 const Signup=require('./Presenters/signupPresenter.js').default;
-const Sidebar=require('./Views/sidebarView/sidebarView.js').default;
+const Sidebar=require('./Presenters/sidebarPresenter.js').default;
 const Leaderboard = require('./Presenters/leaderboardPresenter.js').default;
 
 export default
