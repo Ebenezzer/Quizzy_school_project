@@ -1,15 +1,16 @@
 import GameView from "../Views/gameView/gameView";
 import React, { useState } from "react";
 import promiseNoData from "../Views/promiseNoData/promiseNoData";
-import { shuffleArray } from "../helpFunctions";
+import { useNavigate } from 'react-router-dom';
 
 export default
 function Game(props){
+    const navigate = useNavigate();
     const [questionsPromiseStatePromise, setquestionsPromiseStatePromise] = useState(props.model.questionsPromiseState.promise);
     const [questionsPromiseStateData, setquestionsPromiseStateData] = useState(props.model.questionsPromiseState.data);
     const [questionsPromiseStateError, setquestionsPromiseStateError] = useState(props.model.questionsPromiseState.error);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [currentAnswer, setCurrentAnswer] = useState();
+    const [currentAnswer, setCurrentAnswer] = useState(null);
     const [roundArray, setRoundArray] = useState([]);
 
     function observerACB(){
@@ -36,8 +37,7 @@ function Game(props){
             setCurrentAnswer(null);
         }
         else{
-            window.location.hash = "#gameResults";
-            console.log(roundArray);
+            navigate("/gameResults")
         }
     }
 

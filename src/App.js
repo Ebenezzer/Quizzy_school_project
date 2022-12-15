@@ -2,6 +2,7 @@ import './App.css';
 import GameModel from './GameModel';
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Category from './Presenters/categoryPresenter';
 
 
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path ="/" element= {<Sidebar/>}> 
           <Route path ="gameresults" element= {<GameResults model={model}/>}/>
+          <Route path ="category" element= {<Category model={model}/>}/>
           <Route path ="game" element= {<Game model={model}/>}/>
           <Route path ="home" element= {<Home model = {model}/>}/>
           <Route path ="login" element= {<LogIn model = {model}/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
