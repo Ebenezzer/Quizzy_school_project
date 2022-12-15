@@ -19,15 +19,12 @@ function CategoryView(props){
         "sport_and_leisure"
     ]);
 
-    function findQuestionsACB(category) {
-        props.onFindQuestions(category);
-    }
     return(
         <div className="categoryGrid">
-            <CategoryCard model={props.model} category={categories[0]} onFindQuestions={findQuestionsACB} image={historyIMG}/>
-            <CategoryCard model={props.model} category={categories[1]} onFindQuestions={findQuestionsACB}/>
-            <CategoryCard model={props.model} category={categories[2]} onFindQuestions={findQuestionsACB}/>
-            <CategoryCard model={props.model} category={categories[3]} onFindQuestions={findQuestionsACB}/>
+            <CategoryCard model={props.model} category={categories[0]} image={historyIMG}/>
+            <CategoryCard model={props.model} category={categories[1]}/>
+            <CategoryCard model={props.model} category={categories[2]}/>
+            <CategoryCard model={props.model} category={categories[3]}/>
         </div>
     );
 }   

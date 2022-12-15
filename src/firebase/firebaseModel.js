@@ -1,15 +1,86 @@
-import {initializeApp} from "firebase/app";
-import firebaseConfig from "../firebaseConfig";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut, getAuth} from "firebase/auth";
+import {initializeApp, database} from "firebase/app";
+import {getDatabase, ref, set, get, onChildAdded, onChildRemoved, onValue, child} from "firebase/database";
+import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
-import firebase from "firebase/compat/app";
+import profilePic from "../Assets/Images/profile_pic.png"
+
 
 
 // Initialise firebase
 const app = initializeApp(firebaseConfig);
-//const database = getDatabase();
-//const auth = firebase.getAuth(app);
+const db = getDatabase(app);
+const auth = getAuth();
+const REF="quizzy11";
 
-const REF = "quizzy11"
+
+const userEmail = document.getElementById('email')
+console.log(auth.currentUser)
+//const userId = auth.currentUser.uid;
+
+function signingOut(func){
+    signOut(auth).then(() => {
+        func()
+        console.log("Sign-out successful")
+      }).catch((error) => {
+        console.log("An error happened", error)
+      });
+}
+
+
+function authChange(setUser){
+    onAuthStateChanged(auth, setUser)
+}
+
+function signIn(email, password, username){ //move the signInACB and createAccountACB to maybe firebaseModel or gameModel so that values such as 
+                                             //email,password & user credentials are accessible to other parts of the program
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {  // export
+        // Signed in 
+        const user = userCredential.user;
+            set(ref(db, REF+ "/users/"+ user.uid),{
+                playerId : null,
+                username: username,
+                score: null,
+                games: ["game1", "game2"],
+                profilePicture: profilePic,
+            })
+            console.log(user);
+            alert("Signed in")
+        // ...
+        })
+        .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode,errorMessage)
+        alert(errorCode)
+        });
+
+    }
+
+function createAccount(email, password, username){
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {  // export
+            // Signed in 
+            const user = userCredential.user;
+                set(ref(db, REF+ "/users/"+ user.uid),{
+                    playerId : null,
+                    username: username,
+                    score: null,
+                    games: ["game1", "game2"],
+                    profilePicture: profilePic,
+                })
+                console.log(user);
+                alert("Signed in")
+            // ...
+            })
+            .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode,errorMessage)
+            alert(errorCode)
+            });
+    }
 
 function observerRecap(model) {
     model.addObserver(observerACB) 
@@ -17,7 +88,6 @@ function observerRecap(model) {
         console.log(payload);    // when notified, update state with current value
         }
 }
-
 
 function firebaseModelPromise() {
     function makeBigPromiseACB(firebaseData) {
@@ -35,53 +105,61 @@ function firebaseModelPromise() {
         return Promise.all(GamePromiseArray).then(createModelACB)
 
     }
-    return firebase.database().ref(REF /* <-- note! Whole object! */).once("value").then(makeBigPromiseACB);
+    //return onValue(ref(db, REF + userId),(makeBigPromiseACB));
 } 
 
- function updateFirebaseFromModel(model){
+
+function updateFirebaseFromModel(model){
     model.addObserver(observerACB)
 
     function observerACB(payload){
-        if (payload && payload.playerId){
-            firebase.database().ref(REF+"/player").set(model.player)
-        } 
+        if (payload && payload.userObject){
+            set(ref(db, REF+"/users/" + payload.userObject.uid),{
+                playerId : null,
+                username: null,
+                score: null,
+                games: [],
+                profilePicture: profilePic,
+            })
+        } //if i call on updatefirebase from model this way, can I then just remove
+        //the set function from my signup and login function above
 
         if (payload && payload.idCurrentGame){
-            firebase.database().ref(REF+"/currentGame").set(model.currentGame)
+            set(ref(db, REF+"/games/currentGame/"), model.currentGame)
         } 
 
         if (payload && payload.addedGame){
-            console.log(REF+"/addGame/"+ payload.addedDish.id)
-            firebase.database().ref(REF+"/addGame/"+ payload.addedGame.id).set("gameId")
+            set(ref(db, REF+"/games/"+ payload.addedGame.id), {
+                gameId: "",
+                player1: "",
+                player2: "",
+                turn: "",
+            })
         }
 
         if (payload && payload.removeGame){
-            firebase.database().ref(REF+"/addGame/"+ payload.removedGame.id).set(null)
-        }
-
-        if (payload && payload.score){
-            firebase.database().ref(REF+ "/score/" + payload.playerId.id).set(model.score)
-        }
+            ref(REF+"/games/"+ payload.removedGame.id).set(null)
+        }  //unsure how we would use this removeGame payload, as we want to remove a game id from
+        //currentGame path but want the object within that gameid to be available in the database under games
 
     }
     return model;
 }
 
-
 function updateModelFromFirebase(model) {
-    firebase.database().ref(REF+"/player").on("value", 
-    function playerChangedInFirebaseACB(firebaseData){ model.getPlayerObject(firebaseData.val());}
-    );
+    onValue(ref(db, REF+"/users/" + model.currentUser.uid), 
+    function playerChangedInFirebaseACB(firebaseData){ model.getPlayerObject(firebaseData.val());})
+;
 
-    firebase.database().ref(REF+"/currentGame").on("value", 
-    function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());}
-    );
+    onValue(ref(db, REF+"/games/currentGame"), 
+    function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());})
+
 
     function fetchGameBasedOnID(gameid){
         //return getGameDetails(gameid)
     }
 
-    function addFirebaseDishACB(data){
+    function addFirebaseGameACB(data){
         function testNoDuplicatesCB(object){ 
             return object.id === +data.key };
 
@@ -90,16 +168,15 @@ function updateModelFromFirebase(model) {
         }
     }
 
-     firebase.database().ref(REF+"/addGame/").on("game_added", addFirebaseDishACB);
+    onChildAdded(ref(db, REF+"/games/"), addFirebaseGameACB)
+    
+    onChildRemoved(ref(db, REF+"/games/"),
+    function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});} )
 
-     firebase.database().ref(REF+"/addGame/").on("game_removed", 
-     function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});}
-     );
-
-    firebase.database().ref(REF+"/player").on("value",
-    function changeScoreFirebaseAC(firebaseData){model.setPlayerScore(firebaseData.val());}
-    );
     return model;
 }
 
-export {app, observerRecap, firebaseModelPromise, updateFirebaseFromModel,updateModelFromFirebase}
+export {app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateModelFromFirebase, 
+    observerRecap,firebaseModelPromise, updateFirebaseFromModel}
+
+

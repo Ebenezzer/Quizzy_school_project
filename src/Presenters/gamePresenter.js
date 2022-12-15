@@ -1,40 +1,37 @@
 import GameView from "../Views/gameView/gameView";
-import CategoryView from "../Views/categoryView/categoryView"
 import React, { useState } from "react";
 import promiseNoData from "../Views/promiseNoData/promiseNoData";
-import resolvePromise from "../resolvePromise";
-import {getQuestions} from "../questionSource"
-import Show from "../components/show/show";
 import { shuffleArray } from "../helpFunctions";
 
 export default
 function Game(props){
+    const [questionsPromiseStatePromise, setquestionsPromiseStatePromise] = useState(props.model.questionsPromiseState.promise);
+    const [questionsPromiseStateData, setquestionsPromiseStateData] = useState(props.model.questionsPromiseState.data);
+    const [questionsPromiseStateError, setquestionsPromiseStateError] = useState(props.model.questionsPromiseState.error);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [currentAnswer, setCurrentAnswer] = useState(props.currentAnswer);
-    // const [answers, setAnswers] = useState();
-    const [promiseState] = useState({});  // no setter --> fixed!
-    const [, reRender] = useState();  // updates the component
-    const roundArray = []
+    const [currentAnswer, setCurrentAnswer] = useState();
+    const [roundArray, setRoundArray] = useState([]);
 
-    function notifyACB(){reRender(new Object());}
-    function findQuestionsACB(category){
-        resolvePromise(getQuestions({limit: 3, categories: category}), promiseState, notifyACB);
+    function observerACB(){
+        setquestionsPromiseStatePromise(props.model.questionsPromiseState.promise);
+        setquestionsPromiseStateData(props.model.questionsPromiseState.data);
+        setquestionsPromiseStateError(props.model.questionsPromiseState.error);
+        setRoundArray([])
+        setCurrentQuestionIndex(0);
         setCurrentAnswer(null)
-        setCurrentQuestionIndex(0)
-        window.location.hash = "#game"
     }
     
     function updateRoundArrayACB(currentAnswer){
         if (currentAnswer === props.model.questions[currentQuestionIndex].correctAnswer){
-            roundArray = [...roundArray, true];
+            setRoundArray((roundArray)=>[...roundArray, true])
         }
         if (currentAnswer !== props.model.questions[currentQuestionIndex].correctAnswer){
-            roundArray = [...roundArray, false];
+            setRoundArray((roundArray)=>[...roundArray, false])
         }
     }
 
     function updateQuestionACB(){
-        if (currentQuestionIndex<promiseState.data.length-1){
+        if (currentQuestionIndex<questionsPromiseStateData.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
             setCurrentAnswer(null);
         }
@@ -48,18 +45,24 @@ function Game(props){
         setCurrentAnswer(answer)
     }
 
-    return (<div>
-        <Show hash="#category"><CategoryView model={props.model} onFindQuestions={findQuestionsACB}/></Show>
-        <Show hash="#game">{promiseNoData(promiseState)
-        || <GameView question={promiseState.data[currentQuestionIndex]} 
+    function componentWasCreatedACB(){   //   1. the component has been created
+        props.model.addObserver(observerACB)
+        return function isTakenDownACB(){props.model.removeObserver(observerACB)}
+    }   
+    React.useEffect( componentWasCreatedACB, [] );
+
+    return (<div className="wrapper">
+        {promiseNoData({promise: questionsPromiseStatePromise, data:questionsPromiseStateData, error: questionsPromiseStateError})
+        || <GameView question={questionsPromiseStateData[currentQuestionIndex]}
         model={props.model}
         currentAnswer={currentAnswer}
-        correctAnswer={promiseState.data[currentQuestionIndex].correctAnswer}
+        correctAnswer={questionsPromiseStateData[currentQuestionIndex].correctAnswer}
         enabledAnswer={currentAnswer ? "enabledAnswer" : "disabledAnswer"}
         enabledQuestion={currentAnswer ? "disabledQuestion" : "enabledQuestion"}
+        currentQuestionIndex = {currentQuestionIndex+1}
         onUpdateQuestion={updateQuestionACB}
         onUpdateRoundArrayACB={updateRoundArrayACB}
         onUpdateCurrentAnswer={updateCurrentAnswerACB}
-        answers={shuffleArray([promiseState.data[currentQuestionIndex].correctAnswer, ...promiseState.data[currentQuestionIndex].incorrectAnswers])}/>}</Show>
+        answers={[questionsPromiseStateData[currentQuestionIndex].correctAnswer, ...questionsPromiseStateData[currentQuestionIndex].incorrectAnswers]}/>}
     </div>)
 }

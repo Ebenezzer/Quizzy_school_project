@@ -1,5 +1,7 @@
+import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
-//import firebase from "firebase/compat/app"; //to be used when retreiving player information
+import { authChange } from "./firebase/firebaseModel";
+
 
 
 class GameModel{
@@ -10,7 +12,13 @@ class GameModel{
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
-        this.questions = [];
+        this.questionsPromiseState = {};
+        this.roundArray = [];
+        this.currentUser = undefined // to save data from firebase into
+        this.currentGame = {}
+        this.addAuthObserver()
+        
+        //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
     addObserver(addObserverCB){
@@ -23,13 +31,23 @@ class GameModel{
         }
         this.observers = [...this.observers].filter(removeObserverCB)
     }
+    
+    addAuthObserver(){
+        function authUserACB(user){
+                this.currentUser = user;
+                console.log("user", user)
+                this.notifyObservers({userObject : user })
+            }
+        authChange(authUserACB.bind(this))
+        
+    }
 
     notifyObservers(payload){
         try {
             this.observers.forEach(function invokeObserverCB(obs){obs(payload);})
           }
         catch(err) {
-            {console.error(err)}
+            console.error(err)
           }
     }
 
@@ -82,11 +100,26 @@ class GameModel{
     // TODO get player information from Firebase
     }
 
+    getNewQuestions(category){
+        function notifyACB(){
+            this.notifyObservers();
+        }
+        resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
+    }
+
+    updateRoundArray(roundArray){
+        this.roundArray = roundArray;
+    }
+
     /*getOpponentId(){
         return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
             getGameDetails(this.currentGameId).player1 :
             getGameDetails(this.currentGameId).player2;
     }*/
+
+    setPlayerObject(){
+        
+    }
 }
 
 export default GameModel;
