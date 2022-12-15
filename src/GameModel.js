@@ -1,3 +1,4 @@
+import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 //import firebase from "firebase/compat/app"; //to be used when retreiving player information
 
@@ -10,7 +11,8 @@ class GameModel{
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
-        this.questions = [];
+        this.questionsPromiseState = {};
+        this.roundArray = [];
     }
     
     addObserver(addObserverCB){
@@ -80,6 +82,17 @@ class GameModel{
 
     getPlayerObject(playerId){
     // TODO get player information from Firebase
+    }
+
+    getNewQuestions(category){
+        function notifyACB(){
+            this.notifyObservers();
+        }
+        resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
+    }
+
+    updateRoundArray(roundArray){
+        this.roundArray = roundArray;
     }
 
     /*getOpponentId(){

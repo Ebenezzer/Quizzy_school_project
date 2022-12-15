@@ -1,4 +1,4 @@
-.answer-grid-container{
+.answerGridContainer{
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -31,7 +31,7 @@
     cursor: pointer;
 }
 
-#question-card{
+#questionCard{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -55,37 +55,42 @@
     scale: 1.1;
 }
 
-.correct-answer{
+.correctAnswer{
     background-color: rgb(94, 212, 94);
 }
 
-.incorrect-answer{
+.incorrectAnswer{
     background-color: rgb(236, 95, 95);
 }
 
-.disabled-class{
+.disabledClass{
     pointer-events: none;
 }
 
-.disabled-class{
-    pointer-events: none;
-}
-
-#next-question{
+#nextQuestion{
     position: absolute;
     right: 20px;
     top: 5%;
     font-size: large;
 }
-#next-question.disabled-class{
+#nextQuestion.disabledClass{
     display: none;
 }
 
-#question-card.enabled-class{
+#questionCard.enabledClass{
     scale: 1.1;
 }
 
+#questionCount{
+    position: relative;
+    align-items: center;
+    font-size: x-large;
+}
 
-.enabled-class{
+.enabledClass{
     pointer-events: all;
 } 
+
+.wrapper{
+    height: 100vh;
+}

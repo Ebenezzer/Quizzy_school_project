@@ -7,6 +7,7 @@ import Home from './Presenters/homePresenter';
 import LogIn from './Presenters/loginPresenter';
 import SidebarView from './Views/sidebarView/sidebarView';
 import Leaderboard from './Presenters/leaderboardPresenter';
+import Category from './Presenters/categoryPresenter';
 
 export default
 
@@ -19,7 +20,12 @@ function App() {
       <Show hash="#gameResults">
         <GameResultsView model={model}/>
       </Show>
-      <Game model={model}/>
+      <Show hash="#category">
+        <Category model={model}/>
+      </Show>
+      <Show hash="#game">
+        <Game model={model}/>
+      </Show>
       <Show hash="#home">
         <Home/>
       </Show>
