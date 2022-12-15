@@ -11,7 +11,7 @@ const Home=require('./Presenters/homePresenter.js').default;
 const LogIn=require('./Presenters/loginPresenter.js').default;
 const Signup=require('./Presenters/signupPresenter.js').default;
 const Sidebar=require('./Views/sidebarView/sidebarView.js').default;
-
+const Leaderboard = require('./Presenters/leaderboardPresenter.js').default;
 
 export default
 
@@ -27,6 +27,7 @@ function App() {
           <Route path ="home" element= {<Home model = {model}/>}/>
           <Route path ="login" element= {<LogIn model = {model}/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
           <Route path ="signup" element= {<Signup model = {model}/>}/>
+          <Route path ="leaderboard" element ={<Leaderboard model = {model}/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

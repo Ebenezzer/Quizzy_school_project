@@ -35,6 +35,7 @@ function LeaderboardView(props){
          {player.score} points</span>
         </div>
    }
+   debugger
    return( <div className="leaderboard-podium-box">
          <img src={leaderboard} className="leaderboard-image"/>
          <div className = "podium-box">
@@ -47,7 +48,6 @@ function LeaderboardView(props){
            {props.players.map(renderLeaderboard)}
            <button className="home-button">Home</button>
            </div>
-
            </div>
 
    )
