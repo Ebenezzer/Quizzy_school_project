@@ -1,20 +1,20 @@
-import LoginView from "../Views/loginView/loginView";
+import SignupView from "../Views/signupView/signupView";
 import React from "react";
 import { useNavigate } from 'react-router-dom'
-import { signIn } from "../firebase/firebaseModel";
+import { createAccount} from "../firebase/firebaseModel";
 
 
-function LogIn(props){
+function Signup(props){
 
     const navigate = useNavigate();
     const [email, setEmail ] = React.useState(props.model.email) // definiera email och password i modelen/application state för att kunna ändra det här
     const [password, setPassword] = React.useState(props.model.password)
     const [username, setUsername] = React.useState(props.model.username)
-    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
+    const [userSignedIn, setUserSignup] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
     React.useEffect(() => {
-        if (userLoggedIn) navigate("/home");
-      }, [userLoggedIn]);
+        if (userSignedIn) navigate("/home");
+      }, [userSignedIn]);
 
 
     function wasCreatedACB(){           // 1. the component has been created
@@ -29,12 +29,11 @@ function LogIn(props){
         setEmail(props.model.email);    // when notified, update state with current value
         setPassword(props.model.password);
         setUsername(props.model.username)
-        setUserLogin(props.model.currentUser)
+        setUserSignup(props.model.currentUser)
         }
 
-    function signInACB(){
-        signIn(email, password, username)
-        //  should I be using resolvePromise here in order to take care of the rendering/firebase issues that might come with unauth user
+    function createAccountACB(){
+        createAccount(email, password, username)
         navigate("/home")
     }
 
@@ -51,10 +50,11 @@ function LogIn(props){
     }
 
     return <div>
-            <LoginView onLogin = {signInACB} 
+            <SignupView onCreateAccount = {createAccountACB} 
             sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB}/>
     </div>
-}
-// observer function to check if an user is signed out or logged in before showcasing the page
 
-export default LogIn;
+
+}
+
+export default Signup;
