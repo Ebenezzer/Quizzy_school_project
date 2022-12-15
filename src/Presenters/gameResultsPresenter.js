@@ -8,8 +8,6 @@ function GameResults(props){
     const [player, setPlayer] = React.useState();  //TODO props.model...
     const [opponent, setOpponent] = React.useState();
     const [game, setGame] = React.useState();
-    //const [startGame, setStartGame] = React.useState(); //set if user pushes play-button
-    //const [goBack, setGoBack] = React.useState(); //set if user pushes back-button
 
     function observerACB(){   
         setPlayer(/*props.model.getPlayerObject(props.model.currentPlayerId)*/);    // when notified, update state with current value in model
@@ -25,24 +23,13 @@ function GameResults(props){
     }
     React.useEffect(wasCreatedACB, []); 
 
-    /*
-    React.useEffect(() => {
-        if (startGame) navigate("/category")}, [startGame]);  // effect: function to re-navigate, executes when startGame changes value and is truthy
-
-    React.useEffect(() => {
-        if (goBack) navigate("/home")}, [goBack]);
-    */
-
     function checkPlayerTurn(){
         return props.model.getGameDetails(props.model.currentGameId).turn == props.model.currentPlayerId;
     }
     function goBackACB(){
-        //setGoBack(true);
         navigate("/home");
-
     }
     function startGameACB(){
-        //setStartGame(true);
         navigate("/category");
     }
     

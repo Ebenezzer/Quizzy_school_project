@@ -29,7 +29,6 @@ function GameResultsView(props){
         function listReducerCB(accumulator, list){
             return [...accumulator, ...list];
         }
-
         function renderScoresCB(score){
             function renderScoreIcon(playerNr){
                 let pointBox = "";
@@ -67,13 +66,6 @@ function GameResultsView(props){
         let counter = 0;
         return results.reduce(listReducerCB, []).map(renderScoresCB);
     }
-    /*
-    function goToGameACB(){
-        window.location.hash = "#category";
-    }
-    function goToHomeACB(){
-        window.location.hash = "#home";
-    }*/
     
     return <div className="fullPage">
         <div className="header">Your Turn</div>
