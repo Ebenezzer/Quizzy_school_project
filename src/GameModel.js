@@ -31,7 +31,6 @@ class GameModel{
         function authUserACB(user){
                 this.currentUser = user;
                 console.log("user", user)
-                console.log("user logged in")
                 this.notifyObservers({userObject : user })
             }
         authChange(authUserACB.bind(this))
@@ -43,7 +42,7 @@ class GameModel{
             this.observers.forEach(function invokeObserverCB(obs){obs(payload);})
           }
         catch(err) {
-            {console.error(err)}
+            console.error(err)
           }
     }
 
@@ -90,6 +89,10 @@ class GameModel{
 
     getPlayerObject(playerID){
     // get player object from Firebase
+    }
+
+    setPlayerObject(){
+        
     }
 }
 

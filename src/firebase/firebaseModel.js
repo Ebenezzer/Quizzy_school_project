@@ -5,8 +5,6 @@ import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 import profilePic from "../Assets/Images/profile_pic.png"
 
-//import firebase from "firebase/compat/app";
-//import "firebase/database";
 
 
 // Initialise firebase
@@ -25,7 +23,7 @@ function signingOut(func){
         func()
         console.log("Sign-out successful")
       }).catch((error) => {
-        console.log("An error happened")
+        console.log("An error happened", error)
       });
 }
 
@@ -115,43 +113,45 @@ function updateFirebaseFromModel(model){
     model.addObserver(observerACB)
 
     function observerACB(payload){
-        if (payload && payload.playerId){
-            set(ref(db, REF+"users/" + userEmail.target.value),{
+        if (payload && payload.userObject){
+            set(ref(db, REF+"/users/" + payload.userObject.uid),{
                 playerId : null,
                 username: null,
                 score: null,
                 games: [],
                 profilePicture: profilePic,
             })
-        } 
+        } //if i call on updatefirebase from model this way, can I then just remove
+        //the set function from my signup and login function above
 
         if (payload && payload.idCurrentGame){
-            ref(REF+"/currentGame").set(model.currentGame)
+            set(ref(db, REF+"/games/currentGame/"), model.currentGame)
         } 
 
         if (payload && payload.addedGame){
-            console.log(REF+"/addGame/"+ payload.addedDish.id)
-            ref(REF+"/addGame/"+ payload.addedGame.id).set("gameId")
+            set(ref(db, REF+"/games/"+ payload.addedGame.id), {
+                gameId: "",
+                player1: "",
+                player2: "",
+                turn: "",
+            })
         }
 
         if (payload && payload.removeGame){
-            ref(REF+"/addGame/"+ payload.removedGame.id).set(null)
-        }
-
-        if (payload && payload.score){
-            ref(REF+ "/score/" + payload.playerId.id).set(model.score)
-        }
+            ref(REF+"/games/"+ payload.removedGame.id).set(null)
+        }  //unsure how we would use this removeGame payload, as we want to remove a game id from
+        //currentGame path but want the object within that gameid to be available in the database under games
 
     }
     return model;
 }
 
 function updateModelFromFirebase(model) {
-    onValue(ref(db, REF+"/player"), 
+    onValue(ref(db, REF+"/users/" + model.currentUser.uid), 
     function playerChangedInFirebaseACB(firebaseData){ model.getPlayerObject(firebaseData.val());})
 ;
 
-    onValue(ref(db, REF+"/currentGame"), 
+    onValue(ref(db, REF+"/games/currentGame"), 
     function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());})
 
 
@@ -159,7 +159,7 @@ function updateModelFromFirebase(model) {
         //return getGameDetails(gameid)
     }
 
-    function addFirebaseDishACB(data){
+    function addFirebaseGameACB(data){
         function testNoDuplicatesCB(object){ 
             return object.id === +data.key };
 
@@ -168,13 +168,10 @@ function updateModelFromFirebase(model) {
         }
     }
 
-    onChildAdded(ref(db, REF+"/addGame/"), addFirebaseDishACB)
+    onChildAdded(ref(db, REF+"/games/"), addFirebaseGameACB)
     
-    onChildRemoved(ref(db, REF+"/addGame/"),
+    onChildRemoved(ref(db, REF+"/games/"),
     function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});} )
-
-    onValue(ref(db, REF+"/player"), 
-    function changeScoreFirebaseAC(firebaseData){model.setPlayerScore(firebaseData.val());})
 
     return model;
 }

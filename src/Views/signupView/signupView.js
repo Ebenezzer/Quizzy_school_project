@@ -35,7 +35,7 @@ function SignupView(props){
         <input type = {"password"} placeholder = "enter your password" onChange = {setPasswordACB} name="password" required></input>
 
         <button onClick={clickCreateAccountACB} id="addBtn">Sign Up</button>
-        <p className= "text-sm text-white text-center">Already have an account? {''} <NavLink to = "/login">Login</NavLink></p>
+        <p className= "text-sm text-white text-center">Already have an account?<NavLink to = "/login">Login</NavLink></p>
 
         </div>
 }

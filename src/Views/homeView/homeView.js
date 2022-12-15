@@ -3,6 +3,7 @@ import quizzy_icon from "../../Assets/Images/quizzy_icon.png";
 
 function HomeView(props){
     function newGameButtonOnClick(){
+        props.onNewGame()
         var model = document.getElementById('model');
         model.style.display = 'block';
     }
