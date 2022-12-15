@@ -18,7 +18,10 @@ function Home(props){
     {
      return !object.winner;
     }
-
+    function getInactiveGames(object)
+    {
+     return object.winner;
+    }
     const currentGames = [
         {
             player1: "username1",
@@ -42,7 +45,7 @@ function Home(props){
             player1: "username5",
             player2: "username1",
             currentRound: "username1",
-            winner: null
+            winner: "username1"
         }
 
     ]
@@ -51,5 +54,6 @@ function Home(props){
     <HomeView/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"}/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"}/>
+    <GameList currentGame = {currentGames.filter(getInactiveGames)}turn = {"Finished games"}/>
     </div>
 }
