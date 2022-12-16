@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom'
 export default
 function GameResults(props){
     const navigate = useNavigate();
-    const [player, setPlayer] = React.useState();  //TODO props.model...
+    const [player, setPlayer] = React.useState(props.model.currentPlayerObject);  //TODO props.model...
     const [opponent, setOpponent] = React.useState();
-    const [game, setGame] = React.useState();
+    const [game, setGame] = React.useState(props.model.currentGameObject);
 
     function observerACB(){   
-        setPlayer(/*props.model.getPlayerObject(props.model.currentPlayerId)*/);    // when notified, update state with current value in model
-        setOpponent(/*props.model.getPlayerObject(props.model.getOpponentId())*/);
-        setGame(/*props.model.getGameDetails(props.model.currentGameId)*/);
+        setPlayer(props.model.currentPlayerObject);    // when notified, update state with current value in model
+        setOpponent(/*props.model.*/);
+        setGame(props.model.currentGameObject);
     }
 
     function wasCreatedACB(){           // 1. the component has been created
@@ -25,7 +25,7 @@ function GameResults(props){
 
     function checkPlayerTurn(){
         return 1;
-        //return props.model.getGameDetails(props.model.currentGameId).turn == props.model.currentPlayerId;
+        //return props.model.currentGameObject.turn == props.model.currentPlayerObject.???
     }
     function goBackACB(){
         navigate("/home");

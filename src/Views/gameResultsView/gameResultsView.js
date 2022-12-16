@@ -69,8 +69,7 @@ function GameResultsView(props){
     function renderPlayButton(){
         /*return props.isPlayerTurn && !props.gameData.winner ?
             <button onClick={props.onClickGame} className="buttonPlay">Play</button>:null;*/
-        return true && false ?
-            <button onClick={props.onClickGame} className="buttonPlay">Play</button>:null;
+        return <button onClick={props.onClickGame} className="buttonPlay">Play</button>
     }
     
     return (
