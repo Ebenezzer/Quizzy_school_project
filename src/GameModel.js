@@ -50,7 +50,7 @@ class GameModel{
           }
     }
 
-    addGame(gameToAdd){
+    addGame(gameToAdd){ //to add game to game array and not firebase
         function testNoDuplicatesCB(object){ return object.gameId !== gameToAdd.gameId; };
 
         function testDuplicatesCB(obj){ return obj.gameId === gameToAdd.gameId; };
@@ -82,10 +82,10 @@ class GameModel{
         function notifyACB(){    
             this.notifyObservers();
             }
-        if (this.currentGameId!==gameId){
+        if (this.currentGameObject!==gameId){
             if (gameId){
-                this.currentGameId=gameId
-                this.notifyObservers({idCurrentGame: gameId})
+                this.currentGameObject=gameId
+                this.notifyObservers({currentGameObject: gameId})
                 return resolvePromise(this.getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
             }
         }

@@ -82,7 +82,6 @@ function createAccount(email, password, username){
             });
     }
 
-
 function addGamestoFirebase(user){
     const GameID = push(child(ref(db), 'games')).key;
     push(ref(db, REF+"/games/"), {                
@@ -90,7 +89,14 @@ function addGamestoFirebase(user){
         player1: user.uid,
         player2: "",
         turn: "",
-        })
+    })
+    update(ref(db, REF+"/games/currentGame"), {                
+        gameId: GameID,
+        player1: user.uid,
+        player2: "",
+        turn: "",
+    })
+    return GameID;
 }
 
 function updateUserScoreFirebase(user){
@@ -148,8 +154,8 @@ function updateFirebaseFromModel(model, userId){
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
         // to unsubscribe (similar syntax som rad 134)
 
-        if (payload && payload.idCurrentGame){
-            set(ref(db, REF+"/games/currentGame/"), model.currentGame)
+        if (payload && payload.currentGameObject){
+            set(ref(db, REF+"/games/currentGame/"), model.currentGameObject)
         } 
 
         if (payload && payload.addedGame){
