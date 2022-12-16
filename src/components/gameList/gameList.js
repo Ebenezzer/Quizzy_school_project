@@ -7,7 +7,7 @@ function GameList(props){
             window.location.hash = "gameResults"
         }
             return (
-                <div className="game-list" onClick={doOnClick}> 
+                <div className="game-list" onClick={doOnClick} key = {Math.random().toString()}> 
                     <img className="player-icon" src="https://cdn-icons-png.flaticon.com/512/706/706830.png"></img>
                     <p>{games.player1}</p>
                     <p className="vs-span"> VS </p>
