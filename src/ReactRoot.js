@@ -28,8 +28,7 @@ function ReactRoot(){
     function notifyACB(){    
         function updateFirebaseBothWaysACB(){
             if(promiseState.data){
-                updateFirebaseFromModel(promiseState.data)
-                updateModelFromFirebase(promiseState.data)
+
         }
     }
         reRender(new Object())

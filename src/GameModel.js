@@ -1,6 +1,7 @@
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 import { authChange } from "./firebase/firebaseModel";
+import { updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 
 
 
@@ -16,7 +17,6 @@ class GameModel{
         this.currentUser = undefined // to save data from firebase into
         this.currentGame = {}
         this.addAuthObserver()
-        
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
@@ -34,6 +34,7 @@ class GameModel{
     addAuthObserver(){
         function authUserACB(user){
                 this.currentUser = user;
+                updateFirebaseFromModel(this)
                 console.log("user", user)
                 this.notifyObservers({userObject : user })
             }
@@ -50,7 +51,7 @@ class GameModel{
           }
     }
 
-    addGame(gameToAdd){
+    addGame(gameToAdd){ //to add game to game array and not firebase
         function testNoDuplicatesCB(object){ return object.gameId !== gameToAdd.gameId; };
 
         function testDuplicatesCB(obj){ return obj.gameId === gameToAdd.gameId; };
@@ -91,12 +92,23 @@ class GameModel{
         }
     }
 
+    setScore(){
+        this.currentUser.score ++
+        this.notifyObservers({score: this.currentUser})
+    }
+
+    setUser(user){// call on login or create account
+        this.user = user
+        this.notifyObservers({user: this.user})
+    }
+
     setCurrentPlayer(playerId){
         //TODO this.currentPlayerId
     }
 
-    getCurrentPlayerObject(playerObject){
+    getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
+    // TODO get player information from Firebase
     }
 
     getNewQuestions(category){
@@ -117,8 +129,9 @@ class GameModel{
     }*/
 
     setPlayerObject(){
-        
     }
+
+    
 }
 
 export default GameModel;

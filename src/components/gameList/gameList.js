@@ -4,6 +4,7 @@ export default
 function GameList(props){ 
     function renderGameDetails(games){
         function doOnClick(){
+            props.onUpdateUser()
             window.location.hash = "gameResults"
         }
             return (
