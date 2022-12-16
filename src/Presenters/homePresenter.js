@@ -2,6 +2,7 @@ import React from "react";
 import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
+import { addGamestoFirebase , updateUserScoreFirebase } from "../firebase/firebaseModel";
 
 export default
 function Home(props){
@@ -26,11 +27,15 @@ function Home(props){
         }
 
     function initiateGameACB(){
-       return props.model.addGame(props.model.currentGamePromiseState.data) 
+        addGamestoFirebase(props.model.currentUser)
+        props.model.addGame(props.model.currentGamePromiseState.data) 
        // i need to send in some sort of game object(containing a game id) or game ID
         //otherwise add game function in model won't be able to do it's comparison ?
     }
-
+    
+    function updateUserScore(){
+        updateUserScoreFirebase(props.model.currentUser)
+    }
     function getMyGamesCB(object)
     { 
         return object.currentRound === "username1"; 
@@ -83,7 +88,7 @@ function Home(props){
     else { 
     return <div>
     <HomeView onNewGame = {initiateGameACB}/>
-    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"} />
+    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"} onUpdateUser = {updateUserScore}/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"}/>
     <GameList currentGame = {currentGames.filter(getInactiveGames)}turn = {"Finished games"}/>
     </div>

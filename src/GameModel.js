@@ -7,7 +7,6 @@ import { authChange } from "./firebase/firebaseModel";
 class GameModel{
     constructor(gameArray=[]){
         this.user = {}
-        this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
@@ -96,7 +95,8 @@ class GameModel{
         //TODO this.currentPlayerId
     }
 
-    getPlayerObject(playerId){
+    getPlayerCurrentObject(playerObject){
+        this.currentPlayerObject = playerObject;
     // TODO get player information from Firebase
     }
 
