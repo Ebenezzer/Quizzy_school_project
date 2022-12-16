@@ -13,7 +13,7 @@ function GameResultsView(props){
     
     function renderHeader(turn){
         return props.gameData.winner ? 
-        "" //TODO --> You won! or You lost!, add in a div with class or id with animation ex grow
+        "" //TODO --> You won! or You lost!, add in a div with class header and id end with animation ex grow
         :turn == props.playerData.playerId ? "Your turn" : "Opponents turn";
     }
     function renderTotalScore(props){
@@ -66,9 +66,15 @@ function GameResultsView(props){
         let counter = 0;
         return results.reduce(listReducerCB, []).map(renderScoresCB);
     }
+    function renderPlayButton(){
+        /*return props.isPlayerTurn && !props.gameData.winner ?
+            <button onClick={props.onClickGame} className="buttonPlay">Play</button>:null;*/
+        return <button onClick={props.onClickGame} className="buttonPlay">Play</button>
+    }
     
-    return <div className="fullPage">
-        <div className="header">Your Turn</div>
+    return (
+        <div className="fullPage">
+        <div className="header">Your Turn</div> {/*renderHeader()*/}
         <div className="gridParent">
             <div className="totalScore">
                 <div>Score</div>
@@ -94,7 +100,8 @@ function GameResultsView(props){
                 </div>
             </div>
             <button onClick={props.onClickHome} className="buttonBack">Back</button>
-            <button disabled={0} onClick={props.onClickGame} className="buttonPlay">Play</button>
+            {renderPlayButton()}
         </div>
     </div>
+    )
 }

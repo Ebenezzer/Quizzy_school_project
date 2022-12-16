@@ -6,8 +6,8 @@ import { authChange } from "./firebase/firebaseModel";
 
 class GameModel{
     constructor(gameArray=[]){
-        this.user = {}
-        this.currentGame = {}
+        this.user = {}  //samma som currentPlayerObject ?
+        this.currentGameObject = {}
         this.observers=[];
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
@@ -78,15 +78,15 @@ class GameModel{
         //TODO get game object from firebase
     }
 
-    setCurrentGame(gameId){
+    setCurrentGame(gameObject){
         function notifyACB(){    
             this.notifyObservers();
             }
-        if (this.currentGameId!==gameId){
-            if (gameId){
-                this.currentGameId=gameId
-                this.notifyObservers({idCurrentGame: gameId})
-                return resolvePromise(this.getGameDetails(gameId),this.currentGamePromiseState, notifyACB.bind(this));
+        if (this.currentGameObject!==gameObject){
+            if (gameObject){
+                this.currentGameObject=gameObject
+                this.notifyObservers({currentGame: gameObject})
+                return resolvePromise(this.getGameDetails(gameObject),this.currentGamePromiseState, notifyACB.bind(this));
             }
         }
     }
@@ -95,8 +95,8 @@ class GameModel{
         //TODO this.currentPlayerId
     }
 
-    getPlayerObject(playerId){
-    // TODO get player information from Firebase
+    getCurrentPlayerObject(playerObject){
+        this.currentPlayerObject = playerObject;
     }
 
     getNewQuestions(category){
