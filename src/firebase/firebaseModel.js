@@ -33,17 +33,12 @@ function authChange(setUser){
 }
 
 function signIn(email, password, username){ 
-                                             
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {  // export
         // Signed in 
         const user = userCredential.user;
-            set(ref(db, REF+ "/users/"+ user.uid),{
-                playerId : null,
+            set(ref(db, REF+ "/users/privateUsers/"+ user.uid),{
                 username: username,
-                score: 0,
-                games: ["game1", "game2"],
-                profilePicture: profilePic,
             })
             console.log(user);
             alert("Signed in")
@@ -56,19 +51,18 @@ function signIn(email, password, username){
         alert(errorCode)
         });
 
+        //get(child(ref(db), `users/publicUsers/${username}`))
     }
+
+
 
 function createAccount(email, password, username){
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {  // export
             // Signed in 
             const user = userCredential.user;
-                set(ref(db, REF+ "/users/"+ user.uid),{
-                    playerId : null,
+                set(ref(db, REF+ "/users/privateUsers/"+ user.uid),{
                     username: username,
-                    score: 0,
-                    games: ["game1", "game2"],
-                    profilePicture: profilePic,
                 })
                 console.log(user);
                 alert("Signed in")
@@ -82,6 +76,13 @@ function createAccount(email, password, username){
             });
     }
 
+
+
+function setPublicUserFirebase(){
+
+}
+
+
 function addGamestoFirebase(user){
     const GameID = push(child(ref(db), 'games')).key;
     push(ref(db, REF+"/games/"), {                
@@ -90,12 +91,12 @@ function addGamestoFirebase(user){
         player2: "",
         turn: "",
     })
-    update(ref(db, REF+"/games/currentGame"), {                
+/*     update(ref(db, REF+"/games/currentGame"), {                
         gameId: GameID,
         player1: user.uid,
         player2: "",
         turn: "",
-    })
+    }) */
     return GameID;
 }
 
@@ -104,9 +105,7 @@ function updateUserScoreFirebase(user){
 }
 
 function updateGameFirebase(){
-
 }
-
 
 function observerRecap(model) {
     model.addObserver(observerACB) 
@@ -138,19 +137,13 @@ function firebaseModelPromise(userId) {
 function updateFirebaseFromModel(model, userId){
     model.addObserver(observerACB)
 
-    function observerACB(payload){
-        if (payload && payload.userObject){
-            set(ref(db, REF+"/users/" + payload.userObject.uid),{
-                playerId : null,
-                username: null,
-                score: null,
-                games: [],
-                profilePicture: profilePic,
-            }) // update firebase by writing over or adding 
 
-        } //if i call on updatefirebase from model this way, can I then just remove
-        //the set function from my signup and login function above
+    function observerACB(payload){      
 
+        if (payload && payload.user){        
+            set(ref(db, REF+"/users/publicUsers/"+ payload.user.username), payload.user) // define payload for updated user object 
+        } 
+        
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
         // to unsubscribe (similar syntax som rad 134)
 
@@ -175,13 +168,23 @@ function updateFirebaseFromModel(model, userId){
         //currentGame path but want the object within that gameid to be available in the database under games
 
     }
-    return model;
+    return function (){
+        model.removeObserver(observerACB)
+    };
 }
 
 function updateModelFromFirebase(model) {
-    onValue(ref(db, REF+"/users/" + model.currentUser.uid), 
+    
+    get(child(ref(db), `users/publicUsers/${model.currentUser.username}`), 
+    function retreivedUsername(firebaseData){model.setUser(firebaseData.val());})
+
+    onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid), 
     function playerChangedInFirebaseACB(firebaseData){ model.getCurrentPlayerObject(firebaseData.val());})
 ;
+
+    onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid),
+    function playerScoreFirebaseACB(firebaseData){ model.currentUser(firebaseData.val())
+    })
 
     onValue(ref(db, REF+"/games/currentGame"), 
     function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());})
@@ -205,7 +208,7 @@ function updateModelFromFirebase(model) {
     onChildRemoved(ref(db, REF+"/games/"),
     function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});} )
 
-    return model;
+    return model //unsuscribe here too 
 }
 
 export {app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateModelFromFirebase, 

@@ -2,6 +2,8 @@ import SignupView from "../Views/signupView/signupView";
 import React from "react";
 import { useNavigate } from 'react-router-dom'
 import { createAccount} from "../firebase/firebaseModel";
+import profilePic from "../Assets/Images/woman.png"
+
 
 
 function Signup(props){
@@ -34,6 +36,12 @@ function Signup(props){
 
     function createAccountACB(){
         createAccount(email, password, username)
+        props.model.setUser({
+            username : username,
+            games: [null],
+            score: 0,
+            profilePicure: profilePic
+        })
         navigate("/home")
     }
 

@@ -1,6 +1,7 @@
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 import { authChange } from "./firebase/firebaseModel";
+import { updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 
 
 
@@ -16,7 +17,6 @@ class GameModel{
         this.currentUser = undefined // to save data from firebase into
         this.currentGame = {}
         this.addAuthObserver()
-        
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
@@ -34,6 +34,7 @@ class GameModel{
     addAuthObserver(){
         function authUserACB(user){
                 this.currentUser = user;
+                updateFirebaseFromModel(this)
                 console.log("user", user)
                 this.notifyObservers({userObject : user })
             }
@@ -91,6 +92,16 @@ class GameModel{
         }
     }
 
+    setScore(){
+        this.currentUser.score ++
+        this.notifyObservers({score: this.currentUser})
+    }
+
+    setUser(user){// call on login or create account
+        this.user = user
+        this.notifyObservers({user: this.user})
+    }
+
     setCurrentPlayer(playerId){
         //TODO this.currentPlayerId
     }
@@ -118,8 +129,9 @@ class GameModel{
     }*/
 
     setPlayerObject(){
-        
     }
+
+    
 }
 
 export default GameModel;

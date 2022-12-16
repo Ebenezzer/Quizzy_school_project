@@ -24,7 +24,12 @@ function LogIn(props){
         };  // 2. the component is being taken down 
     }
     React.useEffect(wasCreatedACB, []); 
-    
+
+    function findUserbyUsernameCB(){
+
+    }
+
+
     function observerACB(){   
         setEmail(props.model.email);    // when notified, update state with current value
         setPassword(props.model.password);
