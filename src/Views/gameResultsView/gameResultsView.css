@@ -1,5 +1,6 @@
 .fullPage{
     height: 100vh;
+    overflow: hidden;
 }
 
 .header{
