@@ -12,8 +12,8 @@ function Game(props){
     const [questionsPromiseStateError, setquestionsPromiseStateError] = useState(props.model.questionsPromiseState.error);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(null);
-    const [answers, setAnswers] = useState()
     const [roundArray, setRoundArray] = useState([]);
+    const [answers, setAnswers] = useState()
 
     function observerACB(){
         setquestionsPromiseStatePromise(props.model.questionsPromiseState.promise);
@@ -22,14 +22,13 @@ function Game(props){
         setRoundArray([])
         setCurrentAnswer(null)
         setCurrentQuestionIndex(0);
-        setAnswers(shuffleArray([props.model.questionsPromiseState.data[currentQuestionIndex].correctAnswer, ...props.model.questionsPromiseState.data[currentQuestionIndex].incorrectAnswers]))
     }
     
     function updateRoundArrayACB(currentAnswer){
-        if (currentAnswer === props.model.questions[currentQuestionIndex].correctAnswer){
+        if (currentAnswer === questionsPromiseStateData[currentQuestionIndex].correctAnswer){
             setRoundArray((roundArray)=>[...roundArray, true])
         }
-        if (currentAnswer !== props.model.questions[currentQuestionIndex].correctAnswer){
+        if (currentAnswer !== questionsPromiseStateData[currentQuestionIndex].correctAnswer){
             setRoundArray((roundArray)=>[...roundArray, false])
         }
     }
@@ -38,6 +37,7 @@ function Game(props){
         if (currentQuestionIndex<questionsPromiseStateData.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
             setCurrentAnswer(null);
+            setAnswers(null)
         }
         else{
             navigate("/gameResults")
@@ -54,6 +54,10 @@ function Game(props){
     }   
     React.useEffect( componentWasCreatedACB, [] );
 
+    if(!currentAnswer && !answers && questionsPromiseStateData){
+        setAnswers(shuffleArray([questionsPromiseStateData[currentQuestionIndex].correctAnswer, ...questionsPromiseStateData[currentQuestionIndex].incorrectAnswers]));
+    }
+
     return (<div className="wrapper">
         {promiseNoData({promise: questionsPromiseStatePromise, data:questionsPromiseStateData, error: questionsPromiseStateError})
         || <GameView question={questionsPromiseStateData[currentQuestionIndex]}
@@ -65,6 +69,6 @@ function Game(props){
             onUpdateQuestion={updateQuestionACB}
             onUpdateRoundArrayACB={updateRoundArrayACB}
             onUpdateCurrentAnswer={updateCurrentAnswerACB}
-            answers={shuffleArray([props.model.questionsPromiseState.data[currentQuestionIndex].correctAnswer, ...props.model.questionsPromiseState.data[currentQuestionIndex].incorrectAnswers])}/>}
+            answers={answers}/>}
     </div>)
 }

@@ -1,5 +1,5 @@
 #sidebar{
-    position: fixed;
+    position: absolute;
     display: flex;
     flex-direction: column;
     width: 350px;
@@ -10,6 +10,7 @@
     border-right: solid;
     background: linear-gradient(rgba(79, 148, 243), rgba(140, 105, 193));
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
+    z-index: 1;
 }
 
 #exitAndLogo{

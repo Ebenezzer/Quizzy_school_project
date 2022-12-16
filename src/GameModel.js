@@ -13,7 +13,6 @@ class GameModel{
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
         this.questionsPromiseState = {};
-        this.roundArray = [];
         this.currentUser = undefined // to save data from firebase into
         this.currentGame = {}
         this.addAuthObserver()

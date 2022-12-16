@@ -1,5 +1,6 @@
 import React from "react";
 import "./categoryView.css"
+import test from "../../Assets/Images/categoryCards/film_and_tv.png"
 
 export default
 function CategoryView(props){
@@ -8,18 +9,17 @@ function CategoryView(props){
     }
     return(
         <div className="categoryGrid">
-            <div id={props.categories[0]} className="categoryCard animate__animated animate__fadeIn" onClick={getNewQuestionsACB}>
-                {/* {props.categoryImages[props.categories[0]]} */}
-                <img src="src\Assets\Images\category cards\film_and_tv.png"></img>
+            <div id={props.categories[0]} className="categoryCard animate__animated animate__fadeIn" onClick={getNewQuestionsACB}> 
+                <img src={props.categoryImages[props.categories[0]]} className="categoryImage"></img>
             </div>
             <div id={props.categories[1]} className="categoryCard animate__animated animate__fadeIn" onClick={getNewQuestionsACB}>
-                {props.categoryImages[props.categories[1]]}
+                <img src={props.categoryImages[props.categories[1]]} className="categoryImage"></img>
             </div>
             <div id={props.categories[2]} className="categoryCard animate__animated animate__fadeIn" onClick={getNewQuestionsACB}>
-                {props.categoryImages[props.categories[2]]}
+                <img src={props.categoryImages[props.categories[2]]} className="categoryImage"></img>
             </div>
             <div id={props.categories[3]} className="categoryCard animate__animated animate__fadeIn" onClick={getNewQuestionsACB}>
-                {props.categoryImages[props.categories[3]]}
+                <img src={props.categoryImages[props.categories[3]]} className="categoryImage"></img>
             </div>
         </div>
     );
