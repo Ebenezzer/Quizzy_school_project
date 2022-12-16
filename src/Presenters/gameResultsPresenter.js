@@ -24,7 +24,8 @@ function GameResults(props){
     React.useEffect(wasCreatedACB, []); 
 
     function checkPlayerTurn(){
-        return props.model.getGameDetails(props.model.currentGameId).turn == props.model.currentPlayerId;
+        return 1;
+        //return props.model.getGameDetails(props.model.currentGameId).turn == props.model.currentPlayerId;
     }
     function goBackACB(){
         navigate("/home");
