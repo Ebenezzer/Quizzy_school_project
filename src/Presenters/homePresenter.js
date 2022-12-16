@@ -34,14 +34,11 @@ function Home(props){
     function initiateGameACB(){
        //props.model.addGame(addGamestoFirebase(props.model.currentUser))
        //props.model.setCurrentGame(addGamestoFirebase(props.model.currentUser))
-       props.model.setScore()
+       props.model.updateScore()
        // i need to send in some sort of game object(containing a game id) or game ID
         //otherwise add game function in model won't be able to do it's comparison ?
     }
-    
-    function updateUserScore(){
-        updateUserScoreFirebase(props.model.currentUser)
-    }
+
     function getMyGamesCB(object)
     { 
         return object.currentRound === "username1"; 
@@ -94,7 +91,7 @@ function Home(props){
     else { 
     return <div>
     <HomeView onNewGame = {initiateGameACB}/>
-    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"} onUpdateUser = {updateUserScore}/>
+    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"}/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"}/>
     <GameList currentGame = {currentGames.filter(getInactiveGames)}turn = {"Finished games"}/>
     </div>
