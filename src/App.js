@@ -1,8 +1,7 @@
 import './App.css';
 import GameModel from './GameModel';
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 
 const GameResults=require('./Presenters/gameResultsPresenter.js').default;
@@ -30,6 +29,7 @@ function App() {
           <Route path ="login" element= {<LogIn model = {model}/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
           <Route path ="signup" element= {<Signup model = {model}/>}/>
           <Route path ="leaderboard" element ={<Leaderboard model = {model}/>}/>
+          <Route path="" element={<Navigate to="home" />} />
         </Route>
       </Routes>
     </BrowserRouter>
