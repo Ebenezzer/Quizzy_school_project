@@ -33,11 +33,14 @@ class GameModel{
     
     addAuthObserver(){
         function authUserACB(user){
-                this.currentUser = user;
+            if(this.currentUser){
                 updateFirebaseFromModel(this)
-                console.log("user", user)
-                this.notifyObservers({userObject : user })
+                updateModelFromFirebase(this)
             }
+            this.currentUser = user;
+            console.log("user", user)
+            this.notifyObservers({userObject : user })
+        }
         authChange(authUserACB.bind(this))
         
     }
@@ -92,9 +95,10 @@ class GameModel{
         }
     }
 
-    setScore(){
-        this.currentUser.score ++
-        this.notifyObservers({score: this.currentUser})
+    updateScore(){
+        this.user.score ++;
+        console.log(this.user)
+        this.notifyObservers({score: this.user.score});
     }
 
     setUser(user){// call on login or create account

@@ -1,7 +1,7 @@
 import SignupView from "../Views/signupView/signupView";
 import React from "react";
 import { useNavigate } from 'react-router-dom'
-import { createAccount} from "../firebase/firebaseModel";
+import { createAccount, updateAccount} from "../firebase/firebaseModel";
 import profilePic from "../Assets/Images/woman.png"
 
 
@@ -15,7 +15,10 @@ function Signup(props){
     const [userSignedIn, setUserSignup] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
     React.useEffect(() => {
-        if (userSignedIn) navigate("/home");
+        if (userSignedIn) {
+            updateAccount(username)
+            navigate("/home");
+        }
       }, [userSignedIn]);
 
 
@@ -28,21 +31,20 @@ function Signup(props){
     React.useEffect(wasCreatedACB, []); 
     
     function observerACB(){   
-        setEmail(props.model.email);    // when notified, update state with current value
-        setPassword(props.model.password);
-        setUsername(props.model.username)
+        // setEmail(props.model.email);    // when notified, update state with current value
+        // setPassword(props.model.password);
+        // setUsername(props.model.username)
         setUserSignup(props.model.currentUser)
         }
 
     function createAccountACB(){
-        createAccount(email, password, username)
+        createAccount(email, password)
         props.model.setUser({
             username : username,
             games: [null],
             score: 0,
             profilePicure: profilePic
         })
-        navigate("/home")
     }
 
     function setEmailACB(emailInput){ //functionn created by me in order to keep track of the custom event
