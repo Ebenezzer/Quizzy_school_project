@@ -1,4 +1,5 @@
 .leaderboard-box {
+    font-family: "Varela Round";
     min-height: 400px;
     min-width: 500px;
     margin: 20px;
@@ -15,6 +16,8 @@
 }
 
 .podium-box {
+    font-weight: bold;
+    font-family: "Varela Round";
     pointer-events: none;
     position: absolute;
     min-width: 500px;
@@ -64,7 +67,7 @@
 }
 
 .home-button {
-    font-family: "Nunito" !important;
+    font-family: "Varela Round";
     border: none;
     background-color: #6A5AE0;
     color: white;

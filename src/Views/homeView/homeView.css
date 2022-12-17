@@ -1,8 +1,5 @@
-body {
-  font-family: "Nunito" !important;
-}
 .new-game{
-    font-family: "Nunito" !important;
+    font-family: "Varela Round";
     height: 70px;
     width: 150px;
     margin: 20px;
@@ -17,6 +14,7 @@ body {
   }
 
   .popup-model{
+    font-family: "Varela Round";
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -30,8 +28,8 @@ body {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   .modal-content {
+    font-family: "Varela Round";
     border-radius: 15px;
-    font-family: "Nunito" !important;
     background-color: rgb(239, 238, 251);
     margin: auto;
     padding: 20px;
@@ -57,7 +55,7 @@ body {
 }
 
 .btn-invite {
-  font-family: "Nunito" !important;
+  font-family: "Varela Round";
   border: none;
   background-color: #6A5AE0;
   color: rgb(255, 255, 242);
@@ -70,7 +68,7 @@ body {
   cursor: pointer;
 }
 .input-name{
-  font-family: "Nunito" !important;
+  font-family: "Varela Round";
   border:none;
   border-radius: 5px;
   height: 20px; 
@@ -81,5 +79,6 @@ body {
 }
 
 .quizzy-name {
+  font-family: "Varela Round";
   font-weight: bolder;
 }

@@ -23,7 +23,6 @@ function HomeView(props){
         <img src = {quizzy_icon} className="logo"/>
          <p className="quizzy-name">Quizzy</p>
          <button onClick={newGameButtonOnClick} className="new-game">New game</button>
-         <button onClick={props.practiceButtonOnClick} className="new-game">Practice</button>
          <div className="popup-model" id="model">
         <div className="modal-content">
          <span className="close" onClick={closeModel}>&times;</span>

@@ -1,4 +1,5 @@
 .box {
+    font-family: "Varela Round";
     display: flex;
     flex-direction: column;
     height: fit-content;

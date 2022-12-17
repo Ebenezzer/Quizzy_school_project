@@ -86,10 +86,6 @@ function Home(props){
         }
 
     ]
-     
-    function practiceButtonACB(){
-        navigate("/category");
-    }
     function practiceButtonACB(){
         navigate("/gameResults");
     }
@@ -98,7 +94,7 @@ function Home(props){
     }
     else { 
     return <div>
-    <HomeView onNewGame = {initiateGameACB} practiceButtonOnClick = {practiceButtonACB}/>
+    <HomeView onNewGame = {initiateGameACB}/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"} goToGame = {practiceButtonACB}/>
     <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"} goToGame = {practiceButtonACB}/>
     <GameList currentGame = {currentGames.filter(getInactiveGames)}turn = {"Finished games"} goToGame = {practiceButtonACB}/>
