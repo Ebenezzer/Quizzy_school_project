@@ -167,8 +167,8 @@ function updateFirebaseFromModel(model, userId){
 }
 
 function updateModelFromFirebase(model) {
-    // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.displayName), 
-    // function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val());})
+    onValue(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName), 
+    function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val());})
 
     // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid), 
     // function playerChangedInFirebaseACB(firebaseData){ model.getCurrentPlayerObject(firebaseData.val());})
