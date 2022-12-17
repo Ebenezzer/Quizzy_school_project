@@ -10,8 +10,8 @@ function GameResultsView(props){
     function renderHeader(){
         return props.gameData.winner ? 
         //TODO --> You won! or You lost!, add in a div with class header and id end with animation ex grow
-        (props.gameData.winner == props.playerData.username ? <div id="end" className="header">"You won!"</div> : <div id="end" className="header">"You lost!"</div>) :
-        (props.gameData.turn == props.playerData.username ? <div className="header">"Your turn"</div> : <div className="header">"Opponents turn"</div>);
+        (props.gameData.winner == props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
+        (props.gameData.turn == props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
     }
     function renderTotalScore(props){
         return props.gameData.score.player1.toString() + " : " + props.gameData.score.player2.toString();
