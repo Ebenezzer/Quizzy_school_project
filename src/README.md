@@ -85,8 +85,8 @@ profilePicture: png
 
 Games are saved in firebase in the form of:
 {
-player1: Individual identification of starting player,
-player2: Individual identification of second player,
+player1: starting player object,
+player2: second player object,
 turn: playerId,
 winner: playerId or null,
 currentRound: int,
