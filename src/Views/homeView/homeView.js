@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 function HomeView(props){
     function newGameButtonOnClick(){
-        props.onNewGame()
         var model = document.getElementById('model');
         model.style.display = 'block';
     }
@@ -15,7 +14,7 @@ function HomeView(props){
 
     function onInviteClick(){
         var username = document.getElementById('username').value;
-        console.log("Invite sent to: " + username);
+        props.onNewGame(username);
     }
 
     

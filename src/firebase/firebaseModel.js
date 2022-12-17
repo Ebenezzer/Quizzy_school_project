@@ -133,7 +133,7 @@ function firebaseModelPromise(userId) {
 
 function updateFirebaseFromModel(model, userId){
     model.addObserver(observerACB)
-    function observerACB(payload){      
+    function observerACB(payload){    
 
         if (payload && payload.score){        
             update(ref(db, REF + '/users/publicUsers/' + model.currentUser.displayName), {score: payload.score})// define payload for updated user object 
@@ -142,6 +142,12 @@ function updateFirebaseFromModel(model, userId){
         if (payload && payload.user){        
             set(ref(db, REF+"/users/publicUsers/"+ payload.user.username), payload.user) // define payload for updated user object 
         } 
+
+        if (payload && payload.newGame){
+            const gameId = push(ref(db, REF + '/games'), payload.newGame)
+            set(ref(db, REF+"/users/publicUsers/"+ payload.newGame.player1 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
+            set(ref(db, REF+"/users/publicUsers/"+ payload.newGame.player2 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
+        }
         
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
         // to unsubscribe (similar syntax som rad 134)

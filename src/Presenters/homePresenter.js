@@ -33,10 +33,10 @@ function Home(props){
         promisePromise(props.model.currentGamePromiseState.promise)
         }
 
-    function initiateGameACB(){
+    function initiateGameACB(username){
        //props.model.addGame(addGamestoFirebase(props.model.currentUser))
        //props.model.setCurrentGame(addGamestoFirebase(props.model.currentUser))
-       props.model.updateScore()
+       props.model.createNewGame(username)
        // i need to send in some sort of game object(containing a game id) or game ID
         //otherwise add game function in model won't be able to do it's comparison ?
     }

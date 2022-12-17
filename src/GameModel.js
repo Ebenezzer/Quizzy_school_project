@@ -104,8 +104,19 @@ class GameModel{
         this.user = user
     }
 
-    setCurrentPlayer(playerId){
-        //TODO this.currentPlayerId
+    createNewGame(username){
+        this.notifyObservers({newGame: {
+            player1: this.user.username,
+            player2: username,
+            turn: this.user.username,
+            currentRound: 1,
+            score: {
+                player1: 0,
+                player2: 0,
+            },
+            resultPlayer1: [],
+            resultPlayer2: []
+        }});
     }
 
     getPlayerCurrentObject(playerObject){
@@ -120,17 +131,12 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
 
-    updateRoundArray(roundArray){
-        this.roundArray = roundArray;
-    }
-
     /*getOpponentId(){
         return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
             getGameDetails(this.currentGameId).player1 :
             getGameDetails(this.currentGameId).player2;
     }*/
-    setPlayerObject(){
-    }
+
     setWinner(){
         function getWinner(){
             return 
