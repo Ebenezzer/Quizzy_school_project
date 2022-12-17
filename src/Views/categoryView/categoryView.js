@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryCard from "../../components/CategoryCard/categoryCard";
+import CategoryCard from "../../components/CategoryCard/categoryCard"
 import { shuffleArray } from "../../helpFunctions";
 import "./categoryView.css"
 import historyIMG from "../../Assets/Images/vecteezy_quill-writing-on-paper-cartoon-vector-icon-illustration_6096481.jpg"
