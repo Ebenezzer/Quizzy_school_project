@@ -3,9 +3,11 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { addGamestoFirebase , updateUserScoreFirebase } from "../firebase/firebaseModel";
+import { useNavigate } from 'react-router-dom'
 
 export default
 function Home(props){
+    const navigate = useNavigate();
 
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
     const [,dataFromGames] = React.useState(props.model.games)
@@ -38,7 +40,7 @@ function Home(props){
        // i need to send in some sort of game object(containing a game id) or game ID
         //otherwise add game function in model won't be able to do it's comparison ?
     }
-
+    
     function getMyGamesCB(object)
     { 
         return object.currentRound === "username1"; 
@@ -85,15 +87,21 @@ function Home(props){
 
     ]
      
+    function practiceButtonACB(){
+        navigate("/category");
+    }
+    function practiceButtonACB(){
+        navigate("/gameResults");
+    }
     if(!userLoggedIn){
         return <NoUserView/>
     }
     else { 
     return <div>
-    <HomeView onNewGame = {initiateGameACB}/>
-    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"}/>
-    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"}/>
-    <GameList currentGame = {currentGames.filter(getInactiveGames)}turn = {"Finished games"}/>
+    <HomeView onNewGame = {initiateGameACB} practiceButtonOnClick = {practiceButtonACB}/>
+    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getMyGamesCB)} turn = {"Your turn"} goToGame = {practiceButtonACB}/>
+    <GameList currentGame = {currentGames.filter(getActiveGames).filter(getOpponentsGamesCB)} turn = {"Opponent's turn"} goToGame = {practiceButtonACB}/>
+    <GameList currentGame = {currentGames.filter(getInactiveGames)}turn = {"Finished games"} goToGame = {practiceButtonACB}/>
     </div>
     }
 }
