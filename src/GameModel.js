@@ -38,7 +38,7 @@ class GameModel{
                 updateFirebaseFromModel(this)
                 updateModelFromFirebase(this)
             }
-            this.notifyObservers({})
+            this.notifyObservers()
         }
         authChange(authUserACB.bind(this))
     }
@@ -80,16 +80,11 @@ class GameModel{
         //TODO get game object from firebase
     }
 
-    setCurrentGame(gameObject){
-        function notifyACB(){    
+    setCurrentGame(game){
+        debugger       
+        if (game && this.currentGame!==game){
+            this.currentGame=game
             this.notifyObservers();
-            }
-        if (this.currentGame!==gameObject){
-            if (gameObject){
-                this.currentGame=gameObject
-                this.notifyObservers({currentGame: gameObject})
-                return resolvePromise(this.getGameDetails(gameObject),this.currentGamePromiseState, notifyACB.bind(this));
-            }
         }
     }
 

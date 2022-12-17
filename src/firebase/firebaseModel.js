@@ -147,6 +147,7 @@ function updateFirebaseFromModel(model, userId){
             const gameId = push(ref(db, REF + '/games'), payload.newGame)
             set(ref(db, REF+"/users/publicUsers/"+ payload.newGame.player1 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
             set(ref(db, REF+"/users/publicUsers/"+ payload.newGame.player2 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
+            model.setCurrentGame(payload.newGame)
         }
         
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel

@@ -37,6 +37,7 @@ function Home(props){
        //props.model.addGame(addGamestoFirebase(props.model.currentUser))
        //props.model.setCurrentGame(addGamestoFirebase(props.model.currentUser))
        props.model.createNewGame(username)
+       navigate('/gameResults')
        // i need to send in some sort of game object(containing a game id) or game ID
         //otherwise add game function in model won't be able to do it's comparison ?
     }
