@@ -3,11 +3,9 @@ import resolvePromise from "./resolvePromise";
 import { authChange } from "./firebase/firebaseModel";
 import { updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 
-
-
 class GameModel{
     constructor(gameArray=[]){
-        this.user = {}  //samma som currentPlayerObject ?
+        this.user = {}  //samma som currentPlayerObject och currentUser?
         this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
@@ -116,7 +114,7 @@ class GameModel{
 
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
-    // TODO get player information from Firebase
+
     }
 
     getNewQuestions(category){
@@ -126,11 +124,10 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
 
-    /*getOpponentId(){
-        return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
-            getGameDetails(this.currentGameId).player1 :
-            getGameDetails(this.currentGameId).player2;
-    }*/
+    getOpponent(opponent){
+        //returns the player object of the opponent
+        //return this.opponent
+    }
 
     setWinner(){
         function getWinner(){
