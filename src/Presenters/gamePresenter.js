@@ -40,6 +40,8 @@ function Game(props){
             setAnswers(null)
         }
         else{
+            //todo matilda takeover
+            console.log(roundArray)
             navigate("/gameResults")
         }
     }
