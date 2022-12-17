@@ -177,6 +177,10 @@
     font-family: 'Varela Round', sans-serif;
     font-weight: bold;
 }
+#singleButton{
+    grid-column: 3;
+    grid-row: 7;
+}
 
 .alignLeft{
     text-align: left;

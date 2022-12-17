@@ -1,7 +1,7 @@
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut, getAuth, updateProfile} from "firebase/auth";
 import {initializeApp} from "firebase/app";
 import {getDatabase, ref, set, get, onChildAdded, onChildRemoved, onValue, child, push, off, update} from "firebase/database";
-import firebaseConfig from "./firebaseConfig";
+import firebaseConfig from "../firebaseConfig";
 import GameModel from "../GameModel";
 import profilePic from "../Assets/Images/profile_pic.png"
 
