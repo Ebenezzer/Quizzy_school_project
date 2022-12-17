@@ -131,11 +131,15 @@ class GameModel{
             getGameDetails(this.currentGameId).player1 :
             getGameDetails(this.currentGameId).player2;
     }*/
-
     setPlayerObject(){
     }
-
-    
+    setWinner(){
+        function getWinner(){
+            return 
+        }
+        //this.currentGameObject.winner = getWinner();
+        //this.notifyObservers({winner: winner});  // payload?
+    }
 }
 
 export default GameModel;

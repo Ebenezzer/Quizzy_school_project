@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 export default
 function GameResults(props){
     const navigate = useNavigate();
-    const [player, setPlayer] = React.useState(props.model.currentPlayerObject);  //TODO props.model...
-    const [opponent, setOpponent] = React.useState();
+    const [player, setPlayer] = React.useState(props.model.currentPlayerObject);  
+    const [opponent, setOpponent] = React.useState();  //TODO props.model...
     const [game, setGame] = React.useState(props.model.currentGameObject);
 
     function observerACB(){   
@@ -27,6 +27,9 @@ function GameResults(props){
         return 1;
         //return props.model.currentGameObject.turn == props.model.currentPlayerObject.???
     }
+    function checkGameFinished(){
+        //TODO check if length of resultlists for pl.2 is 5 and run setWinner in model, return truthy (finished) or falsy
+    }
     function goBackACB(){
         navigate("/home");
     }
@@ -38,7 +41,8 @@ function GameResults(props){
         playerData={player} 
         opponentData={opponent} 
         gameData={game} 
-        isPlayerTurn={checkPlayerTurn} 
+        isPlayerTurn={checkPlayerTurn}
+        isGameFinished={checkGameFinished} 
         onClickHome={goBackACB}
         onClickGame={startGameACB}
         />;

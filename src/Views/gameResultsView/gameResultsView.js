@@ -12,6 +12,7 @@ function GameResultsView(props){
     const currentRound = 2;
     
     function renderHeader(turn){
+        
         return props.gameData.winner ? 
         "" //TODO --> You won! or You lost!, add in a div with class header and id end with animation ex grow
         :turn == props.playerData.playerId ? "Your turn" : "Opponents turn";
