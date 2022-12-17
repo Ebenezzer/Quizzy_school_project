@@ -9,7 +9,6 @@ function LogIn(props){
     const navigate = useNavigate();
     const [email, setEmail ] = React.useState(props.model.email) // definiera email och password i modelen/application state för att kunna ändra det här
     const [password, setPassword] = React.useState(props.model.password)
-    const [username, setUsername] = React.useState(props.model.username)
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
     React.useEffect(() => {
@@ -25,20 +24,14 @@ function LogIn(props){
     }
     React.useEffect(wasCreatedACB, []); 
 
-    function findUserbyUsernameCB(){
-
-    }
-
-
     function observerACB(){   
         setEmail(props.model.email);    // when notified, update state with current value
         setPassword(props.model.password);
-        setUsername(props.model.username)
         setUserLogin(props.model.currentUser)
         }
 
     function signInACB(){
-        signIn(email, password, username)
+        signIn(email, password)
         //  should I be using resolvePromise here in order to take care of the rendering/firebase issues that might come with unauth user
         navigate("/home")
     }
@@ -51,13 +44,9 @@ function LogIn(props){
         setPassword(passwordInput)
     }
 
-    function setUsernameACB(usernameInput){
-        setUsername(usernameInput)
-    }
-
     return <div>
             <LoginView onLogin = {signInACB} 
-            sendEmail = {setEmailACB} sendPassword = {setPasswordACB} sendUsername = {setUsernameACB}/>
+            sendEmail = {setEmailACB} sendPassword = {setPasswordACB}/>
     </div>
 }
 // observer function to check if an user is signed out or logged in before showcasing the page

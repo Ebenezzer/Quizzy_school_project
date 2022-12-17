@@ -35,7 +35,7 @@ function LeaderboardView(props){
          {player.score} points</span>
         </div>
    }
-   debugger
+
    return( <div className="leaderboard-podium-box">
          <img src={leaderboard} className="leaderboard-image"/>
          <div className = "podium-box">

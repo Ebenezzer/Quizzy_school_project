@@ -37,14 +37,14 @@ export default function SidebarView(props) {
                 <RxHamburgerMenu/>
             </div>
             <div id='sidebar' className={props.showSidebarClass}>
-                <div id='exitAndLogo' className='sidebarContent'>
-                    <AiOutlineClose onClick={deactivateSidebarACB}/>
+                <div id='exitAndLogo'>
+                    <AiOutlineClose onClick={deactivateSidebarACB} id="exit"/>
                 </div>
                 <div id='home' className='sidebarContent' onClick={redirectHomeACB}><AiOutlineHome/>Home</div>
                 {/* <div id='play' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><MdOutlineQuiz/>Play</div>
                 <div id='practice' className='sidebarContent' onClick={()=>{window.location.hash="#home"; setShowSidebar(false)}}><BiBrain/>Practice</div> */}
                 <div id='leaderboard' className='sidebarContent' onClick={redirectLeaderboardACB}><MdOutlineLeaderboard/>Leaderboard</div>
-                <div id='signout' className='sidebarContent' onClick={()=>{signingOut(redirectLoginACB)}}>Sign Out</div>
+                <div id='signout' onClick={()=>{signingOut(redirectLoginACB)}}>Sign Out</div>
             </div>
             <Outlet/> {/* all the children to Sidebar should be rendered here*/}
         </div>

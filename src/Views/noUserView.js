@@ -1,14 +1,26 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 
 function NoUserView(props){
-    return <div>
-        <p> You're not logged in!</p>
+    const navigate = useNavigate();
+    function navigateToSignupACB(){
+        navigate("/signup");
+    }
 
-        <NavLink to = "/login">Login</NavLink>
-        <br></br>
-        <NavLink to = "/signup">Sign up</NavLink>
+    function navigateToLoginACB(){
+        navigate("/login");
+    }
+
+    return <div className="container">
+        <div id="contentCard">
+            <p> You're not logged in!</p>
+
+            <button onClick={navigateToLoginACB} id="addBtn">Log In</button>
+            <br></br>
+            <button onClick={navigateToSignupACB} id="addBtn">Sign Up</button>
+        </div>
     </div>
 }
 

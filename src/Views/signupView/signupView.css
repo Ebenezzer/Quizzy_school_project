@@ -1,7 +1,18 @@
 .container{
-    padding: 20px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+#contentCard{
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 3%;
+  width: 60%;
+  height: 80%; 
+  padding: 40px;
+}
 
 input[type=email], input[type=password], input[type=username]{
     width: 100%;

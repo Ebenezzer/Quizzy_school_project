@@ -16,7 +16,17 @@
 
 #exitAndLogo{
     height: 70px;
+    display: flex;
+    border-bottom: 2px solid;
+    transition: 200ms;
+    width: 96%;
+    justify-content: start;
+    align-items: center;
+    padding: 2%;
+}
 
+#exit:hover{
+    cursor: pointer;
 }
 
 .sidebarContent{
@@ -24,10 +34,10 @@
     height: 50px;
     border-bottom: 2px solid;
     transition: 200ms;
-    width: 100%;
+    width: 96%;
     justify-content: start;
     align-items: center;
-
+    padding: 2%;
 }
 
 .sidebarContent:hover{
@@ -50,8 +60,19 @@
     left: 20px;
     top: 20px;
     font-size: xx-large;
+    z-index: 1;
 }
 
 #hamburgerButton:hover{
+    cursor: pointer;
+}
+
+#signout{
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
+}
+
+#signout:hover{
     cursor: pointer;
 }

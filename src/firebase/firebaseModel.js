@@ -63,12 +63,18 @@ function updateAccount(username){
     });
 }
 
-function createAccount(email, password){
-    createUserWithEmailAndPassword(auth, email, password)
+function createAccount(email, password, username){
+    createUserWithEmailAndPassword(auth, email, password, username)
         .then((userCredential) => {  // export
             // Signed in 
             const user = userCredential.user;
             console.log("created account")
+            set(ref(db, REF+"/users/publicUsers/"+ username), {
+                username : username,
+                games: [null],
+                score: 0,
+                profilePicure: profilePic
+            })
         })
         .catch((error) => {
             const errorCode = error.code;

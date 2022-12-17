@@ -35,13 +35,7 @@ function Signup(props){
         }
 
     function createAccountACB(){
-        createAccount(email, password)
-        props.model.setUser({
-            username : username,
-            games: [null],
-            score: 0,
-            profilePicure: profilePic
-        })
+        createAccount(email, password, username)
     }
 
     function setEmailACB(emailInput){ //functionn created by me in order to keep track of the custom event
