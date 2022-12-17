@@ -31,9 +31,6 @@ function Signup(props){
     React.useEffect(wasCreatedACB, []); 
     
     function observerACB(){   
-        // setEmail(props.model.email);    // when notified, update state with current value
-        // setPassword(props.model.password);
-        // setUsername(props.model.username)
         setUserSignup(props.model.currentUser)
         }
 

@@ -11,9 +11,6 @@ export default function Sidebar() {
     function redirecthomeACB(){
         navigate ("/home")
     }
-    function redirectLoginACB(){
-        navigate ("/login")
-    }
     function redirectLeaderboardACB(){
         navigate ("/leaderboard")
     }
@@ -26,10 +23,8 @@ export default function Sidebar() {
     return (
         <div>
             <SidebarView onRedirectHome={redirecthomeACB}
-            onRedirectlogin={redirectLoginACB}
             onRedirectLeaderboard={redirectLeaderboardACB}
             showSidebarClass={showSidebarClass}
-            hi="hi"
             onActivateSidebar={activateSidebarACB}
             onDeactivateSidebar={deactivateSidebarACB}/>
         </div>

@@ -13,10 +13,11 @@ export default function SidebarView(props) {
         props.onRedirectHome();
         props.onDeactivateSidebar();
     }
+    
     function redirectLoginACB() {
-        props.onRedirectLogin();
         props.onDeactivateSidebar();
     }
+
     function redirectLeaderboardACB() {
         props.onRedirectLeaderboard();
         props.onDeactivateSidebar();

@@ -33,16 +33,13 @@ class GameModel{
     
     addAuthObserver(){
         function authUserACB(user){
-            if(this.currentUser){
-                updateFirebaseFromModel(this)
-                updateModelFromFirebase(this)
-            }
             this.currentUser = user;
+            updateFirebaseFromModel(this)
+            updateModelFromFirebase(this)
             console.log("user", user)
-            this.notifyObservers({userObject : user })
+            this.notifyObservers({})
         }
         authChange(authUserACB.bind(this))
-        
     }
 
     notifyObservers(payload){

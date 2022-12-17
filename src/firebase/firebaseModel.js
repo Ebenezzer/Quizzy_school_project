@@ -36,6 +36,7 @@ function signIn(email, password){
         .then((userCredential) => {  // export
         // Signed in 
         const user = userCredential.user;
+        console.log("signed in")
         // ...
         })
         .catch((error) => {
@@ -50,7 +51,6 @@ function signIn(email, password){
 
 function updateAccount(username){
     const auth = getAuth();
-    debugger
     updateProfile(auth.currentUser, {
         displayName: username
     }).then(() => {
@@ -68,6 +68,7 @@ function createAccount(email, password){
         .then((userCredential) => {  // export
             // Signed in 
             const user = userCredential.user;
+            console.log("created account")
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -129,7 +130,7 @@ function updateFirebaseFromModel(model, userId){
     function observerACB(payload){      
 
         if (payload && payload.score){        
-            update(ref(db, REF + '/users/publicUsers' + model.currentUser.displayName), {score: payload.score})// define payload for updated user object 
+            update(ref(db, REF + '/users/publicUsers/' + model.currentUser.displayName), {score: payload.score})// define payload for updated user object 
         } 
 
         if (payload && payload.user){        
@@ -166,9 +167,8 @@ function updateFirebaseFromModel(model, userId){
 }
 
 function updateModelFromFirebase(model) {
-    
-    get(child(ref(db), `users/publicUsers/${model.currentUser.displayName}`), 
-    function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val());})
+    // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.displayName), 
+    // function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val());})
 
     // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid), 
     // function playerChangedInFirebaseACB(firebaseData){ model.getCurrentPlayerObject(firebaseData.val());})
