@@ -1,6 +1,5 @@
 import "./homeView.css"
 import quizzy_icon from "../../Assets/Images/q_icon.png";
-import { useNavigate } from 'react-router-dom'
 
 function HomeView(props){
     function newGameButtonOnClick(){
@@ -15,6 +14,7 @@ function HomeView(props){
     function onInviteClick(){
         var username = document.getElementById('username').value;
         props.onNewGame(username);
+        console.log(props.model.games)
     }
 
     

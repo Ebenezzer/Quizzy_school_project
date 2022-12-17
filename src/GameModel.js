@@ -63,6 +63,10 @@ class GameModel{
         }
     }
     
+    addGameToModel(game){
+        this.games = [...this.games,game];
+        this.notifyObservers();
+    }
     removeGame(gameToRemove){
         function isNotInGamesCB(obj){ 
             return gameToRemove.gameId !== obj.gameId};
@@ -81,7 +85,6 @@ class GameModel{
     }
 
     setCurrentGame(game){
-        debugger       
         if (game && this.currentGame!==game){
             this.currentGame=game
             this.notifyObservers();
