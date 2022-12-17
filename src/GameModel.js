@@ -5,7 +5,7 @@ import resolvePromise from "./resolvePromise";
 class GameModel{
     constructor(gameArray=[]){
         this.user = {}  //samma som currentPlayerObject ?
-        this.currentGameObject = {}
+        this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
@@ -65,9 +65,9 @@ class GameModel{
         function notifyACB(){    
             this.notifyObservers();
             }
-        if (this.currentGameObject!==gameObject){
+        if (this.currentGame!==gameObject){
             if (gameObject){
-                this.currentGameObject=gameObject
+                this.currentGame=gameObject
                 this.notifyObservers({currentGame: gameObject})
                 return resolvePromise(this.getGameDetails(gameObject),this.currentGamePromiseState, notifyACB.bind(this));
             }
