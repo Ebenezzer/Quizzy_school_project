@@ -6,9 +6,9 @@ function GameList(props){
             return (
                 <div className="game-list" onClick={props.goToGame} key = {Math.random().toString()}> 
                     <img className="player-icon" src="https://cdn-icons-png.flaticon.com/512/706/706830.png"></img>
-                    <p>{games.player1}</p>
+                    <p>{games.info.player1}</p>
                     <p className="vs-span"> VS </p>
-                    <p>{games.player2}</p>
+                    <p>{games.info.player2}</p>
                     <img className="player-icon" src="https://cdn-icons-png.flaticon.com/512/4128/4128176.png"></img>
                 </div>
             )

@@ -63,10 +63,11 @@ class GameModel{
         }
     }
     
-    addGameToModel(game){
-        this.games = [...this.games,game];
-        this.notifyObservers();
+    addGameToModel(gameID, gameInfo){
+        this.notifyObservers({games: this.games});
+        this.games.push({ID:gameID, info:gameInfo})
     }
+    
     removeGame(gameToRemove){
         function isNotInGamesCB(obj){ 
             return gameToRemove.gameId !== obj.gameId};

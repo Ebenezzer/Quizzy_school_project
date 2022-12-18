@@ -14,7 +14,6 @@ function HomeView(props){
     function onInviteClick(){
         var username = document.getElementById('username').value;
         props.onNewGame(username);
-        console.log(props.model.games)
     }
 
     

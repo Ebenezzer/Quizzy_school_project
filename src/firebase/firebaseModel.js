@@ -1,6 +1,6 @@
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut, getAuth, updateProfile} from "firebase/auth";
 import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, onChildAdded, onChildRemoved, onValue, child, push, off, update} from "firebase/database";
+import {getDatabase, ref, set, get, onChildAdded, onChildRemoved, onValue, child, push, off, update, query, orderByChild, orderByKey, orderByValue} from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 import profilePic from "../Assets/Images/profile_pic.png"
@@ -183,8 +183,17 @@ function updateModelFromFirebase(model) {
     onValue(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName), 
     function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val());})
     
-    onValue(ref(db, REF+"/games/"), 
-    function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.key)})
+    //onChildAdded(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName + "/games/"), 
+    //function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.val());})
+
+    onChildAdded(query(ref(db, REF+"/games/"), orderByValue(model.currentUser.displayName)), 
+    function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.key,firebaseData.val())})
+    
+    
+    
+    
+    //const myGamesIds = query(ref(db, REF + "/user/publicUsers/" + model.currentUser.displayName + "/games/"))
+    //const myGames = query(ref(db, REF+"/games/"), orderByChild(myGamesIds))
 
 
     // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid), 
