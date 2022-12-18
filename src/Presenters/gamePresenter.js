@@ -26,10 +26,10 @@ function Game(props){
     
     function updateRoundArrayACB(currentAnswer){
         if (currentAnswer === questionsPromiseStateData[currentQuestionIndex].correctAnswer){
-            setRoundArray((roundArray)=>[...roundArray, true])
+            setRoundArray((roundArray)=>[...roundArray, "correct"])
         }
         if (currentAnswer !== questionsPromiseStateData[currentQuestionIndex].correctAnswer){
-            setRoundArray((roundArray)=>[...roundArray, false])
+            setRoundArray((roundArray)=>[...roundArray, "incorrect"])
         }
     }
 
@@ -41,6 +41,7 @@ function Game(props){
         }
         else{
             //todo matilda takeover
+            props.model.updateResult(roundArray)
             console.log(roundArray)
             navigate("/gameResults")
         }
@@ -48,6 +49,7 @@ function Game(props){
 
     function updateCurrentAnswerACB(answer) {
         setCurrentAnswer(answer)
+        updateRoundArrayACB(answer) //TODO fråga david om plan, byt namn ta bort ACB?
     }
 
     function componentWasCreatedACB(){   //   1. the component has been created

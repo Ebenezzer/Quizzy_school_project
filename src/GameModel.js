@@ -13,7 +13,6 @@ class GameModel{
         this.currentGamePromiseState = {};
         this.questionsPromiseState = {};
         this.currentUser = undefined // to save data from firebase into
-        this.currentGame = {}
         this.addAuthObserver()
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
@@ -116,10 +115,9 @@ class GameModel{
             resultPlayer2: []
         }});
     }
-
+    //TODO samma som setUser?
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
-
     }
 
     getNewQuestions(category){
@@ -135,12 +133,14 @@ class GameModel{
     }
 
     setWinner(){
-        function getWinner(){
-            return 
-        }
-        //this.currentGameObject.winner = getWinner();
-        //this.notifyObservers({winner: winner});  // payload?
+        //TODO
+        /*this.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
+            this.currentGame.player1 : this.currentGame.player2;
+        this.notifyObservers({winner: this.winner});*/
+        this.notifyObservers({winner:"winner"})
     }
+    
+
 }
 
 export default GameModel;
