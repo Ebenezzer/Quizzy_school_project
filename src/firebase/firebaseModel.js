@@ -76,7 +76,7 @@ function createAccount(email, password, username){
                     username : username,
                     games: [null],
                     score: 0,
-                    profilePicure: profilePic
+                    profilePicureSrc: "https://cdn-icons-png.flaticon.com/128/4128/4128176.png"
                 })
 
                 //ska vi inte också setta private users också i databasen eller behövr vi inte det längre
@@ -157,6 +157,7 @@ function updateFirebaseFromModel(model, userId){
             set(ref(db, REF+"/users/publicUsers/"+ payload.newGame.player1 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
             set(ref(db, REF+"/users/publicUsers/"+ payload.newGame.player2 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
             model.setCurrentGame(payload.newGame)
+            model.setCurrentGameId(gameId._path.pieces_[2])
         }
         
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
@@ -164,16 +165,6 @@ function updateFirebaseFromModel(model, userId){
 
         if (payload && payload.currentGame){
             set(ref(db, REF+"/games/currentGame/"), model.currentGame)
-        } 
-
-        if (payload && payload.addedGame){
-            const GameID = push(child(ref(db), 'games')).key;
-            push(ref(db, REF+"/games/"), {                
-                gameId: GameID,
-                player1: userId.uid,
-                player2: "",
-                turn: "",
-                })
         } 
         // create key values pairs mapping username : uid (not good for security)
 
@@ -185,6 +176,9 @@ function updateFirebaseFromModel(model, userId){
         if (payload && payload.winner){        
             update(ref(db, REF + '/games/' + model.currentGame.gameId), {winner: payload.winner})
         } 
+        if (payload && payload.updatedGame){
+            update(ref(db, REF + '/games/' + model.currentGameId), payload.updatedGame)
+        }
 
     }
     return function (){

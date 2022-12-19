@@ -1,12 +1,9 @@
 import "./gameResultsView.css"
-import profilePicMan from "../../Assets/Images/man.png"
-import profilePicWoman from "../../Assets/Images/woman.png"
 import correct from "../../Assets/Images/correct.png"
 import incorrect from "../../Assets/Images/incorrect.png"
 
 export default
 function GameResultsView(props){
-
     function renderHeader(){
         //TODO add tie
         return props.gameData.winner ? 
@@ -15,8 +12,10 @@ function GameResultsView(props){
     }
     function renderProfilePic(playerNum){
         return props.playerData.username==props.gameData[playerNum] ? 
-            <img src={props.playerData.profilePicture} widht="55" height="55" alt="text"/> : 
-            <img src={props.opponentData.profilePicture} widht="55" height="55" alt="text"/>
+            <img src={props.playerData.profilePictureSrc} widht="55" height="55"/> : 
+            <img src={props.opponentData.profilePictureSrc} widht="55" height="55"/>
+            /*<img src="https://cdn-icons-png.flaticon.com/128/4128/4128176.png" widht="55" height="55"/> : 
+            <img src="https://cdn-icons-png.flaticon.com/128/4128/4128176.png" widht="55" height="55"/>*/
     }
     function renderPlayerName(name){
         return <div className="name">{name}</div>
@@ -66,16 +65,14 @@ function GameResultsView(props){
     }
     function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
-        return <button onClick={goToGameACB} className="buttonPlay">Play</button>;
-        /*return props.playerData.username == props.gameData.turn ?
-            <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;*/
+        return props.playerData.username == props.gameData.turn ?
+            <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
     }
     function goBackACB(){props.onClickHome()}
     function renderBackButton(){
-        return <button onClick={goBackACB} className="buttonBack">Back</button>
-        /*return props.playerData.username == props.gameData.turn ?
+        return props.playerData.username == props.gameData.turn ?
             <button onClick={goBackACB} className="buttonBack">Back</button>:
-            <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>*/
+            <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
         }
     
     return (

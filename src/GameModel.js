@@ -7,8 +7,9 @@ import { updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent } 
 
 class GameModel{
     constructor(gameArray=[]){
-        this.user = {}  //samma som currentPlayerObject ?
-        this.currentGame = {}
+        this.user = {};  //samma som currentPlayerObject ?
+        this.currentGame = {};
+        this.currentGameId = "";
         this.observers=[];
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
@@ -17,7 +18,7 @@ class GameModel{
         this.currentUser = undefined; // to save data from firebase into
         this.addAuthObserver();
         this.roundResults=[];
-        this.currentOpponent = {}
+        this.currentOpponent = {};
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
@@ -141,23 +142,37 @@ class GameModel{
 
     updateResults(playerNr){
         function checkAnswerCB(sum, answer){
-            return answer === "correct" ? sum+1 : sum; }
+            return answer === "correct" ? sum+1 : sum; 
+        }
         if (playerNr === "player1"){
             this.currentGame.resultPlayer1=[...this.currentGame.resultPlayer1, this.roundResults]
-            this.currentGame.score.player1+=this.roundResults.reduce(checkAnswerCB, 0)}
+            this.currentGame.score.player1+=this.roundResults.reduce(checkAnswerCB, 0)
+        }
         if (playerNr === "player2"){
             this.currentGame.resultPlayer2=[...this.currentGame.resultPlayer2, this.roundResults]
-            this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)}
+            this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)
+        }
         if (this.currentGame.resultPlayer2.length === 5){
-            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
-                this.currentGame.player1 :this.currentGame.player2;}
+            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 :this.currentGame.player2;
+            if (this.currentGame.winner == this.user.username){
+                this.updateScore();
+            }
+        }
         if (this.currentGame.resultPlayer1.length === this.currentGame.resultPlayer2.length){
-            this.currentGame.currentRound++ ;}
+            this.currentGame.currentRound++ ;
+        }
         if (this.currentGame.resultPlayer1.length !== this.currentGame.resultPlayer2.length){
-            this.currentGame.turn = playerNr === "player1" ? this.currentGame.player2 : this.currentGame.player1}
+            this.currentGame.turn = playerNr === "player1" ? this.currentGame.player2 : this.currentGame.player1
+        }
         this.roundResults = [];
-        console.log(this.currentGame)
-    }  
+        this.updateGame();
+    } 
+    setCurrentGameId(gameId){
+        this.currentGameId=gameId;
+    }
+    updateGame(){
+        this.notifyObservers({updatedGame : this.currentGame})
+    }
 }
 
 export default GameModel;
