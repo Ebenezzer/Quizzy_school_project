@@ -1,6 +1,6 @@
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut, getAuth, updateProfile} from "firebase/auth";
 import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, onChildAdded, onChildRemoved, onValue, child, push, off, update} from "firebase/database";
+import {getDatabase, ref, set, get, onChildAdded, onChildRemoved, onValue, child, push, off, update, query, orderByChild, equalTo} from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 import profilePic from "../Assets/Images/profile_pic.png"
@@ -64,24 +64,38 @@ function updateAccount(username){
 }
 
 function createAccount(email, password, username){
-    createUserWithEmailAndPassword(auth, email, password, username)
-        .then((userCredential) => {  // export
-            // Signed in 
-            const user = userCredential.user;
-            console.log("created account")
-            set(ref(db, REF+"/users/publicUsers/"+ username), {
-                username : username,
-                games: [null],
-                score: 0,
-                profilePicure: profilePic
+    const userREF = query(ref(db, REF + "/users/publicUsers/"),orderByChild("username"), equalTo(username))
+    onValue(userREF, function (snapshot){
+        if (snapshot.val() === null) {
+            createUserWithEmailAndPassword(auth, email, password, username)
+            .then((userCredential) => {  // export
+                // Signed in 
+                const user = userCredential.user;
+                console.log("created account")
+                set(ref(db, REF+"/users/publicUsers/"+ username), {
+                    username : username,
+                    games: [null],
+                    score: 0,
+                    profilePicure: profilePic
+                })
+
+                //ska vi inte också setta private users också i databasen eller behövr vi inte det längre
             })
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode,errorMessage)
-            alert(errorCode)
-        });
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode,errorMessage)
+                alert(errorCode)
+            });
+        }
+        else{
+            const errorUsername = "This username is already being used!"
+            console.log(errorUsername)
+            alert(errorUsername)
+        }
+    }
+    )
+
 }
 
 function addGamestoFirebase(user){
