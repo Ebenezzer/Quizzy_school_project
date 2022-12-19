@@ -53,4 +53,4 @@ function GameView(props){
             </div>
         </div>
     );
-}    
+}   

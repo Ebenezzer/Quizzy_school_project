@@ -79,7 +79,7 @@ function GameResultsView(props){
             props.onWinner();
         }   
     }
-    //TODO checkGameFinished();
+    
     return (
         <div className="fullPage">
         {renderHeader()}

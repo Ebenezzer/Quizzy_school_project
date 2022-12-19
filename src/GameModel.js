@@ -14,8 +14,9 @@ class GameModel{
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
         this.questionsPromiseState = {};
-        this.currentUser = undefined // to save data from firebase into
-        this.addAuthObserver()
+        this.currentUser = undefined; // to save data from firebase into
+        this.addAuthObserver();
+        this.roundResults=[];
         this.currentOpponent = {}
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
@@ -132,12 +133,7 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
 
-    /*getOpponentId(){
-        return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
-            getGameDetails(this.currentGameId).player1 :
-            getGameDetails(this.currentGameId).player2;
-    }*/
-
+    
     setWinner(){
         //TODO
         /*this.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
@@ -145,8 +141,21 @@ class GameModel{
         this.notifyObservers({winner: this.winner});*/
         this.notifyObservers({winner:"winner"})
     }
-    
-
+    updateResults(playerNr){
+        if (playerNr === "player1"){
+            this.currentGame.resultPlayer1=[...this.currentGame.resultPlayer1, this.roundResults]}
+        if (playerNr === "player2"){
+            this.currentGame.resultPlayer2=[...this.currentGame.resultPlayer2, this.roundResults]}
+        if (this.currentGame.resultPlayer2.length === 5){
+            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
+                this.currentGame.player1 :this.currentGame.player2;}
+        if (this.currentGame.resultPlayer1 === this.currentGame.resultPlayer2){
+            this.currentGame.currentRound++ ;}
+        if (this.currentGame.resultPlayer1 !== this.currentGame.resultPlayer2){
+            this.currentGame.turn = playerNr === "player1" ? this.currentGame.player2 : this.currentGame.player1}
+        this.roundResults = [];
+        console.log(this.currentGame)
+    }  
 }
 
 export default GameModel;

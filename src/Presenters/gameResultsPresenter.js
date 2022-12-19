@@ -37,8 +37,9 @@ export default
 function GameResults(props){
     const navigate = useNavigate();
     const [player, setPlayer] = React.useState(props.model.user);  
-    const [opponent, setOpponent] = React.useState(props.model.getOpponent);
+    const [opponent, setOpponent] = React.useState(props.model.currentOpponent);
     const [game, setGame] = React.useState(props.model.currentGame);
+    const [winner, setWinner] = React.useState(props.model.winner);
 
     function observerACB(){   
         setPlayer(props.model.user);    // when notified these will update states with current value in model
@@ -60,9 +61,6 @@ function GameResults(props){
     function startGameACB(){
         navigate("/category");
     }
-    function setWinner(){
-        props.model.setWinner();
-    }
     
     return <GameResultsView 
         /*playerData={player}  //TODO
@@ -71,7 +69,6 @@ function GameResults(props){
         playerData={exampleUser} 
         opponentData={exampleOpponent} 
         gameData={exampleGame}
-        onWinner={setWinner}
         onClickHome={goBackACB}
         onClickGame={startGameACB}
         />;
