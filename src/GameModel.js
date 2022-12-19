@@ -3,11 +3,9 @@ import resolvePromise from "./resolvePromise";
 import { authChange } from "./firebase/firebaseModel";
 import { updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 
-
-
 class GameModel{
     constructor(gameArray=[]){
-        this.user = {}  //samma som currentPlayerObject ?
+        this.user = {}  //samma som currentPlayerObject och currentUser?
         this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
@@ -15,7 +13,6 @@ class GameModel{
         this.currentGamePromiseState = {};
         this.questionsPromiseState = {};
         this.currentUser = undefined // to save data from firebase into
-        this.currentGame = {}
         this.addAuthObserver()
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
@@ -113,10 +110,9 @@ class GameModel{
             resultPlayer2: []
         }});
     }
-
+    //TODO samma som setUser?
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
-    // TODO get player information from Firebase
     }
 
     getNewQuestions(category){
@@ -126,19 +122,20 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
 
-    /*getOpponentId(){
-        return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
-            getGameDetails(this.currentGameId).player1 :
-            getGameDetails(this.currentGameId).player2;
-    }*/
+    getOpponent(opponent){
+        //returns the player object of the opponent
+        //return this.opponent
+    }
 
     setWinner(){
-        function getWinner(){
-            return 
-        }
-        //this.currentGameObject.winner = getWinner();
-        //this.notifyObservers({winner: winner});  // payload?
+        //TODO
+        /*this.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
+            this.currentGame.player1 : this.currentGame.player2;
+        this.notifyObservers({winner: this.winner});*/
+        this.notifyObservers({winner:"winner"})
     }
+    
+
 }
 
 export default GameModel;
