@@ -84,24 +84,19 @@ function createAccount(email, password, username){
         });
 }
 
-function addGamestoFirebase(user){
-    const GameID = push(child(ref(db), 'games')).key;
-    push(ref(db, REF+"/games/"), {                
-        gameId: GameID,
-        player1: user.uid,
-        player2: "",
-        turn: "",
-    })
-/*     update(ref(db, REF+"/games/currentGame"), {                
-        gameId: GameID,
-        player1: user.uid,
-        player2: "",
-        turn: "",
-    }) */
-    return GameID;
+function updateGameFirebase(){
 }
 
-function updateGameFirebase(){
+function getCurrentOpponent(model, opponentUsername){
+    get(ref(db, REF + '/users/publicUsers/' + opponentUsername)).then((snapshot) => {
+        if (snapshot.exists()) {
+            model.setCurrentOpponent(snapshot.val())
+        } else {
+            console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
 }
 
 function observerRecap(model) {
@@ -216,6 +211,6 @@ function updateModelFromFirebase(model) {
 }
 
 export {app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, 
-    observerRecap,firebaseModelPromise, updateFirebaseFromModel, addGamestoFirebase, updateGameFirebase }
+    observerRecap,firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent}
 
 

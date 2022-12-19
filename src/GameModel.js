@@ -1,11 +1,13 @@
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 import { authChange } from "./firebase/firebaseModel";
-import { updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
+import { updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent } from "./firebase/firebaseModel";
+
+
 
 class GameModel{
     constructor(gameArray=[]){
-        this.user = {}  //samma som currentPlayerObject och currentUser?
+        this.user = {}  //samma som currentPlayerObject ?
         this.currentGame = {}
         this.observers=[];
         this.games = gameArray;
@@ -15,6 +17,7 @@ class GameModel{
         this.currentUser = undefined // to save data from firebase into
         this.currentGame = {}
         this.addAuthObserver()
+        this.currentOpponent = {}
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
@@ -78,8 +81,7 @@ class GameModel{
         //TODO get game object from firebase
     }
 
-    setCurrentGame(game){
-        debugger       
+    setCurrentGame(game){     
         if (game && this.currentGame!==game){
             this.currentGame=game
             this.notifyObservers();
@@ -97,6 +99,14 @@ class GameModel{
         this.user = user
     }
 
+    setCurrentOpponent(opponent){
+        this.currentOpponent=opponent;
+    }
+
+    updateCurrentOpponent(opponentUsername){
+        getCurrentOpponent(this, opponentUsername)
+    }
+
     createNewGame(username){
         this.notifyObservers({newGame: {
             player1: this.user.username,
@@ -106,15 +116,13 @@ class GameModel{
             score: {
                 player1: 0,
                 player2: 0,
-            },
-            resultPlayer1: [],
-            resultPlayer2: []
+            }
         }});
     }
 
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
-
+    // TODO get player information from Firebase
     }
 
     getNewQuestions(category){
@@ -124,10 +132,11 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
 
-    getOpponent(opponent){
-        //returns the player object of the opponent
-        //return this.opponent
-    }
+    /*getOpponentId(){
+        return getGameDetails(this.currentGameId).player1 != props.model.currentPlayerId ? 
+            getGameDetails(this.currentGameId).player1 :
+            getGameDetails(this.currentGameId).player2;
+    }*/
 
     setWinner(){
         function getWinner(){

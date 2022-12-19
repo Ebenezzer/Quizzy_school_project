@@ -2,6 +2,7 @@ import GameResultsView from '../Views/gameResultsView/gameResultsView';
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import profilePicMan from "../Assets/Images/man.png"
+import { set } from 'firebase/database';
 
 //TODO Test data to remove later:
 const exampleUser = {
