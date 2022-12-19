@@ -9,12 +9,8 @@ function GameResultsView(props){
 
     function renderHeader(){
         return props.gameData.winner ? 
-        //TODO --> You won! or You lost!, add in a div with class header and id end with animation ex grow
         (props.gameData.winner == props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
         (props.gameData.turn == props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
-    }
-    function renderTotalScore(props){
-        return props.gameData.score.player1.toString() + " : " + props.gameData.score.player2.toString();
     }
     function renderProfilePic(playerNum){
         return props.playerData.username==props.gameData[playerNum] ? 
@@ -67,16 +63,23 @@ function GameResultsView(props){
 
         return [...results, Array(15-(3*results.length)).fill(null)].reduce(listReducerCB, []).map(renderScoresCB);
     }
+    function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
         return props.playerData.username == props.gameData.turn ?
-            <button onClick={props.onClickGame} className="buttonPlay">Play</button> : null;
+            <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
     }
+    function goBackACB(){props.onClickHome()}
     function renderBackButton(){
         return props.playerData.username == props.gameData.turn ?
-        <button onClick={props.onClickHome} className="buttonBack">Back</button>:
-        <button id="singleButton" onClick={props.onClickHome} className="buttonBack">Back</button>
+        <button onClick={goBackACB} className="buttonBack">Back</button>:
+        <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
     }
-    
+    function checkGameFinished(){
+        if (props.gameData.resultPlayer2.length == 5){
+            props.onWinner();
+        }   
+    }
+    //TODO checkGameFinished();
     return (
         <div className="fullPage">
         {renderHeader()}

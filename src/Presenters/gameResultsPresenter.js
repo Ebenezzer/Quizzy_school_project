@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import profilePicMan from "../Assets/Images/man.png"
 import { set } from 'firebase/database';
 
-//TODO Test data to remove later:
+////////////////////////TODO Test data to remove later:
 const exampleUser = {
     username: "matilda",
     score: 2,
@@ -28,19 +28,20 @@ const exampleGame = {
         player1: 3,
         player2: 1,
     },
-    resultPlayer1: [["correct", "incorrect", "incorrect"], ["correct", "correct", "incorrect"]],
-    resultPlayer2: [["incorrect", "incorrect", "incorrect"], ["correct", "incorrect", "incorrect"]]
+    resultPlayer1: [["correct", "incorrect", "incorrect"], ["correct", "correct", "incorrect"],["incorrect", "incorrect", "incorrect"], ["correct", "incorrect", "incorrect"],["correct", "incorrect", "incorrect"]],
+    resultPlayer2: [["incorrect", "incorrect", "incorrect"], ["correct", "incorrect", "incorrect"],["incorrect", "incorrect", "incorrect"], ["correct", "incorrect", "incorrect"],["correct", "incorrect", "incorrect"]]
 }
+///////////////////////////////TODO
 
 export default
 function GameResults(props){
     const navigate = useNavigate();
-    const [player, setPlayer] = React.useState(props.model.currentPlayerObject);  
+    const [player, setPlayer] = React.useState(props.model.user);  
     const [opponent, setOpponent] = React.useState(props.model.getOpponent);
-    const [game, setGame] = React.useState(props.model.currentGameObject);
+    const [game, setGame] = React.useState(props.model.currentGame);
 
     function observerACB(){   
-        setPlayer(props.model.user);    // when notified, update state with current value in model
+        setPlayer(props.model.user);    // when notified these will update states with current value in model
         setOpponent(props.model.getOpponent);
         setGame(props.model.currentGame);
     }
@@ -53,14 +54,14 @@ function GameResults(props){
     }
     React.useEffect(wasCreatedACB, []); 
 
-    function checkGameFinished(){
-        //TODO check if length of resultlists for pl.2 is 5 and run setWinner in model, return truthy (finished) or falsy
-    }
     function goBackACB(){
         navigate("/home");
     }
     function startGameACB(){
         navigate("/category");
+    }
+    function setWinner(){
+        props.model.setWinner();
     }
     
     return <GameResultsView 
@@ -70,7 +71,7 @@ function GameResults(props){
         playerData={exampleUser} 
         opponentData={exampleOpponent} 
         gameData={exampleGame}
-        isGameFinished={checkGameFinished} 
+        onWinner={setWinner}
         onClickHome={goBackACB}
         onClickGame={startGameACB}
         />;
