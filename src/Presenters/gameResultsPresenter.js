@@ -63,12 +63,12 @@ function GameResults(props){
     }
     
     return <GameResultsView 
-        /*playerData={player}  //TODO
+        playerData={player}  //TODO
         opponentData={opponent} 
-        gameData={game} */
-        playerData={exampleUser} 
-        opponentData={exampleOpponent} 
-        gameData={exampleGame}
+        gameData={game}
+        //playerData={exampleUser} 
+        //opponentData={exampleOpponent} 
+        //gameData={exampleGame}
         onClickHome={goBackACB}
         onClickGame={startGameACB}
         />;

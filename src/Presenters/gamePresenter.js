@@ -39,7 +39,8 @@ function Game(props){
         }
         else{
             //todo matilda takeover
-            props.model.updateResults(props.model.currentGame.player1===props.model.user.username?"player1":"player2");
+            //TODO props.model.updateResults(props.model.currentGame.player1===props.model.user.username?"player1":"player2");
+            props.model.updateResults(props.model.currentGame.player1===props.model.currentGame.turn?"player1":"player2")
             navigate("/gameResults");
         }
     }

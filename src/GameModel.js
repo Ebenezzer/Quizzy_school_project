@@ -116,7 +116,9 @@ class GameModel{
             score: {
                 player1: 0,
                 player2: 0,
-            }
+            },
+            resultPlayer1:[],
+            resultPlayer2:[]
         }});
     }
     
@@ -133,25 +135,25 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
 
-    
-    setWinner(){
-        //TODO
-        /*this.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
-            this.currentGame.player1 : this.currentGame.player2;
-        this.notifyObservers({winner: this.winner});*/
-        this.notifyObservers({winner:"winner"})
+    setRoundResults(roundResults){
+        this.roundResults=roundResults;
     }
+
     updateResults(playerNr){
+        function checkAnswerCB(sum, answer){
+            return answer === "correct" ? sum+1 : sum; }
         if (playerNr === "player1"){
-            this.currentGame.resultPlayer1=[...this.currentGame.resultPlayer1, this.roundResults]}
+            this.currentGame.resultPlayer1=[...this.currentGame.resultPlayer1, this.roundResults]
+            this.currentGame.score.player1+=this.roundResults.reduce(checkAnswerCB, 0)}
         if (playerNr === "player2"){
-            this.currentGame.resultPlayer2=[...this.currentGame.resultPlayer2, this.roundResults]}
+            this.currentGame.resultPlayer2=[...this.currentGame.resultPlayer2, this.roundResults]
+            this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)}
         if (this.currentGame.resultPlayer2.length === 5){
             this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? 
                 this.currentGame.player1 :this.currentGame.player2;}
-        if (this.currentGame.resultPlayer1 === this.currentGame.resultPlayer2){
+        if (this.currentGame.resultPlayer1.length === this.currentGame.resultPlayer2.length){
             this.currentGame.currentRound++ ;}
-        if (this.currentGame.resultPlayer1 !== this.currentGame.resultPlayer2){
+        if (this.currentGame.resultPlayer1.length !== this.currentGame.resultPlayer2.length){
             this.currentGame.turn = playerNr === "player1" ? this.currentGame.player2 : this.currentGame.player1}
         this.roundResults = [];
         console.log(this.currentGame)

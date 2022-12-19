@@ -8,6 +8,7 @@ export default
 function GameResultsView(props){
 
     function renderHeader(){
+        //TODO add tie
         return props.gameData.winner ? 
         (props.gameData.winner == props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
         (props.gameData.turn == props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
@@ -65,20 +66,17 @@ function GameResultsView(props){
     }
     function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
-        return props.playerData.username == props.gameData.turn ?
-            <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
+        return <button onClick={goToGameACB} className="buttonPlay">Play</button>;
+        /*return props.playerData.username == props.gameData.turn ?
+            <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;*/
     }
     function goBackACB(){props.onClickHome()}
     function renderBackButton(){
-        return props.playerData.username == props.gameData.turn ?
-        <button onClick={goBackACB} className="buttonBack">Back</button>:
-        <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
-    }
-    function checkGameFinished(){
-        if (props.gameData.resultPlayer2.length == 5){
-            props.onWinner();
-        }   
-    }
+        return <button onClick={goBackACB} className="buttonBack">Back</button>
+        /*return props.playerData.username == props.gameData.turn ?
+            <button onClick={goBackACB} className="buttonBack">Back</button>:
+            <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>*/
+        }
     
     return (
         <div className="fullPage">
