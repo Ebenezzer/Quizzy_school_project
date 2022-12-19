@@ -1,3 +1,4 @@
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 import { authChange } from "./firebase/firebaseModel";
@@ -11,6 +12,7 @@ class GameModel{
         this.currentGame = {};
         this.currentGameId = "";
         this.observers=[];
+        this.info= infoArray;
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
@@ -35,6 +37,7 @@ class GameModel{
     
     addAuthObserver(){
         function authUserACB(user){
+            // run off() functions for firebase listeners + try catch for user presence
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
@@ -65,6 +68,11 @@ class GameModel{
         }
     }
     
+    addGameToModel(game){
+        this.notifyObservers({games: this.games});
+        this.games = Object.keys(game)
+    }
+
     removeGame(gameToRemove){
         function isNotInGamesCB(obj){ 
             return gameToRemove.gameId !== obj.gameId};
@@ -106,6 +114,12 @@ class GameModel{
 
     updateCurrentOpponent(opponentUsername){
         getCurrentOpponent(this, opponentUsername)
+    }
+
+    setGameInfo(gameInfo){
+        this.games = [...gameInfo]
+        console.log(this.games)
+        // add observer
     }
 
     createNewGame(username){
