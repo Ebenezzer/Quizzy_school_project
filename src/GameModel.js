@@ -1,15 +1,15 @@
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
-import { authChange } from "./firebase/firebaseModel";
-import { updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
 
 
 
 class GameModel{
-    constructor(gameArray=[]){
+    constructor(gameArray=[], infoArray = []){
         this.user = {}  //samma som currentPlayerObject ?
         this.currentGame = {}
         this.observers=[];
+        this.info= infoArray;
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
@@ -33,6 +33,7 @@ class GameModel{
     
     addAuthObserver(){
         function authUserACB(user){
+            // run off() functions for firebase listeners + try catch for user presence
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
@@ -63,11 +64,11 @@ class GameModel{
         }
     }
     
-    addGameToModel(gameID, gameInfo){
+    addGameToModel(game){
         this.notifyObservers({games: this.games});
-        this.games.push({ID:gameID, info:gameInfo})
+        this.games = Object.keys(game)
     }
-    
+
     removeGame(gameToRemove){
         function isNotInGamesCB(obj){ 
             return gameToRemove.gameId !== obj.gameId};
@@ -101,6 +102,12 @@ class GameModel{
     setUser(user){// call on login or create account
         this.notifyObservers({user: user})
         this.user = user
+    }
+
+    setGameInfo(gameInfo){
+        this.games = [...gameInfo]
+        console.log(this.games)
+        // add observer
     }
 
     createNewGame(username){

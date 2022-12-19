@@ -175,23 +175,54 @@ function updateFirebaseFromModel(model, userId){
 
     }
     return function (){
-        model.removeObserver(observerACB)
+        model.removeObserver(observerACB) // save information from the return, and add try catch to check for user
     };
 }
 
 function updateModelFromFirebase(model) {
+    // subscribe and unsubscribe from observers
+    // off() function to remove listeners from firebase that can then be called here
+
+    if (model.currentUser){
+
     onValue(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName), 
-    function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val());})
-    
+    function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val())
+         console.log(firebaseData.val().games)
+
+        Promise.all(Object.keys(firebaseData.val().games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
+        ;})
+
+    function getUserGameCB(gameID){
+       return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
+            if (snapshot.exists()) {
+                return snapshot.val()
+            } else {
+                console.log("No data available");
+            }
+          }).catch((error) => {
+            console.error(error);
+          });
+    }
+
+
+    function createModelACB(game){
+        model.setGameInfo(game)
+    } 
+}
     //onChildAdded(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName + "/games/"), 
     //function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.val());})
 
-    onChildAdded(query(ref(db, REF+"/games/"), orderByValue(model.currentUser.displayName)), 
-    function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.key,firebaseData.val())})
-    
-    
-    
-    
+    //function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.key,firebaseData.val())})
+    // change to foreach 
+    //const userGames = query(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName + '/games/'))
+    //onValue(userGames, x
+    //function getMyGamesACB(firebaseData){model.addGameToModel(firebaseData.val())}
+    //)
+        
+    //model.currentUser.games.forEach(function(key) {
+      //  onValue(ref(db, REF+"/games/" + key), 
+    //    function savetoModel(firebaseData){model.searchGameInfo(firebaseData.val())})
+    //}); 
     //const myGamesIds = query(ref(db, REF + "/user/publicUsers/" + model.currentUser.displayName + "/games/"))
     //const myGames = query(ref(db, REF+"/games/"), orderByChild(myGamesIds))
 
@@ -225,8 +256,9 @@ function updateModelFromFirebase(model) {
     // onChildRemoved(ref(db, REF+"/games/"),
     // function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});} )
 
-    return model //unsuscribe here too 
+    //unsuscribe here too 
 }
+
 
 export {app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, 
     observerRecap,firebaseModelPromise, updateFirebaseFromModel, addGamestoFirebase, updateGameFirebase }
