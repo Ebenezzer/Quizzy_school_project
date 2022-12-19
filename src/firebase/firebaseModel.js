@@ -213,6 +213,7 @@ function updateModelFromFirebase(model) {
 
     function createModelACB(game){
         model.setGameInfo(game)
+        model.notifyObservers()
     } 
 }
     //onChildAdded(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName + "/games/"), 
