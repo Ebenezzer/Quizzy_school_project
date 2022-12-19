@@ -118,6 +118,7 @@ class GameModel{
             }
         }});
     }
+    
     //TODO samma som setUser?
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
