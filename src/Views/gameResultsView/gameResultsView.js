@@ -12,10 +12,8 @@ function GameResultsView(props){
     }
     function renderProfilePic(playerNum){
         return props.playerData.username==props.gameData[playerNum] ? 
-            <img src={props.playerData.profilePictureSrc} widht="55" height="55"/> : 
-            <img src={props.opponentData.profilePictureSrc} widht="55" height="55"/>
-            /*<img src="https://cdn-icons-png.flaticon.com/128/4128/4128176.png" widht="55" height="55"/> : 
-            <img src="https://cdn-icons-png.flaticon.com/128/4128/4128176.png" widht="55" height="55"/>*/
+            <img src={props.playerData.profilePictureSrc} width="55" height="55"/> : 
+            <img src={props.opponentData.profilePictureSrc} width="55" height="55"/>
     }
     function renderPlayerName(name){
         return <div className="name">{name}</div>

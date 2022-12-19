@@ -76,7 +76,7 @@ function createAccount(email, password, username){
                     username : username,
                     games: [null],
                     score: 0,
-                    profilePicureSrc: "https://cdn-icons-png.flaticon.com/128/4128/4128176.png"
+                    profilePictureSrc: "https://cdn-icons-png.flaticon.com/128/4128/4128176.png"
                 })
 
                 //ska vi inte också setta private users också i databasen eller behövr vi inte det längre
