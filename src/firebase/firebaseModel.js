@@ -153,8 +153,8 @@ function updateFirebaseFromModel(model, userId){
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
         // to unsubscribe (similar syntax som rad 134)
 
-        if (payload && payload.currentGameObject){
-            set(ref(db, REF+"/games/currentGame/"), model.currentGameObject)
+        if (payload && payload.currentGame){
+            set(ref(db, REF+"/games/currentGame/"), model.currentGame)
         } 
 
         if (payload && payload.addedGame){
@@ -172,6 +172,10 @@ function updateFirebaseFromModel(model, userId){
             ref(REF+"/games/"+ payload.removedGame.id).set(null)
         }  //unsure how we would use this removeGame payload, as we want to remove a game id from
         //currentGame path but want the object within that gameid to be available in the database under games
+
+        if (payload && payload.winner){        
+            update(ref(db, REF + '/games/' + model.currentGame.gameId), {winner: payload.winner})
+        } 
 
     }
     return function (){

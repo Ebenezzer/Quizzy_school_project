@@ -177,7 +177,7 @@
     font-family: 'Varela Round', sans-serif;
     font-weight: bold;
 }
-#singleButton{
+#centerButton{
     grid-column: 3;
     grid-row: 7;
 }
