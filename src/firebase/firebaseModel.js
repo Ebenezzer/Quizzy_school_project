@@ -1,6 +1,6 @@
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut, getAuth, updateProfile} from "firebase/auth";
 import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, onValue,  push, off, update, query, orderByChild} from "firebase/database";
+import {getDatabase, ref, set, get, onValue,  push, off, update, query, orderByChild, equalTo} from "firebase/database";
 import firebaseConfig from "../firebaseConfig";
 import GameModel from "../GameModel";
 

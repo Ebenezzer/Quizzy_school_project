@@ -1,8 +1,6 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase } from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
-import { authChange } from "./firebase/firebaseModel";
-import { updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent } from "./firebase/firebaseModel";
 
 
 
@@ -12,7 +10,6 @@ class GameModel{
         this.currentGame = {};
         this.currentGameId = "";
         this.observers=[];
-        this.info= infoArray;
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
