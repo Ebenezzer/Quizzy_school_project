@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfo} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -39,6 +39,7 @@ class GameModel{
             if(this.currentUser){
                 updateFirebaseFromModel(this)
                 updateModelFromFirebase(this)
+                updateGameInfo(this)
             }
             this.notifyObservers()
         }
@@ -116,7 +117,7 @@ class GameModel{
     setGameInfo(gameInfo){
         this.games = [...gameInfo]
         console.log(this.games)
-        // add observer
+        this.notifyObservers()
     }
 
     createNewGame(username){
