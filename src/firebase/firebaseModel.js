@@ -38,13 +38,17 @@ function signIn(email, password){
         const user = userCredential.user;
         console.log("signed in")
         // ...
-        })
+        },    
+        {
+            onlyOnce: true
+          })
         .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode,errorMessage)
         alert(errorCode)
-        });
+        })
+        ;
 
         //get(child(ref(db), `users/publicUsers/${username}`))
     }
@@ -65,7 +69,7 @@ function updateAccount(username){
 
 function createAccount(email, password, username){
     const userREF = query(ref(db, REF + "/users/publicUsers/"),orderByChild("username"), equalTo(username))
-    onValue(userREF, function (snapshot){
+    onValue(userREF, (snapshot) =>{
         if (snapshot.val() === null) {
             createUserWithEmailAndPassword(auth, email, password, username)
             .then((userCredential) => {  // export
@@ -93,7 +97,10 @@ function createAccount(email, password, username){
             console.log(errorUsername)
             alert(errorUsername)
         }
-    }
+    },
+    {
+        onlyOnce: true
+      }
     )
 
 }
