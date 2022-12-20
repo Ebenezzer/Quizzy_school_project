@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword , onAuthStateChanged, signOut, getAuth, updateProfile} from "firebase/auth";
-import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, onValue,  push, off, update, query, orderByChild, equalTo} from "firebase/database";
-import firebaseConfig from "../firebaseConfig";
-=======
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth, updateProfile } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, get, onValue, push, off, update, query, orderByChild, equalTo } from "firebase/database";
-import firebaseConfig from "./firebaseConfig";
->>>>>>> edina-newbranch
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth, updateProfile } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, get, onValue, push, off, update, query, orderByChild, equalTo } from "firebase/database";
@@ -16,14 +5,11 @@ import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 
 
-
-
 // Initialise firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth();
 const REF = "quizzy11";
-
 
 const userEmail = document.getElementById('email')
 
