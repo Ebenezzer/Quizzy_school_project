@@ -201,6 +201,14 @@ class GameModel{
     updateGame(){
         this.notifyObservers({updatedGame : this.currentGame})
     }
+    //TODO
+    continuousUpdateGames(){
+        //this.interval = setInterval(updateGameInfo(this), 5000);
+        this.interval = setInterval(console.log(":)"), 5000);
+    }
+    stopUpdateGames(){
+        clearInterval(this.interval);
+    }
 }
 
 export default GameModel;
