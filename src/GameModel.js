@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfo} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -39,6 +39,7 @@ class GameModel{
             if(this.currentUser){
                 updateFirebaseFromModel(this)
                 updateModelFromFirebase(this)
+                updateGameInfo(this)
             }
             this.notifyObservers()
         }
@@ -108,15 +109,15 @@ class GameModel{
     setCurrentOpponent(opponent){
         this.currentOpponent=opponent;
     }
-
-    updateCurrentOpponent(opponentUsername){
-        getCurrentOpponent(this, opponentUsername)
+    
+    updateCurrentOpponent(){
+        getCurrentOpponent(this, this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2)
     }
 
     setGameInfo(gameInfo){
         this.games = [...gameInfo]
         console.log(this.games)
-        // add observer
+        this.notifyObservers()
     }
 
     createNewGame(username){
@@ -137,7 +138,6 @@ class GameModel{
     //TODO samma som setUser?
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
-    // TODO get player information from Firebase
     }
 
     getNewQuestions(category){
@@ -145,6 +145,19 @@ class GameModel{
             this.notifyObservers();
         }
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
+    }
+    setInitialGameScore(){
+        //need to define score initially since firebase removes empty object
+        this.currentGame.score = {player1:0, player2:0}
+    }
+
+    setInitialResult(playerNr){
+        if(playerNr==1){
+            this.currentGame["resultPlayer1"] = [];
+        }
+        if(playerNr==2){
+            this.currentGame["resultPlayer2"] = [];
+        }
     }
 
     setRoundResults(roundResults){
@@ -164,7 +177,7 @@ class GameModel{
             this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)
         }
         if (this.currentGame.resultPlayer2.length === 5){
-            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 :this.currentGame.player2;
+            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 : this.currentGame.score.player1 === this.currentGame.score.player2 ? "tie" : this.currentGame.player2;
             if (this.currentGame.winner == this.user.username){
                 this.updateScore();
             }
