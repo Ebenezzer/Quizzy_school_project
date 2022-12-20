@@ -178,7 +178,7 @@ class GameModel{
         }
         if (this.currentGame.resultPlayer2.length === 5){
             this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 : this.currentGame.score.player1 === this.currentGame.score.player2 ? "tie" : this.currentGame.player2;
-            if (this.currentGame.winner == this.user.username){
+            if (this.currentGame.winner === this.user.username){
                 this.updateScore();
             }
         }
@@ -203,6 +203,9 @@ class GameModel{
     }
     //TODO
     continuousUpdateGames(){
+        //TODO real time communication with firebase for updating home page (to see when it is your turn)
+        // https://brianchildress.co/simple-polling-using-settimeout/
+        // https://www.freecodecamp.org/news/5-ways-to-build-real-time-apps-with-javascript-5f4d8fe259f7/
         //this.interval = setInterval(updateGameInfo(this), 5000);
         this.interval = setInterval(console.log(":)"), 5000);
     }
