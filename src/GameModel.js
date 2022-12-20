@@ -137,7 +137,6 @@ class GameModel{
     //TODO samma som setUser?
     getPlayerCurrentObject(playerObject){
         this.currentPlayerObject = playerObject;
-    // TODO get player information from Firebase
     }
 
     getNewQuestions(category){
@@ -145,6 +144,19 @@ class GameModel{
             this.notifyObservers();
         }
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
+    }
+    setInitialGameScore(){
+        //need to define score initially since firebase removes empty object
+        this.currentGame.score = {player1:0, player2:0}
+    }
+
+    setInitialResult(playerNr){
+        if(playerNr==1){
+            this.currentGame["resultPlayer1"] = [];
+        }
+        if(playerNr==2){
+            this.currentGame["resultPlayer2"] = [];
+        }
     }
 
     setRoundResults(roundResults){
@@ -164,7 +176,7 @@ class GameModel{
             this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)
         }
         if (this.currentGame.resultPlayer2.length === 5){
-            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 :this.currentGame.player2;
+            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 : this.currentGame.score.player1 === this.currentGame.score.player2 ? "tie" : this.currentGame.player2;
             if (this.currentGame.winner == this.user.username){
                 this.updateScore();
             }
