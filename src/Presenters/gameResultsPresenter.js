@@ -23,6 +23,20 @@ function GameResults(props){
     }
     React.useEffect(wasCreatedACB, []); 
 
+    function checkScore(){
+        if (!game.score){
+            props.model.setInitialGameScore();
+        }
+    }
+    function checkResults(){
+        if (!game.resultPlayer1){
+            props.model.setInitialResult(1)
+        }
+        if (!game.resultPlayer2){
+            props.model.setInitialResult(2)
+        }
+    }
+
     function goBackACB(){
         navigate("/home");
     }
@@ -34,6 +48,8 @@ function GameResults(props){
         playerData={player}
         opponentData={opponent} 
         gameData={game}
+        checkGameScore = {checkScore}
+        checkGameResults = {checkResults}
         onClickHome={goBackACB}
         onClickGame={startGameACB}
         />;

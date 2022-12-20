@@ -1,23 +1,20 @@
 import "./gameResultsView.css"
 import correct from "../../Assets/Images/correct.png"
 import incorrect from "../../Assets/Images/incorrect.png"
-
+// check if resultPlayer1 & 2 is truthy, otherwise define as empty list
 export default
 function GameResultsView(props){
     function renderHeader(){
-        //TODO add tie
         return props.gameData.winner ? 
-        (props.gameData.winner == props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
-        (props.gameData.turn == props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
+            (props.gameData.winner === "tie" ? <div id="end" className="header">It's a tie!</div> : props.gameData.winner === props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
+            (props.gameData.turn === props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
     }
     function renderProfilePic(playerNum){
         console.log("opponent")
         console.log(props.opponentData)
         return props.playerData.username==props.gameData[playerNum] ? 
-            <img src={props.playerData.profilePictureSrc} widht="55" height="55"/> : 
-            <img src={props.opponentData.profilePictureSrc} widht="55" height="55"/>
-            /*<img src="https://cdn-icons-png.flaticon.com/128/4128/4128176.png" widht="55" height="55"/> : 
-            <img src="https://cdn-icons-png.flaticon.com/128/4128/4128176.png" widht="55" height="55"/>*/
+            <img src={props.playerData.profilePictureSrc} width="55" height="55"/> : 
+            <img src={props.opponentData.profilePictureSrc} width="55" height="55"/>
     }
     function renderPlayerName(name){
         return <div className="name">{name}</div>
@@ -61,9 +58,14 @@ function GameResultsView(props){
             return playerNr == 1 ? renderScoreIcon("player1") : renderScoreIcon("player2");
         }
         let counter = 0;
-        const latest = props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;
-
+        if (props.gameData.resultPlayer1 && props.gameData.resultPlayer2){
+            const latest = props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;
+        }
+        const latest = 1;
         return [...results, Array(15-(3*results.length)).fill(null)].reduce(listReducerCB, []).map(renderScoresCB);
+    }
+    function renderScoreCounter(){
+        return <div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>
     }
     function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
@@ -85,7 +87,7 @@ function GameResultsView(props){
         <div className="gridParent">
             <div className="totalScore">
                 <div>Score</div>
-                <div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>
+                {renderScoreCounter()}
             </div>  
             <div className="gridItemNameLeft">
                 {renderProfilePic("player1")}
