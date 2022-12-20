@@ -156,7 +156,8 @@ function updateFirebaseFromModel(model, userId) {
             set(ref(db, REF + "/users/publicUsers/" + payload.newGame.player1 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
             set(ref(db, REF + "/users/publicUsers/" + payload.newGame.player2 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
             model.setCurrentGame(payload.newGame)
-            model.setCurrentGameId(gameId._path.pieces_[2])
+            //model.setCurrentGameId(gameId._path.pieces_[2])
+            model.setGameId(gameId._path.pieces_[2])
         }
 
         //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
@@ -173,10 +174,10 @@ function updateFirebaseFromModel(model, userId) {
         //currentGame path but want the object within that gameid to be available in the database under games
 
         if (payload && payload.winner) {
-            update(ref(db, REF + '/games/' + model.currentGameId), { winner: payload.winner })
+            update(ref(db, REF + '/games/' + model.currentGame.gameId), { winner: payload.winner })
         }
         if (payload && payload.updatedGame) {
-            update(ref(db, REF + '/games/' + model.currentGameId), payload.updatedGame)
+            update(ref(db, REF + '/games/' + model.currentGame.gameId), payload.updatedGame)
         }
 
     }

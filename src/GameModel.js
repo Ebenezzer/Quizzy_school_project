@@ -194,6 +194,10 @@ class GameModel{
     setCurrentGameId(gameId){
         this.currentGameId=gameId;
     }
+    setGameId(gameId){
+        this.currentGame.gameId = gameId;
+        this.updateGame()
+    }
     updateGame(){
         this.notifyObservers({updatedGame : this.currentGame})
     }
