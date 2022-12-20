@@ -11,6 +11,8 @@ function GameResultsView(props){
         (props.gameData.turn == props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
     }
     function renderProfilePic(playerNum){
+        console.log("opponent")
+        console.log(props.opponentData)
         return props.playerData.username==props.gameData[playerNum] ? 
             <img src={props.playerData.profilePictureSrc} widht="55" height="55"/> : 
             <img src={props.opponentData.profilePictureSrc} widht="55" height="55"/>
@@ -74,7 +76,9 @@ function GameResultsView(props){
             <button onClick={goBackACB} className="buttonBack">Back</button>:
             <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
         }
-    
+
+    props.checkGameScore();
+    props.checkGameResults();
     return (
         <div className="fullPage">
         {renderHeader()}

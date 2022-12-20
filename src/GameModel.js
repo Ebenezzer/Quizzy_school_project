@@ -103,9 +103,9 @@ class GameModel{
     setCurrentOpponent(opponent){
         this.currentOpponent=opponent;
     }
-
-    updateCurrentOpponent(opponentUsername){
-        getCurrentOpponent(this, opponentUsername)
+    
+    updateCurrentOpponent(){
+        getCurrentOpponent(this, this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2)
     }
 
     createNewGame(username){

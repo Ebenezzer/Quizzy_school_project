@@ -86,8 +86,9 @@ function Home(props){
             winner: "username1"
         }
 
-    ]
-    function practiceButtonACB(){
+    function gameButtonACB(game) {
+        props.model.setCurrentGame(game)
+        props.model.updateCurrentOpponent()  //TODO test if it works
         navigate("/gameResults");
     }
     if(!userLoggedIn){
