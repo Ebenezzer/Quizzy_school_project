@@ -7,7 +7,7 @@ function GameResultsView(props){
     function renderHeader(){
         return props.gameData.winner ? 
             (props.gameData.winner === "tie" ? <div id="end" className="header">It's a tie!</div> : props.gameData.winner === props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
-            (props.gameData.turn === props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
+            (props.gameData.turn === props.playerData.username ? <div className="header">Your turn</div> : <div className="header">Opponent's turn</div>);
     }
     function renderProfilePic(playerNum){
         console.log("opponent")

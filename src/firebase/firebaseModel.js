@@ -162,7 +162,7 @@ function updateFirebaseFromModel(model, userId) {
         //currentGame path but want the object within that gameid to be available in the database under games
 
         if (payload && payload.winner) {
-            update(ref(db, REF + '/games/' + model.currentGame.gameId), { winner: payload.winner })
+            update(ref(db, REF + '/games/' + model.currentGameId), { winner: payload.winner })
         }
         if (payload && payload.updatedGame) {
             update(ref(db, REF + '/games/' + model.currentGameId), payload.updatedGame)
