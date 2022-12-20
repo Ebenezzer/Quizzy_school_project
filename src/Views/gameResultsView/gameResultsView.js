@@ -57,11 +57,13 @@ function GameResultsView(props){
             counter = counter + 1;
             return playerNr == 1 ? renderScoreIcon("player1") : renderScoreIcon("player2");
         }
+        //TODO
         let counter = 0;
+        let latest = 1;
         if (props.gameData.resultPlayer1 && props.gameData.resultPlayer2){
-            const latest = props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;
+            let latest = props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;
         }
-        const latest = 1;
+        
         return [...results, Array(15-(3*results.length)).fill(null)].reduce(listReducerCB, []).map(renderScoresCB);
     }
     function renderScoreCounter(){
