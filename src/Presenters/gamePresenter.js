@@ -12,24 +12,22 @@ function Game(props){
     const [questionsPromiseStateError, setquestionsPromiseStateError] = useState(props.model.questionsPromiseState.error);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(null);
-    const [roundArray, setRoundArray] = useState([]);
     const [answers, setAnswers] = useState()
 
     function observerACB(){
         setquestionsPromiseStatePromise(props.model.questionsPromiseState.promise);
         setquestionsPromiseStateData(props.model.questionsPromiseState.data);
         setquestionsPromiseStateError(props.model.questionsPromiseState.error);
-        setRoundArray([])
         setCurrentAnswer(null)
         setCurrentQuestionIndex(0);
     }
     
-    function updateRoundArrayACB(currentAnswer){
+    function updateRoundResults(currentAnswer){
         if (currentAnswer === questionsPromiseStateData[currentQuestionIndex].correctAnswer){
-            setRoundArray((roundArray)=>[...roundArray, "correct"])
+            props.model.setRoundResults([...props.model.roundResults, "correct"])
         }
         if (currentAnswer !== questionsPromiseStateData[currentQuestionIndex].correctAnswer){
-            setRoundArray((roundArray)=>[...roundArray, "incorrect"])
+            props.model.setRoundResults([...props.model.roundResults, "incorrect"])
         }
     }
 
@@ -37,19 +35,19 @@ function Game(props){
         if (currentQuestionIndex<questionsPromiseStateData.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
             setCurrentAnswer(null);
-            setAnswers(null)
+            setAnswers(null);
         }
         else{
             //todo matilda takeover
-            props.model.updateResult(roundArray)
-            console.log(roundArray)
-            navigate("/gameResults")
+            //TODO props.model.updateResults(props.model.currentGame.player1===props.model.user.username?"player1":"player2");
+            props.model.updateResults(props.model.currentGame.player1===props.model.currentGame.turn?"player1":"player2")
+            navigate("/gameResults");
         }
     }
 
     function updateCurrentAnswerACB(answer) {
-        setCurrentAnswer(answer)
-        updateRoundArrayACB(answer) //TODO fråga david om plan, byt namn ta bort ACB?
+        setCurrentAnswer(answer);
+        updateRoundResults(answer);
     }
 
     function componentWasCreatedACB(){   //   1. the component has been created
@@ -71,7 +69,6 @@ function Game(props){
             enabledQuestion={currentAnswer ? "enabledQuestion": "disabledQuestion"}
             currentQuestion={currentQuestionIndex+1}
             onUpdateQuestion={updateQuestionACB}
-            onUpdateRoundArrayACB={updateRoundArrayACB}
             onUpdateCurrentAnswer={updateCurrentAnswerACB}
             answers={answers}/>}
     </div>)

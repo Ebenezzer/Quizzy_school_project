@@ -34,7 +34,7 @@
     margin: 15px;
 }
 
-.leaderboard-image{
+.leaderboard-image {
     max-width: 300px;
     align-self: center;
 }
@@ -51,18 +51,18 @@
 }
 
 .player-icon {
-    width: 35px; 
-    height: 35px;  
+    width: 35px;
+    height: 35px;
 }
 
 
-.star{
-    width: 15px; 
-    display:inline-table;
+.star {
+    width: 15px;
+    display: inline-table;
     margin-right: 10px;
 }
 
-.leaderboard-title{
+.leaderboard-title {
     color: #6A5AE0;
 }
 
@@ -78,4 +78,4 @@
     height: 25px;
     margin-top: 10px;
     cursor: pointer;
-  }
+}
