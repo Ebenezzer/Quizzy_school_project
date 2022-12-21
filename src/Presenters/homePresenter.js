@@ -3,6 +3,7 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { useNavigate } from 'react-router-dom'
+import { updateModelFromFirebase } from "../firebase/firebaseModel";
 
 export default
     function Home(props) {
@@ -55,9 +56,9 @@ export default
         return <NoUserView />
     }
     else {
-        //setTimeout(() => {window.location.reload();}, 3000);
-        props.model.getGameList()
-        console.log(props.model.games)
+        // setTimeout(() => {window.location.reload();}, 3000);
+        // props.model.getGameList()  // set this.games to updated gameList in firebase
+        // console.log(props.model.games)
         return <div>
             <HomeView onNewGame={initiateGameACB} />
             <GameList currentGame={games.filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} goToGameACB={gameButtonACB} />
