@@ -20,6 +20,20 @@ body{
   }
 }
 
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(148, 77, 255, 0.87);        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(130, 47, 254, 0.87);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 2px solid rgba(130, 47, 254, 0.87);  /* creates padding around scroll thumb */
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

@@ -92,13 +92,17 @@
 }
 
 .enabledQuestion{
-    pointer-events: all;
     scale: 1.1;
 } 
 
 .disabledQuestion{
     pointer-events: none;
 }
+
+#nextQuestion.disabledQuestion{
+    display: none;
+}
+
 .wrapper{
     height: 100vh;
 }
