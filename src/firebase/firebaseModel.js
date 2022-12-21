@@ -197,24 +197,24 @@ function updateModelFromFirebase(model) {
                 model.setUser(firebaseData.val());})}} // unsub
 
 function updateGameInfo(model){
- if (model.user.games){
-function createModelACB(game) {
-    model.setGameInfo(game)
-}
-
-function getUserGameCB(gameID) {
-    return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
-        if (snapshot.exists()) {
-            return snapshot.val()
-        } else {
-            console.log("No data available");
+    if (model.user.games){
+        function createModelACB(game) {
+            model.setGameInfo(game)
         }
-    }).catch((error) => {
-        console.error(error);
-    }); 
-}
-Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
- }
+
+        function getUserGameCB(gameID) {
+            return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    return snapshot.val()
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            }); 
+        }
+        Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
+    }
 }
 
 // update model.user.games i modellen and make sure that you can render

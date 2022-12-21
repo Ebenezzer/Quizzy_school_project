@@ -116,7 +116,6 @@ class GameModel{
 
     setGameInfo(gameInfo){
         this.games = [...gameInfo]
-        console.log(this.games)
         this.notifyObservers()
     }
 
@@ -209,7 +208,6 @@ class GameModel{
     }
     getGameList(){
         updateGameInfo(this)
-        this.notifyObservers()
     }
 }
 
