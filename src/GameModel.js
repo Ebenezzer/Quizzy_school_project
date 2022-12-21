@@ -147,7 +147,6 @@ class GameModel{
         resolvePromise(getQuestions({limit: 3, categories: category}), this.questionsPromiseState, notifyACB.bind(this));
     }
     setInitialGameScore(){
-        //need to define score initially since firebase removes empty object
         this.currentGame.score = {player1:0, player2:0}
     }
 
@@ -200,6 +199,17 @@ class GameModel{
     }
     updateGame(){
         this.notifyObservers({updatedGame : this.currentGame})
+    }
+    //TODO
+    continuousUpdateGames(){
+        //TODO real time communication with firebase for updating home page (to see when it is your turn)
+        // https://brianchildress.co/simple-polling-using-settimeout/
+        // https://www.freecodecamp.org/news/5-ways-to-build-real-time-apps-with-javascript-5f4d8fe259f7/
+        //this.interval = setInterval(updateGameInfo(this), 5000);
+    }
+    getGameList(){
+        updateGameInfo(this)
+        this.notifyObservers()
     }
 }
 
