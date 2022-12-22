@@ -192,49 +192,35 @@ function updateModelFromFirebase(model) { //TODO update userObject somewhere?
 
     if (model.currentUser) {
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
-<<<<<<< HEAD
         function retreivedUsernameACB(firebaseData) {
             model.setUser(firebaseData.val());
         })
+    
     }
-} // unsub
 
-function updateGameInfo(model){
-=======
-            function retreivedUsernameACB(firebaseData) {
-                model.setUser(firebaseData.val());})
-    }
 } // unsub
     
 
 function updateGameInfoFromFirebase(model){
->>>>>>> matilda's-branch
-    if (model.user.games){
-        function createModelACB(game) {
-            model.setGameInfo(game)
-        }
+       if (model.user.games){
+                function createModelACB(game) {
+                    model.setGameInfo(game)
+                }
 
         function getUserGameCB(gameID) {
             return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
                 if (snapshot.exists()) {
-<<<<<<< HEAD
-=======
-                    //console.log(snapshot.val())  //wrong data logged
->>>>>>> matilda's-branch
                     return snapshot.val()
                 } else {
                     console.log("No data available");
                 }
-<<<<<<< HEAD
-            }).catch((error) => {console.error(error);
-=======
             }).catch((error) => {
                 console.error(error);
->>>>>>> matilda's-branch
             }); 
         }
         Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
     }
+    //TODO from model.user.games? ensure to update model.user from firebase first!
 }
 
 // update model.user.games i modellen and make sure that you can render
