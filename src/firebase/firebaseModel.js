@@ -186,12 +186,13 @@ function updateFirebaseFromModel(model, userId) {
     };
 }
 
-function updateModelFromFirebase(model) {
+function updateModelFromFirebase(model) { //TODO update userObject somewhere?
     // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here
 
     if (model.currentUser) {
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
+<<<<<<< HEAD
         function retreivedUsernameACB(firebaseData) {
             model.setUser(firebaseData.val());
         })
@@ -199,6 +200,15 @@ function updateModelFromFirebase(model) {
 } // unsub
 
 function updateGameInfo(model){
+=======
+            function retreivedUsernameACB(firebaseData) {
+                model.setUser(firebaseData.val());})
+    }
+} // unsub
+    
+
+function updateGameInfoFromFirebase(model){
+>>>>>>> matilda's-branch
     if (model.user.games){
         function createModelACB(game) {
             model.setGameInfo(game)
@@ -207,11 +217,20 @@ function updateGameInfo(model){
         function getUserGameCB(gameID) {
             return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
                 if (snapshot.exists()) {
+<<<<<<< HEAD
+=======
+                    //console.log(snapshot.val())  //wrong data logged
+>>>>>>> matilda's-branch
                     return snapshot.val()
                 } else {
                     console.log("No data available");
                 }
+<<<<<<< HEAD
             }).catch((error) => {console.error(error);
+=======
+            }).catch((error) => {
+                console.error(error);
+>>>>>>> matilda's-branch
             }); 
         }
         Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
@@ -223,7 +242,7 @@ function updateGameInfo(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase,
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfo
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfoFromFirebase
 }
 
 
