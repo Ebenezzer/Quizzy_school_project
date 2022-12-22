@@ -186,7 +186,7 @@ function updateFirebaseFromModel(model, userId) {
     };
 }
 
-function updateModelFromFirebase(model) { //TODO update userObject somewhere?
+function updateModelFromFirebase(model) {
     // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here
 
@@ -195,17 +195,14 @@ function updateModelFromFirebase(model) { //TODO update userObject somewhere?
         function retreivedUsernameACB(firebaseData) {
             model.setUser(firebaseData.val());
         })
-    
     }
-
 } // unsub
-    
 
-function updateGameInfoFromFirebase(model){
-       if (model.user.games){
-                function createModelACB(game) {
-                    model.setGameInfo(game)
-                }
+function updateGameInfo(model){
+    if (model.user.games){
+        function createModelACB(game) {
+            model.setGameInfo(game)
+        }
 
         function getUserGameCB(gameID) {
             return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
@@ -214,13 +211,11 @@ function updateGameInfoFromFirebase(model){
                 } else {
                     console.log("No data available");
                 }
-            }).catch((error) => {
-                console.error(error);
+            }).catch((error) => {console.error(error);
             }); 
         }
         Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
     }
-    //TODO from model.user.games? ensure to update model.user from firebase first!
 }
 
 // update model.user.games i modellen and make sure that you can render
@@ -228,7 +223,7 @@ function updateGameInfoFromFirebase(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase,
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfoFromFirebase
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfo
 }
 
 
