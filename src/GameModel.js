@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfo} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfoFromFirebase} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -39,7 +39,7 @@ class GameModel{
             if(this.currentUser){
                 updateFirebaseFromModel(this)
                 updateModelFromFirebase(this)
-                updateGameInfo(this)
+                updateGameInfoFromFirebase(this)
             }
             this.notifyObservers()
         }
@@ -204,10 +204,10 @@ class GameModel{
         //TODO real time communication with firebase for updating home page (to see when it is your turn)
         // https://brianchildress.co/simple-polling-using-settimeout/
         // https://www.freecodecamp.org/news/5-ways-to-build-real-time-apps-with-javascript-5f4d8fe259f7/
-        //this.interval = setInterval(updateGameInfo(this), 5000);
+        //this.interval = setInterval(updateGameInfoFromFirebase(this), 5000);
     }
     getGameList(){
-        updateGameInfo(this)
+        updateGameInfoFromFirebase(this)
     }
 }
 

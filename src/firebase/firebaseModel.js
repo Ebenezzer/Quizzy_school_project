@@ -186,7 +186,7 @@ function updateFirebaseFromModel(model, userId) {
     };
 }
 
-function updateModelFromFirebase(model) {
+function updateModelFromFirebase(model) { //TODO update userObject somewhere?
     // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here
 
@@ -194,9 +194,12 @@ function updateModelFromFirebase(model) {
 
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
             function retreivedUsernameACB(firebaseData) {
-                model.setUser(firebaseData.val());})}} // unsub
+                model.setUser(firebaseData.val());})
+    }
+} // unsub
+    
 
-function updateGameInfo(model){
+function updateGameInfoFromFirebase(model){
     if (model.user.games){
         function createModelACB(game) {
             model.setGameInfo(game)
@@ -223,7 +226,7 @@ function updateGameInfo(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase,
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfo
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfoFromFirebase
 }
 
 

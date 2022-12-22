@@ -57,7 +57,7 @@ export default
     }
     else {
         // setTimeout(() => {window.location.reload();}, 3000);
-        // props.model.getGameList()  // set this.games to updated gameList in firebase
+        //props.model.getGameList()  // update this.user.games in model from firebase
         // console.log(props.model.games)
         return <div>
             <HomeView onNewGame={initiateGameACB} />

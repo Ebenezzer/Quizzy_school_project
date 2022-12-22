@@ -57,10 +57,9 @@ function GameResultsView(props){
             counter = counter + 1;
             return playerNr === 1 ? renderScoreIcon("player1") : renderScoreIcon("player2");
         }
-        //TODO
+        
         let counter = 0;
         let latestResultRound = props.gameData.resultPlayer1.length >= props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;   
-        console.log(latestResultRound) 
         return [...results, Array(15-(3*results.length)).fill(null)].reduce(listReducerCB, []).map(renderScoresCB);
     }
     function renderScoreCounter(){
@@ -68,16 +67,16 @@ function GameResultsView(props){
     }
     function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
-        return props.playerData.username == props.gameData.turn ?
+        return props.playerData.username === props.gameData.turn ?
             <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
     }
     function goBackACB(){props.onClickHome()}
     function renderBackButton(){
-        return props.playerData.username == props.gameData.turn ?
+        return props.playerData.username === props.gameData.turn ?
             <button onClick={goBackACB} className="buttonBack">Back</button>:
             <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
         }
-
+    console.log(props.gameData.turn);
     props.checkGameScore();
     props.checkGameResults();
     return (
