@@ -3,14 +3,27 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { useNavigate } from 'react-router-dom'
-import { updateModelFromFirebase } from "../firebase/firebaseModel";
+import { db, updateModelFromFirebase } from "../firebase/firebaseModel";
+
+import { ref, getDatabase } from 'firebase/database';
+import { useList } from 'react-firebase-hooks/database';
+import { useState } from "react";
 
 export default
     function Home(props) {
     const navigate = useNavigate();
 
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
-    const [games, dataFromGames] = React.useState(props.model.games)
+    var games = []
+
+    const [snapshots, loading, error] = useList(ref(db,"quizzy11" + '/games'));
+
+    if(!loading && snapshots){
+        function makeListCB(snapshot){
+            return snapshot.val()
+        }
+        games = snapshots.map(makeListCB)
+    }
 
     function wasCreatedACB() {
         props.model.addObserver(observerACB);
@@ -22,7 +35,6 @@ export default
 
     function observerACB() {
         setUserLogin(props.model.currentUser)
-        dataFromGames(props.model.games)
     }
 
     function initiateGameACB(username) {

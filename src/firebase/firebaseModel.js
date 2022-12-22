@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth, updateProfile } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, get, onValue, push, off, update, query, orderByChild, equalTo } from "firebase/database";
+import { getDatabase, ref, set, get, onValue, push, off, update, query, orderByChild, equalTo, onChildAdded } from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 
@@ -194,6 +194,7 @@ function updateModelFromFirebase(model) {
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
         function retreivedUsernameACB(firebaseData) {
             model.setUser(firebaseData.val());
+            console.log(model.user)
         })
     }
 } // unsub

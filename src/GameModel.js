@@ -97,7 +97,6 @@ class GameModel{
 
     updateScore(){
         this.user.score ++;
-        console.log(this.user)
         this.notifyObservers({score: this.user.score});
     }
 
