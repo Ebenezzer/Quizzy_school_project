@@ -198,7 +198,7 @@ function updateModelFromFirebase(model) {
     }
 } // unsub
 
-function updateGameInfo(model){
+function updateGameInfoFromFirebase(model){
     if (model.user.games){
         function createModelACB(game) {
             model.setGameInfo(game)
@@ -223,7 +223,7 @@ function updateGameInfo(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase,
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfo
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfoFromFirebase
 }
 
 
