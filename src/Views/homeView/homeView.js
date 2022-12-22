@@ -12,7 +12,7 @@ function HomeView(props) {
         model.style.display = 'none';
     }
 
-    function onInviteClick() {
+    function onInviteACB() {
         var username = document.getElementById('username').value;
         props.onNewGame(username);
     }
@@ -23,15 +23,16 @@ function HomeView(props) {
         <p className="quizzy-name">Quizzy</p>
         <button onClick={newGameButtonOnClick} className="new-game">New game</button>
         <div className="popup-model" id="model">
-            <div className="modal-content">
+            <form className="modal-content" onSubmit={onInviteACB}>
                 <span className="close" onClick={closeModel}>&times;</span>
                 <br></br>
                 <h2>New Game</h2>
                 <label>Invite friend</label> <br></br>
                 <input type="text" id="username" className="input-name" placeholder="Username"></input>
-                <br></br>
-                <button className="btn-invite" onClick={onInviteClick}>Invite</button>
-            </div>
+                <div id="btn-incvite-wrapper">
+                    <button className="btn-invite" type="submit">Invite</button>
+                </div>
+            </form>
         </div>
     </div>
 }

@@ -34,8 +34,6 @@ function ReactRoot(){
         
     //return promiseNoData(promiseState) || <App model={promiseState.data}/>
     return <App model={new GameModel}/>
-
-
 }
 
 // Export the ReactRoot component

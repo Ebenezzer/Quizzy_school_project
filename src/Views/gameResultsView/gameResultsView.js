@@ -1,14 +1,13 @@
 import "./gameResultsView.css"
 import correct from "../../Assets/Images/correct.png"
 import incorrect from "../../Assets/Images/incorrect.png"
-
+// check if resultPlayer1 & 2 is truthy, otherwise define as empty list
 export default
 function GameResultsView(props){
     function renderHeader(){
-        //TODO add tie
         return props.gameData.winner ? 
-        (props.gameData.winner == props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
-        (props.gameData.turn == props.playerData.username ? <div className="header">Your turn</div> : <div className="header">"Opponents turn"</div>);
+            (props.gameData.winner === "tie" ? <div id="end" className="header">It's a tie!</div> : props.gameData.winner === props.playerData.username ? <div id="end" className="header">You won!</div> : <div id="end" className="header">"You lost!"</div>) :
+            (props.gameData.turn === props.playerData.username ? <div className="header">Your turn</div> : <div className="header">Opponent's turn</div>);
     }
     function renderProfilePic(playerNum){
         return props.playerData.username==props.gameData[playerNum] ? 
@@ -30,56 +29,60 @@ function GameResultsView(props){
                 if (!score){
                     return <div key={playerNr + counter.toString()} className={pointBox}><span className="dot"></span></div>
                 }
-                if(counter == (latest*3)-2 && props.gameData.turn == props.gameData[playerNr]){
-                    if(score == "correct"){ 
+                if(counter === (latestResultRound*3)-2 && props.gameData.turn !== props.gameData[playerNr]){
+                    if(score === "correct"){ 
                         return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
                     } 
                     return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
                 }
-                if (counter == latest*3-1 && props.gameData.turn == props.gameData[playerNr]){
-                    if(score == "correct"){
+                if (counter === latestResultRound*3-1 && props.gameData.turn !== props.gameData[playerNr]){
+                    if(score === "correct"){
                         return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
                     }
                     return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
                 }
-                if (counter == latest*3 && props.gameData.turn == props.gameData[playerNr]){
-                    if (score == "correct"){ 
+                if (counter === latestResultRound*3 && props.gameData.turn !== props.gameData[playerNr]){
+                    if (score === "correct"){ 
                         return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
                     }
                     return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div> 
                 } 
-                if (score == "correct"){ 
+                if (score === "correct"){ 
                     return<div key={playerNr + counter.toString()} className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
                 }
                 return <div key={playerNr + counter.toString()} className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>            
             }
             counter = counter + 1;
-            return playerNr == 1 ? renderScoreIcon("player1") : renderScoreIcon("player2");
+            return playerNr === 1 ? renderScoreIcon("player1") : renderScoreIcon("player2");
         }
+        
         let counter = 0;
-        const latest = props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;
-
+        let latestResultRound = props.gameData.resultPlayer1.length >= props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;   
         return [...results, Array(15-(3*results.length)).fill(null)].reduce(listReducerCB, []).map(renderScoresCB);
+    }
+    function renderScoreCounter(){
+        return <div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>
     }
     function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
-        return props.playerData.username == props.gameData.turn ?
+        return props.playerData.username === props.gameData.turn && props.gameData.currentRound<6?
             <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
     }
     function goBackACB(){props.onClickHome()}
     function renderBackButton(){
-        return props.playerData.username == props.gameData.turn ?
+        return props.playerData.username === props.gameData.turn && props.gameData.currentRound<6?
             <button onClick={goBackACB} className="buttonBack">Back</button>:
             <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
         }
-    
+    props.checkGameScore();
+    props.checkGameResults();
     return (
         <div className="fullPage">
         {renderHeader()}
         <div className="gridParent">
             <div className="totalScore">
                 <div>Score</div>
-                <div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>
+                {renderScoreCounter()}
             </div>  
             <div className="gridItemNameLeft">
                 {renderProfilePic("player1")}
