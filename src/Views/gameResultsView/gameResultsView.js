@@ -65,12 +65,12 @@ function GameResultsView(props){
     }
     function goToGameACB(){props.onClickGame()}
     function renderPlayButton(){
-        return props.playerData.username === props.gameData.turn ?
+        return props.playerData.username === props.gameData.turn && props.gameData.round<6?
             <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
     }
     function goBackACB(){props.onClickHome()}
     function renderBackButton(){
-        return props.playerData.username === props.gameData.turn ?
+        return props.playerData.username === props.gameData.turn && props.gameData.round<6?
             <button onClick={goBackACB} className="buttonBack">Back</button>:
             <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
         }
