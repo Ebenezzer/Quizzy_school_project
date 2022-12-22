@@ -145,8 +145,11 @@ function firebaseModelPromise(userId) {
     //return onValue(ref(db, REF + userId),(makeBigPromiseACB));
 } 
 
+function removeListenerFirebase(){
+    return off()
+}
 
-function updateFirebaseFromModel(model, userId){
+function updateFirebaseFromModel(model){
     model.addObserver(observerACB)
     function observerACB(payload){    
 
@@ -193,88 +196,48 @@ function updateFirebaseFromModel(model, userId){
 }
 
 function updateModelFromFirebase(model) {
+
     // subscribe and unsubscribe from observers
-    // off() function to remove listeners from firebase that can then be called here
+    // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
 
-    if (model.currentUser){
+        if (model.currentUser) {
+            onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
+                function retreivedUsernameACB(firebaseData) {
+                    model.setUser(firebaseData.val());})
+        }
+} 
 
-    onValue(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName), 
-    function retreivedUsernameACB(firebaseData){model.setUser(firebaseData.val())
-         console.log(firebaseData.val().games)
 
-        Promise.all(Object.keys(firebaseData.val().games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
-        ;})
 
-    function getUserGameCB(gameID){
-       return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
-            if (snapshot.exists()) {
-                return snapshot.val()
-            } else {
-                console.log("No data available");
-            }
-          }).catch((error) => {
-            console.error(error);
-          });
+function updateGameInfo(model){
+
+    if (model.user.games){
+
+        function createModelACB(game) {
+            model.setGameInfo(game)
+        } 
+
+        function getUserGameCB(gameID){
+        return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    return snapshot.val()
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+    Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
+
     }
-
-
-    function createModelACB(game){
-        model.setGameInfo(game)
-        model.notifyObservers()
-    } 
-}
-    //onChildAdded(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName + "/games/"), 
-    //function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.val());})
-
-    //function getMyGamesACB(firebaseData) {model.addGameToModel(firebaseData.key,firebaseData.val())})
-    // change to foreach 
-    //const userGames = query(ref(db, REF+"/users/publicUsers/" + model.currentUser.displayName + '/games/'))
-    //onValue(userGames, x
-    //function getMyGamesACB(firebaseData){model.addGameToModel(firebaseData.val())}
-    //)
-        
-    //model.currentUser.games.forEach(function(key) {
-      //  onValue(ref(db, REF+"/games/" + key), 
-    //    function savetoModel(firebaseData){model.searchGameInfo(firebaseData.val())})
-    //}); 
-    //const myGamesIds = query(ref(db, REF + "/user/publicUsers/" + model.currentUser.displayName + "/games/"))
-    //const myGames = query(ref(db, REF+"/games/"), orderByChild(myGamesIds))
-
-
-    // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid), 
-    // function playerChangedInFirebaseACB(firebaseData){ model.getCurrentPlayerObject(firebaseData.val());})
-
-    // onValue(ref(db, REF+"/users/publicUsers" + model.currentUser.uid),
-    // function playerScoreFirebaseACB(firebaseData){ model.currentUser(firebaseData.val())
-    // })
-
-    // onValue(ref(db, REF+"/games/currentGame"), 
-    // function dishChangedInFirebaseACB (firebaseData){ model.setCurrentGame(firebaseData.val());})
-
-
-    // function fetchGameBasedOnID(gameid){
-    //     //return getGameDetails(gameid)
-    // }
-
-    // function addFirebaseGameACB(data){
-    //     function testNoDuplicatesCB(object){ 
-    //         return object.id === +data.key };
-
-    //     if (!model.games.find(testNoDuplicatesCB)){
-    //         fetchGameBasedOnID(+data.key).then(function addGameACB(game){model.addGame(game)} )
-    //     }
-    // }
-
-    // onChildAdded(ref(db, REF+"/games/"), addFirebaseGameACB)
-    
-    // onChildRemoved(ref(db, REF+"/games/"),
-    // function removeGameInFirebaseACB (data){ model.removeGame({id: +data.key});} )
-
-    //unsuscribe here too 
 }
 
-
-export {app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, 
-    observerRecap,firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent}
+export {
+    app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase,
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfo, 
+    removeListenerFirebase
+}
 
 

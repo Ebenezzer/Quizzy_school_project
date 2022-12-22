@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfo, removeListenerFirebase} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -34,7 +34,8 @@ class GameModel{
     
     addAuthObserver(){
         function authUserACB(user){
-            // run off() functions for firebase listeners + try catch for user presence
+            //removeListenerFirebase()   // run off() functions for firebase listeners + try catch for user presence
+
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
