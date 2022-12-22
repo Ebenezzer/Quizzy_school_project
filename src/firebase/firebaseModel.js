@@ -194,7 +194,7 @@ function updateModelFromFirebase(model) {
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
         function retreivedUsernameACB(firebaseData) {
             model.setUser(firebaseData.val());
-            console.log(model.user)
+            //console.log(model.user)
         })
     }
 } // unsub
