@@ -22,7 +22,10 @@ export default
         function makeListCB(snapshot){
             return snapshot.val()
         }
-        games = snapshots.map(makeListCB)
+        function findUserGamesCB(game){
+            return game.player1==props.model.user.username || game.player2==props.model.user.username 
+        }
+        games = snapshots.map(makeListCB).filter(findUserGamesCB)
     }
 
     function wasCreatedACB() {

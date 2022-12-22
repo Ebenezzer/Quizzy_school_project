@@ -153,8 +153,8 @@ function updateFirebaseFromModel(model, userId) {
 
         if (payload && payload.newGame) {
             const gameId = push(ref(db, REF + '/games'), payload.newGame)
-            set(ref(db, REF + "/users/publicUsers/" + payload.newGame.player1 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
-            set(ref(db, REF + "/users/publicUsers/" + payload.newGame.player2 + '/games/' + gameId._path.pieces_[2]), gameId._path.pieces_[2])
+            set(ref(db, REF + "/users/publicUsers/" + payload.newGame.player1 + '/games/' + gameId._path.pieces_[2]), payload.newGame)
+            set(ref(db, REF + "/users/publicUsers/" + payload.newGame.player2 + '/games/' + gameId._path.pieces_[2]), payload.newGame)
             model.setCurrentGame(payload.newGame)
             //model.setCurrentGameId(gameId._path.pieces_[2])
             model.setGameId(gameId._path.pieces_[2])
