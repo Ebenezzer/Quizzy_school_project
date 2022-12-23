@@ -35,7 +35,17 @@
 .categoryImage{
     position: absolute;
     width: 100%;
-    scale: 1.4;
+    scale: 1.2;
     pointer-events: none;
     overflow: hidden;
+}
+
+@media(max-width: 700px){
+    .categoryGrid{
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+        gap: 50px;
+        margin-bottom: 50px;
+        height: 100%;
+    }
 }

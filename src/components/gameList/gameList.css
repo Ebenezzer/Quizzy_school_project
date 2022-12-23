@@ -4,13 +4,29 @@
     flex-direction: column;
     height: fit-content;
     width: fit-content;
-    min-height: 400px;
+    height: 400px;
     min-width: 350px;
     border-radius: 15px;
     background-color: rgb(239, 238, 251);
     display: inline-flex;
     margin: 20px;
+    overflow-x: hidden;
 }
+
+.box::-webkit-scrollbar {
+    width: 6px;         /* width of the entire scrollbar */
+    border-radius: 5px;
+  }
+  
+.box::-webkit-scrollbar-track {
+    background: rgba(148, 77, 255, 0.87);        /* color of the tracking area */
+  }
+  
+.box::-webkit-scrollbar-thumb {
+    background-color: rgba(130, 47, 254, 0.87);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 2px solid rgba(147, 79, 249, 0.87);  /* creates padding around scroll thumb */
+  }
 
 .game-list {
     box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
