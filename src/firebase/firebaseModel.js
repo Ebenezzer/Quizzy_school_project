@@ -15,6 +15,7 @@ const userEmail = document.getElementById('email')
 
 function signingOut(func) {
     signOut(auth).then(() => {
+        off(onValue) // maybe just off() or off(db/app),either on this row or below func()
         func()
         console.log("Sign-out successful")
     }).catch((error) => {
@@ -199,18 +200,8 @@ function updateModelFromFirebase(model) {
                 function retreivedUsernameACB(firebaseData) {
                     model.setUser(firebaseData.val());})
         }
-} 
+}
 
-
-
-    if (model.currentUser) {
-        onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
-        function retreivedUsernameACB(firebaseData) {
-            model.setUser(firebaseData.val());
-            //console.log(model.user)
-        })
-    }
-} // unsub
 
 function updateGameInfoFromFirebase(model){
     if (model.user.games){
