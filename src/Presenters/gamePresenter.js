@@ -38,8 +38,6 @@ function Game(props){
             setAnswers(null);
         }
         else{
-            //todo matilda takeover
-            //TODO props.model.updateResults(props.model.currentGame.player1===props.model.user.username?"player1":"player2");
             props.model.updateResults(props.model.currentGame.player1===props.model.currentGame.turn?"player1":"player2")
             navigate("/gameResults");
         }
