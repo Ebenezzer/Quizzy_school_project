@@ -4,6 +4,8 @@ import goldMedal from "../../Assets/Images/gold_medal.png";
 import silverMedal from "../../Assets/Images/silver_medal.png";
 import bronzeMedal from "../../Assets/Images/bronze_medal.png";
 import star from "../../Assets/Images/star (1).png";
+
+
 function LeaderboardView(props) {
     function renderFirstPlayer(player) {
         return <div className="podium-card" key={Math.random().toString()}>

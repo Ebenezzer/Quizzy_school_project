@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth, updateProfile } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, get, onValue, push, off, update, query, orderByChild, equalTo, onChildAdded } from "firebase/database";
+import { getDatabase, ref, set, get, onValue, push, update, query, orderByChild, equalTo, limitToLast, off} from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 
@@ -11,16 +11,16 @@ const db = getDatabase(app);
 const auth = getAuth();
 const REF = "quizzy11";
 
-const userEmail = document.getElementById('email')
 
 function signingOut(func) {
     signOut(auth).then(() => {
-        off(onValue) // maybe just off() or off(db/app),either on this row or below func()
+        //off(onValue) // maybe just off() or off(db/app),either on this row or below func()
         func()
         console.log("Sign-out successful")
     }).catch((error) => {
         console.log("An error happened", error)
     });
+    return true;
 }
 
 
@@ -34,11 +34,14 @@ function signIn(email, password) {
         // Signed in 
         const user = userCredential.user;
         console.log("signed in")
+        //return true;    not yet sure if this should be done here or on line 53
         // ...
         },    
         {
             onlyOnce: true
-          })
+          },
+          
+        )
         .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -46,7 +49,7 @@ function signIn(email, password) {
         alert(errorCode)
         })
         ;
-
+        return true;
         //get(child(ref(db), `users/publicUsers/${username}`))
     }
 
@@ -96,11 +99,29 @@ function createAccount(email, password, username){
         onlyOnce: true
       }
     )
+    return true;
 
 }
 
-function updateGameFirebase() {
+function getScoresFirebase(model){
+    const userScoreREF = query(ref(db, REF + "/users/publicUsers/"), orderByChild("score"), limitToLast(3))
+    const playerArray = []
+    onValue(userScoreREF, (snapshot) => {
+        if (snapshot.exists()){
+        snapshot.forEach((childSnapshot)=>{
+            playerArray.push({username: childSnapshot.key,
+                score: childSnapshot.val().score})
+            }
+        )
+        model.setPlayers(playerArray)
+        }
+        else{
+            console.log("No data, leaderboard cannot be rendered")
+            off()
+        } 
+    })
 }
+
 
 function getCurrentOpponent(model, opponentUsername) {
     get(ref(db, REF + '/users/publicUsers/' + opponentUsername)).then((snapshot) => {
@@ -140,7 +161,11 @@ function firebaseModelPromise(userId) {
 }
 
 function removeListenerFirebase(){
-    return off()
+    console.log("we're in")
+/*     const databaseREF = query(ref(db, REF))
+    off(databaseREF).then(
+        console.log("we're in")
+    ) */
 }
 
 function updateFirebaseFromModel(model, userId) {
@@ -195,11 +220,28 @@ function updateModelFromFirebase(model) {
     // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
 
-        if (model.currentUser) {
+    const unsubscribe = onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
+        const usernameData= snapshot.val();
+        if( model.currentUser){
+             // Do something with the snapshot data 
+             model.setUser(usernameData)
+        }
+        else{
+            // remove the listener
+            return unsubscribe();
+        }
+    }
+    )
+/*         if (model.currentUser) {
             onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
                 function retreivedUsernameACB(firebaseData) {
                     model.setUser(firebaseData.val());})
         }
+
+        return () => database().ref(`/users/${userId}`).off('value', onValueChange);
+        return () => ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName).off('value', onValueChange); */
+
+    
 }
 
 
@@ -216,7 +258,9 @@ function updateGameInfoFromFirebase(model){
                 } else {
                     console.log("No data available");
                 }
-            }).catch((error) => {console.error(error);
+            }).catch((error) => {
+                console.log("Promise issues")
+                console.error(error);
             }); 
         }
         Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
@@ -227,8 +271,8 @@ function updateGameInfoFromFirebase(model){
 
 
 export {
-    app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase,
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameFirebase, getCurrentOpponent, updateGameInfoFromFirebase
+    app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, getScoresFirebase, 
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, getCurrentOpponent, updateGameInfoFromFirebase, removeListenerFirebase
 }
 
 

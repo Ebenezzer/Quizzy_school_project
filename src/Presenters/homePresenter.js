@@ -27,6 +27,10 @@ export default
         }
         games = snapshots.map(makeListCB).filter(findUserGamesCB)
     }
+/*     else{
+        console.log("fetch not working")
+        console.log(error)
+    } */
 
     function wasCreatedACB() {
         props.model.addObserver(observerACB);

@@ -1,5 +1,6 @@
 import React from "react";
 import LeaderboardView from "../Views/leaderboardView/leaderboardView";
+import { getScoresFirebase } from "../firebase/firebaseModel";
 
 
 export default
@@ -39,6 +40,9 @@ function Leaderboard(props){
         }
             return 0;
     }
+
+    getScoresFirebase(props.model)
+
 
  return <div>
     <LeaderboardView first_player = {currentPlayers.sort(compareScores).slice(0,1)}
