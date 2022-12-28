@@ -41,6 +41,10 @@ function LeaderboardView(props) {
         </div>
     }
 
+    function redirectACB(){
+        props.onClickBackHome()
+    }
+
     return (<div className="leaderboard-podium-box">
         <img src={leaderboard} className="leaderboard-image" />
         <div className="podium-box">
@@ -51,7 +55,7 @@ function LeaderboardView(props) {
         <div className="leaderboard-box">
             <h2 className="leaderboard-title">Leaderboard</h2>
             {props.players.map(renderLeaderboard)}
-            <button className="home-button">Home</button>
+            <button onClick = {redirectACB} className="home-button">Home</button>
         </div>
     </div>
 
