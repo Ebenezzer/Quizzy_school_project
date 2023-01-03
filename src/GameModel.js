@@ -1,15 +1,16 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfo} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfoFromFirebase, removeListenerFirebase} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
 
 
 class GameModel{
-    constructor(gameArray=[]){
+    constructor(gameArray=[], playersArray = []){
         this.user = {};  //samma som currentPlayerObject ?
         this.currentGame = {};
         this.currentGameId = "";
         this.observers=[];
+        this.players = playersArray;
         this.games = gameArray;
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
@@ -34,12 +35,14 @@ class GameModel{
     
     addAuthObserver(){
         function authUserACB(user){
-            // run off() functions for firebase listeners + try catch for user presence
+           // run off() functions for firebase listeners + try catch for user presence
+
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
                 updateModelFromFirebase(this)
-                updateGameInfo(this)
+                try{updateGameInfoFromFirebase(this)}
+                catch{console.log("fetching issues")}
             }
             this.notifyObservers()
         }
@@ -97,7 +100,6 @@ class GameModel{
 
     updateScore(){
         this.user.score ++;
-        console.log(this.user)
         this.notifyObservers({score: this.user.score});
     }
 
@@ -109,14 +111,19 @@ class GameModel{
     setCurrentOpponent(opponent){
         this.currentOpponent=opponent;
     }
-    
+
     updateCurrentOpponent(){
         getCurrentOpponent(this, this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2)
     }
 
+    setPlayers(playersObject){
+        this.players = [...playersObject]
+        this.notifyObservers()
+        console.log(this.players)
+    }
+
     setGameInfo(gameInfo){
         this.games = [...gameInfo]
-        console.log(this.games)
         this.notifyObservers()
     }
 
@@ -190,26 +197,30 @@ class GameModel{
         this.roundResults = [];
         this.updateGame();
     } 
+
     setCurrentGameId(gameId){
         this.currentGameId=gameId;
     }
+
     setGameId(gameId){
         this.currentGame.gameId = gameId;
         this.updateGame()
     }
+
     updateGame(){
         this.notifyObservers({updatedGame : this.currentGame})
     }
+    
     //TODO
     continuousUpdateGames(){
         //TODO real time communication with firebase for updating home page (to see when it is your turn)
         // https://brianchildress.co/simple-polling-using-settimeout/
         // https://www.freecodecamp.org/news/5-ways-to-build-real-time-apps-with-javascript-5f4d8fe259f7/
-        //this.interval = setInterval(updateGameInfo(this), 5000);
+        //this.interval = setInterval(updateGameInfoFromFirebase(this), 5000);
     }
+
     getGameList(){
-        updateGameInfo(this)
-        this.notifyObservers()
+        updateGameInfoFromFirebase(this)
     }
 }
 

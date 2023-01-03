@@ -22,7 +22,6 @@ function GameView(props){
             setCurrentQuestionIndex(currentQuestionIndex+1);
         }else{
             window.location.hash = "#Home";
-            console.log(roundArray);
         }
     }
 

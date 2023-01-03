@@ -4,6 +4,8 @@ import goldMedal from "../../Assets/Images/gold_medal.png";
 import silverMedal from "../../Assets/Images/silver_medal.png";
 import bronzeMedal from "../../Assets/Images/bronze_medal.png";
 import star from "../../Assets/Images/star (1).png";
+
+
 function LeaderboardView(props) {
     function renderFirstPlayer(player) {
         return <div className="podium-card" key={Math.random().toString()}>
@@ -39,6 +41,10 @@ function LeaderboardView(props) {
         </div>
     }
 
+    function redirectACB(){
+        props.onClickBackHome()
+    }
+
     return (<div className="leaderboard-podium-box">
         <img src={leaderboard} className="leaderboard-image" />
         <div className="podium-box">
@@ -49,7 +55,7 @@ function LeaderboardView(props) {
         <div className="leaderboard-box">
             <h2 className="leaderboard-title">Leaderboard</h2>
             {props.players.map(renderLeaderboard)}
-            <button className="home-button">Home</button>
+            <button onClick = {redirectACB} className="home-button">Home</button>
         </div>
     </div>
 

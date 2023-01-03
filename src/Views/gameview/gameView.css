@@ -25,6 +25,7 @@
     font-size: 1.5rem;
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
     transition: 200ms;
+    padding: 5px;
 }
 
 .answer:hover{
@@ -67,7 +68,7 @@
     position: absolute;
     right: 20px;
     top: 5%;
-    font-size: large;
+    font-size: 1rem;
 }
 #nextQuestion.disabledClass{
     display: none;
@@ -105,4 +106,26 @@
 
 .wrapper{
     height: 100vh;
+}
+
+@media(max-width: 700px){
+    .answerGridContainer{
+        grid-template-columns: 1fr;
+    }
+
+    #questionCard{
+        font-size: 1.5rem;
+        grid-column: 1;
+        margin-top: 30px;
+        height: 30vh;
+    }
+
+    #questionCount{
+        font-size: 1.2rem;
+    }
+
+    .answer{
+        font-size: 1.2rem;
+        height: 80%;
+    }
 }
