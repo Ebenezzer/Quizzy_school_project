@@ -104,7 +104,7 @@ function createAccount(email, password, username){
 }
 
 function getScoresFirebase(model){
-    const userScoreREF = query(ref(db, REF + "/users/publicUsers/"), orderByChild("score"), limitToLast(3))
+    const userScoreREF = query(ref(db, REF + "/users/publicUsers/"), orderByChild("score"), limitToLast(10))
     const playerArray = []
     onValue(userScoreREF, (snapshot) => {
         if (snapshot.exists()){

@@ -36,8 +36,7 @@ function LeaderboardView(props) {
             <img className="star" src={star}></img>
             <span>{player.username}</span>
             <span>
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                {player.score} points</span>
+                &emsp;{player.score} points</span>
         </div>
     }
 

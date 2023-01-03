@@ -3,11 +3,10 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { useNavigate } from 'react-router-dom'
-import { db, updateModelFromFirebase } from "../firebase/firebaseModel";
+import { db } from "../firebase/firebaseModel";
 
-import { ref, getDatabase } from 'firebase/database';
+import { ref} from 'firebase/database';
 import { useList } from 'react-firebase-hooks/database';
-import { useState } from "react";
 
 export default
     function Home(props) {
@@ -27,11 +26,7 @@ export default
         }
         games = snapshots.map(makeListCB).filter(findUserGamesCB)
     }
-/*     else{
-        console.log("fetch not working")
-        console.log(error)
-    } */
-
+    
     function wasCreatedACB() {
         props.model.addObserver(observerACB);
         return function isTakenDownACB() {
@@ -42,6 +37,7 @@ export default
 
     function observerACB() {
         setUserLogin(props.model.currentUser)
+
     }
 
     function initiateGameACB(username) {
@@ -75,14 +71,14 @@ export default
         return <NoUserView />
     }
     else {
-        // setTimeout(() => {window.location.reload();}, 3000);
-        //props.model.getGameList()  // update this.user.games in model from firebase
-        // console.log(props.model.games)
         return <div>
             <HomeView onNewGame={initiateGameACB} />
-            <GameList currentGame={games.filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} goToGameACB={gameButtonACB} />
-            <GameList currentGame={games.filter(getActiveGames).filter(getOpponentsGamesCB)} turn={"Opponent's turn"} goToGameACB={gameButtonACB} />
-            <GameList currentGame={games.filter(getInactiveGames)} turn={"Finished games"} goToGameACB={gameButtonACB} />
+            <GameList currentGame={games.filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} 
+            goToGameACB={gameButtonACB}/>
+            <GameList currentGame={games.filter(getActiveGames).filter(getOpponentsGamesCB)} turn={"Opponent's turn"} 
+            goToGameACB={gameButtonACB}/>
+            <GameList currentGame={games.filter(getInactiveGames)} turn={"Finished games"} 
+            goToGameACB={gameButtonACB}/>
         </div>
     }
 }

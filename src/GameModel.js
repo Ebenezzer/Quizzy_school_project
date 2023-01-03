@@ -109,6 +109,7 @@ class GameModel{
     }
 
     setCurrentOpponent(opponent){
+        debugger
         this.currentOpponent=opponent;
     }
 
