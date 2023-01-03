@@ -36,7 +36,8 @@
   padding: 20px;
   border: 1px solid #888;
   width: 60%;
-  height: 25%;
+  height: 35%;
+  border-radius: 20px;
 }
 
 .modal-content h2 {
@@ -62,11 +63,12 @@
   font-family: "Varela Round";
   background-color: #6A5AE0;
   color: rgb(255, 255, 242);
-  border-radius: 0px;
   width: 5rem;
   height: 40px;
-  border-radius: 15px;
-  margin-left: 5px; 
+  border-radius: 20px;
+  margin-left: 5px;
+  box-shadow: #bbb 2.4px 2.4px 3.2px;
+  font-weight: bold;
 }
 
 #btn-invite-wrapper{

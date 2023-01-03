@@ -24,28 +24,64 @@ function GameResultsView(props){
         function renderScoresCB(score){
             function renderScoreIcon(playerNr){
                 let pointBox = "";
-                playerNr=="player1" ? pointBox = "pointBoxLeft" : pointBox = "pointBoxRight"
+                playerNr === "player1" ? pointBox = "pointBoxLeft" : pointBox = "pointBoxRight";
     
                 if (!score){
                     return <div key={playerNr + counter.toString()} className={pointBox}><span className="dot"></span></div>
                 }
-                if(counter === (latestResultRound*3)-2 && props.gameData.turn !== props.gameData[playerNr]){
-                    if(score === "correct"){ 
-                        return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
-                    } 
-                    return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
-                }
-                if (counter === latestResultRound*3-1 && props.gameData.turn !== props.gameData[playerNr]){
-                    if(score === "correct"){
-                        return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                if(counter === (latestResultRound*3)-2){
+                    if(playerNr==="player1"){
+                        if(props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length || (props.gameData.resultPlayer1.length === props.gameData.resultPlayer2.length && latestResultRound%2===0)){
+                            if(score === "correct"){ 
+                                return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
+                            } 
+                            return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
+                        }
                     }
-                    return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
-                }
-                if (counter === latestResultRound*3 && props.gameData.turn !== props.gameData[playerNr]){
-                    if (score === "correct"){ 
-                        return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                    if(playerNr==="player2"){
+                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length == props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
+                            if(score === "correct"){ 
+                                return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
+                            } 
+                            return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
+                        }  
                     }
-                    return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div> 
+                }
+                if (counter === latestResultRound*3-1){
+                    if(playerNr==="player1"){
+                        if(props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length || (props.gameData.resultPlayer1.length === props.gameData.resultPlayer2.length && latestResultRound%2===0)){
+                            if(score === "correct"){
+                                return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                            }
+                            return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
+                        }
+                    }
+                    if(playerNr==="player2"){
+                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length == props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
+                            if(score === "correct"){
+                                return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                            }
+                            return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>
+                        }  
+                    }
+                }
+                if (counter === latestResultRound*3){
+                    if(playerNr==="player1"){
+                        if(props.gameData.resultPlayer1.length > props.gameData.resultPlayer2.length || (props.gameData.resultPlayer1.length === props.gameData.resultPlayer2.length && latestResultRound%2===0)){
+                            if (score === "correct"){ 
+                                return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                            }
+                            return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div> 
+                        }
+                    }
+                    if(playerNr==="player2"){
+                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length == props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
+                            if (score === "correct"){ 
+                                return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
+                            }
+                            return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div> 
+                        }  
+                    }
                 } 
                 if (score === "correct"){ 
                     return<div key={playerNr + counter.toString()} className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
@@ -55,7 +91,6 @@ function GameResultsView(props){
             counter = counter + 1;
             return playerNr === 1 ? renderScoreIcon("player1") : renderScoreIcon("player2");
         }
-        
         let counter = 0;
         let latestResultRound = props.gameData.resultPlayer1.length >= props.gameData.resultPlayer2.length ? props.gameData.resultPlayer1.length : props.gameData.resultPlayer2.length;   
         return [...results, Array(15-(3*results.length)).fill(null)].reduce(listReducerCB, []).map(renderScoresCB);
