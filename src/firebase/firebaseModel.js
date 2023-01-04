@@ -135,6 +135,13 @@ function getCurrentOpponent(model, opponentUsername) {
     });
 }
 
+function getCurrentOpponentTest(opponentUsername) {
+    function getResultValueACB(result){
+        return result.val();
+    }
+    return get(ref(db, REF + '/users/publicUsers/' + opponentUsername)).then(getResultValueACB);
+}
+
 function observerRecap(model) {
     model.addObserver(observerACB)
     function observerACB(payload) {
@@ -272,7 +279,7 @@ function updateGameInfoFromFirebase(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, getScoresFirebase, 
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, getCurrentOpponent, updateGameInfoFromFirebase, removeListenerFirebase
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, getCurrentOpponent, updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponentTest
 }
 
 

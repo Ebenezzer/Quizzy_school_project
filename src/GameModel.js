@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfoFromFirebase, removeListenerFirebase} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponentTest} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -15,6 +15,7 @@ class GameModel{
         this.searchGameIDPromiseState = {};
         this.currentGamePromiseState = {};
         this.questionsPromiseState = {};
+        this.opponentPromiseState = {};
         this.currentUser = undefined; // to save data from firebase into
         this.addAuthObserver();
         this.roundResults=[];
@@ -116,6 +117,16 @@ class GameModel{
         getCurrentOpponent(this, this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2)
     }
 
+    setCurrentOpponentTest(){
+        //använder någon this.currentOpponent ? Eller räcker det med this.opponentPromiseState.data
+        //this.currentOpponent=
+        function notifyACB(){    
+            this.notifyObservers();
+        }
+
+        resolvePromise(getCurrentOpponentTest(this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2), this.opponentPromiseState, notifyACB.bind(this));
+    }
+
     setPlayers(playersObject){
         this.players = [...playersObject]
         this.notifyObservers()
@@ -209,14 +220,6 @@ class GameModel{
 
     updateGame(){
         this.notifyObservers({updatedGame : this.currentGame})
-    }
-    
-    //TODO
-    continuousUpdateGames(){
-        //TODO real time communication with firebase for updating home page (to see when it is your turn)
-        // https://brianchildress.co/simple-polling-using-settimeout/
-        // https://www.freecodecamp.org/news/5-ways-to-build-real-time-apps-with-javascript-5f4d8fe259f7/
-        //this.interval = setInterval(updateGameInfoFromFirebase(this), 5000);
     }
 
     getGameList(){
