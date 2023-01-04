@@ -63,7 +63,8 @@ export default
 
     function gameButtonACB(game) {
         props.model.setCurrentGame(game)
-        props.model.updateCurrentOpponent()
+        //props.model.updateCurrentOpponent()
+        props.model.setCurrentOpponentTest()
         
         navigate("/gameResults");
     } 

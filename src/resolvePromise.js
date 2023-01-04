@@ -2,7 +2,6 @@ function resolvePromise(promise, promiseState, notify){
     promiseState.promise=promise;
     promiseState.data= null;         
     promiseState.error= null;
-    
     if(notify){     // if a 3rd parameter was sent, we expect it to be a function (ACB)!
         notify();   // so we can call it to notify every time promise, data, or error change
     }  
