@@ -233,12 +233,9 @@ function updateModelFromFirebase(model) {
              // Do something with the snapshot data 
              model.setUser(usernameData)
         }
-        else{
-            // remove the listener
-            return unsubscribe();
-        }
     }
     )
+    unsubscribe();
 /*         if (model.currentUser) {
             onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
                 function retreivedUsernameACB(firebaseData) {
