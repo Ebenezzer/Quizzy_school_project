@@ -11,7 +11,7 @@ function LeaderboardView(props) {
         return <div className="podium-card" key={Math.random().toString()}>
             <img className="player-icon" src={goldMedal}></img>
             <figcaption>{player.username}<br></br>
-                Score:{player.score} </figcaption>
+            Games won:{player.score} </figcaption>
         </div>
     }
 
@@ -19,7 +19,7 @@ function LeaderboardView(props) {
         return <div className="podium-card" key={Math.random().toString()}>
             <img className="player-icon" src={silverMedal}></img>
             <figcaption>{player.username}<br></br>
-                Score:{player.score} </figcaption>
+            Games won:{player.score} </figcaption>
         </div>
     }
 
@@ -27,17 +27,18 @@ function LeaderboardView(props) {
         return <div className="podium-card" key={Math.random().toString()}>
             <img className="player-icon" src={bronzeMedal}></img>
             <figcaption>{player.username}<br></br>
-                Score:{player.score} </figcaption>
+                Games won:{player.score} </figcaption>
         </div>
     }
     
     function renderLeaderboard(player) {
         return <div className="leaderboard-card" key={Math.random().toString()}>
             <div className="leaderboard-name">
+            {props.players.indexOf(player)+1}. &nbsp;&nbsp;
                 <img className="star" src={star}></img>
                 <span>{player.username}</span>
             </div>
-            <span> &emsp;{player.score} points</span>
+            <span> &emsp;{player.score} games won</span>
         </div>
     }
 
