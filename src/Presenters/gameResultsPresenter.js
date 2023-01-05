@@ -50,7 +50,7 @@ function GameResults(props){
     function startGameACB(){
         navigate("/category");
     }
-    
+    console.log(opponentPromiseStateData)
     return promiseNoData({promise: opponentPromiseStatePromise, data:opponentPromiseStateData, error: opponentPromiseStateError})
     ||<GameResultsView 
         playerData={player}
