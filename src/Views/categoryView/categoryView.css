@@ -1,14 +1,25 @@
+.wrapper{
+    height: 100vh;
+    justify-items: center;
+}
 .categoryGrid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* padding: 30px; */
-    /* gap: 50px; */
-    height: 100vh;
+    height: 99%;
     width: 100%;
     place-items: center;
-    align-items: center;
-    justify-content: center;
     text-align: center;
+}
+
+.categoryChoice{
+    grid-column: span 2;
+    text-align: center;
+    color: #fffef5;
+    font-family: 'Varela Round', sans-serif;
+    font-weight:bold;
+    font-size: 35px;
+    pointer-events: none;
+    text-shadow: 0px 2px 5px #00000040;
 }
 
 .categoryCard{
@@ -19,8 +30,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 2rem;
-    font-family: sans-serif;
-    font-size: 2rem;
     box-shadow: 0 5px 10px 0 #00000040, 0 5px 20px 0 #00000080;
     background-color: #fffbf7;
     transition: 200ms;
@@ -43,7 +52,6 @@
 @media(max-width: 700px){
     .categoryGrid{
         grid-template-columns: 1fr;
-        margin-top: 80px;
         gap: 50px;
         margin-bottom: 50px;
         height: 100%;
