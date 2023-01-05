@@ -227,7 +227,7 @@ function updateModelFromFirebase(model) {
     // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
 
-    const unsubscribe = onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
+        onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
         const usernameData= snapshot.val();
         if( model.currentUser){
              // Do something with the snapshot data 
@@ -235,7 +235,6 @@ function updateModelFromFirebase(model) {
         }
     }
     )
-    unsubscribe();
 /*         if (model.currentUser) {
             onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
                 function retreivedUsernameACB(firebaseData) {
