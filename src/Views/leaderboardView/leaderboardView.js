@@ -33,10 +33,11 @@ function LeaderboardView(props) {
     
     function renderLeaderboard(player) {
         return <div className="leaderboard-card" key={Math.random().toString()}>
-            <img className="star" src={star}></img>
-            <span>{player.username}</span>
-            <span>
-                &emsp;{player.score} points</span>
+            <div className="leaderboard-name">
+                <img className="star" src={star}></img>
+                <span>{player.username}</span>
+            </div>
+            <span> &emsp;{player.score} points</span>
         </div>
     }
 

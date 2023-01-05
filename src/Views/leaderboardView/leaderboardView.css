@@ -7,12 +7,19 @@
 }
 
 .leaderboard-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     pointer-events: none;
     box-shadow: 0 1px 2px 0 #d1d1d140, 0 2px 5px 0 #d1d1d140;
     border-radius: 10px;
     background-color: rgb(255, 255, 242);
     padding: 2px;
     margin: 5px 50px;
+}
+
+.leaderboard-name{
+    text-align: left;
+    margin-left: 50px;
 }
 
 .podium-box {
@@ -73,8 +80,8 @@
     color: white;
     border-radius: 15px;
     box-shadow: 0 1px 2px 0 #00000040, 0 2px 5px 0 #00000080;
-    width: 65px;
-    height: 25px;
+    width: 80px;
+    height: 50px;
     margin-top: 10px;
     cursor: pointer;
 }
