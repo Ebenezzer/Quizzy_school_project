@@ -11,22 +11,8 @@ import { useList } from 'react-firebase-hooks/database';
 export default
     function Home(props) {
     const navigate = useNavigate();
-
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
-    var games = []
-
     const [snapshots, loading] = useList(ref(db,"quizzy11" + '/games'));
-    /*
-    if(!loading && snapshots){
-        function makeListCB(snapshot){
-            return snapshot.val()
-        }
-        function findUserGamesCB(game){
-            return game.player1==props.model.user.username || game.player2==props.model.user.username 
-        }
-        debugger;
-        games = snapshots.map(makeListCB).filter(findUserGamesCB)
-    }*/
     
     function wasCreatedACB() {
         props.model.addObserver(observerACB);
@@ -38,7 +24,6 @@ export default
 
     function observerACB() {
         setUserLogin(props.model.currentUser)
-
     }
 
     function initiateGameACB(username) {
@@ -79,10 +64,12 @@ export default
         return <NoUserView />
     }
     else { 
+        console.log(props.model.counter)
         if(loading){
             return <img src={loadingGif} className="Loading" />;
         }
-        if(!loading && snapshots){
+        if(!loading && snapshots && props.model.counter<3){
+            props.model.increaseCounter()
             return <div>
                 <HomeView onNewGame={initiateGameACB} />
                 <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} 
@@ -92,6 +79,9 @@ export default
                 <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getInactiveGames)} turn={"Finished games"} 
                 goToGameACB={gameButtonACB}/>
             </div>
+            }
+        else{
+            window.location.reload()
         }
     }
 }
