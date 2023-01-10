@@ -12,23 +12,11 @@ export default
     function Home(props) {
     const navigate = useNavigate();
 
-    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
-    var games = []
+    //const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
 
     const [snapshots, loading] = useList(ref(db,"quizzy11" + '/games'));
-    /*
-    if(!loading && snapshots){
-        function makeListCB(snapshot){
-            return snapshot.val()
-        }
-        function findUserGamesCB(game){
-            return game.player1==props.model.user.username || game.player2==props.model.user.username 
-        }
-        debugger;
-        games = snapshots.map(makeListCB).filter(findUserGamesCB)
-    }*/
     
-    function wasCreatedACB() {
+    /* function wasCreatedACB() {
         props.model.addObserver(observerACB);
         return function isTakenDownACB() {
             props.model.removeObserver(observerACB)
@@ -38,8 +26,7 @@ export default
 
     function observerACB() {
         setUserLogin(props.model.currentUser)
-
-    }
+    } */
 
     function initiateGameACB(username) {
         props.model.createNewGame(username)
@@ -75,10 +62,9 @@ export default
     function findUserGamesCB(game){
         return game.player1==props.model.user.username || game.player2==props.model.user.username 
     }
-    if (!userLoggedIn) {
+    /* if (!userLoggedIn) {
         return <NoUserView />
-    }
-    else { 
+    } */
         if(loading){
             return <img src={loadingGif} className="Loading" />;
         }
@@ -94,4 +80,3 @@ export default
             </div>
         }
     }
-}

@@ -4,11 +4,23 @@ import { getScoresFirebase } from "../firebase/firebaseModel";
 import { useNavigate } from 'react-router-dom'
 
 
-
 export default
 function Leaderboard(props){
-
+    
     const navigate = useNavigate();
+
+    const [players, setLeaderboardPlayers] = React.useState(props.model.players) 
+    function wasCreatedACB() {
+        props.model.addObserver(observerACB);
+        return function isTakenDownACB() {
+            props.model.removeObserver(observerACB)
+        };
+    }
+    React.useEffect(wasCreatedACB, []);
+
+    function observerACB() {
+        setLeaderboardPlayers(props.model.players)
+    }
 
     function compareScores(a, b) {
         if(a.score < b.score) {
@@ -23,14 +35,15 @@ function Leaderboard(props){
     function redirectHome(){
         navigate('/home')
     }
-    getScoresFirebase(props.model)
-
-
+    if (players){
  return <div>
-    <LeaderboardView first_player = {props.model.players.sort(compareScores).slice(0,1)}
-    second_player = {props.model.players.sort(compareScores).slice(1,2)}
-    third_player = {props.model.players.sort(compareScores).slice(2,3)}
-    players = {props.model.players.sort(compareScores)}
-    onClickBackHome = {redirectHome}/>
+    <LeaderboardView first_player = {players.sort(compareScores).slice(0,1)}
+    second_player = {players.sort(compareScores).slice(1,2)}
+    third_player = {players.sort(compareScores).slice(2,3)}
+    players = {players.sort(compareScores)}
+    onClickBackHome = {redirectHome}
+    />
     </div>
+}
+else {console.log(players)}
 }

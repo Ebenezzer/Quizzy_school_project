@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-function NoUserView(props){
+function NoUserView(){
     const navigate = useNavigate();
     function navigateToSignupACB(){
         navigate("/signup");
