@@ -15,6 +15,7 @@ export default function SidebarView(props) {
     }
     
     function redirectLoginACB() {
+        console.log(props.model.observers)
         props.onDeactivateSidebar();
     }
 

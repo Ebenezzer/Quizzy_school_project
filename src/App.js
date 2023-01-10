@@ -21,7 +21,7 @@ function App() {
   <div className="App">
     <BrowserRouter>
       <Routes>
-        <Route path ="/" element= {<Sidebar/>}> 
+        <Route path ="/" element= {<Sidebar model={model}/>}> 
           <Route path ="gameResults" element= {<GameResults model={model}/>}/>
           <Route path ="category" element= {<Category model={model}/>}/>
           <Route path ="game" element= {<Game model={model}/>}/>

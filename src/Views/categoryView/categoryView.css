@@ -1,11 +1,7 @@
-.wrapper{
-    height: 100vh;
-    justify-items: center;
-}
 .categoryGrid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 99%;
+    height: 100vh;
     width: 100%;
     place-items: center;
     text-align: center;
@@ -55,5 +51,9 @@
         gap: 50px;
         margin-bottom: 50px;
         height: 100%;
+    }
+    .categoryChoice{
+        grid-column: span 1;
+        margin-top: 70px;
     }
 }
