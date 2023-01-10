@@ -2,6 +2,7 @@ import GameResultsView from '../Views/gameResultsView/gameResultsView';
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import promiseNoData from '../Views/promiseNoData/promiseNoData';
+import NoUserView from '../Views/noUserView';
 
 export default
 function GameResults(props){
@@ -12,6 +13,7 @@ function GameResults(props){
     const [opponentPromiseStatePromise, setOpponentPromiseStatePromise] = React.useState(props.model.opponentPromiseState.promise);
     const [opponentPromiseStateData, setOpponentPromiseStateData] = React.useState(props.model.opponentPromiseState.data);
     const [opponentPromiseStateError, setOpponentPromiseStateError] = React.useState(props.model.opponentPromiseState.error);
+    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser);
 
     function observerACB(){   
         setPlayer(props.model.user);    // when notified these will update states with current value in model
@@ -20,6 +22,7 @@ function GameResults(props){
         setOpponentPromiseStatePromise(props.model.opponentPromiseState.promise);
         setOpponentPromiseStateData(props.model.opponentPromiseState.data);
         setOpponentPromiseStateError(props.model.opponentPromiseState.error);
+        setUserLogin(props.model.currentUser)
     }
 
     function wasCreatedACB(){           // 1. the component has been created
@@ -50,7 +53,9 @@ function GameResults(props){
     function startGameACB(){
         navigate("/category");
     }
-    console.log(opponentPromiseStateData)
+    if (!userLoggedIn) {
+        return <NoUserView />
+    }
     return promiseNoData({promise: opponentPromiseStatePromise, data:opponentPromiseStateData, error: opponentPromiseStateError})
     ||<GameResultsView 
         playerData={player}

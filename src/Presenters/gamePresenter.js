@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import promiseNoData from "../Views/promiseNoData/promiseNoData";
 import { useNavigate } from 'react-router-dom';
 import { shuffleArray } from "../helpFunctions";
+import NoUserView from "../Views/noUserView";
 
 export default
 function Game(props){
@@ -13,6 +14,7 @@ function Game(props){
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(null);
     const [answers, setAnswers] = useState()
+    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
 
     function observerACB(){
         setquestionsPromiseStatePromise(props.model.questionsPromiseState.promise);
@@ -20,6 +22,7 @@ function Game(props){
         setquestionsPromiseStateError(props.model.questionsPromiseState.error);
         setCurrentAnswer(null)
         setCurrentQuestionIndex(0);
+        setUserLogin(props.model.currentUser)
     }
     
     function updateRoundResults(currentAnswer){
@@ -57,7 +60,9 @@ function Game(props){
     if(!currentAnswer && !answers && questionsPromiseStateData){
         setAnswers(shuffleArray([questionsPromiseStateData[currentQuestionIndex].correctAnswer, ...questionsPromiseStateData[currentQuestionIndex].incorrectAnswers]));
     }
-
+    if (!userLoggedIn) {
+        return <NoUserView />
+    }
     return (<div className="wrapper">
         {promiseNoData({promise: questionsPromiseStatePromise, data:questionsPromiseStateData, error: questionsPromiseStateError})
         || <GameView question={questionsPromiseStateData[currentQuestionIndex]}

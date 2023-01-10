@@ -12,11 +12,11 @@ export default
     function Home(props) {
     const navigate = useNavigate();
 
-    //const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
-
-    const [snapshots, loading] = useList(ref(db,"quizzy11" + '/games'));
     
-    /* function wasCreatedACB() {
+    const [snapshots, loading] = useList(ref(db,"quizzy11" + '/games'));
+    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
+    
+    function wasCreatedACB() {
         props.model.addObserver(observerACB);
         return function isTakenDownACB() {
             props.model.removeObserver(observerACB)
@@ -26,12 +26,17 @@ export default
 
     function observerACB() {
         setUserLogin(props.model.currentUser)
-    } */
+    }
 
     function initiateGameACB(username) {
         props.model.createNewGame(username)
         props.model.setCurrentOpponentTest()
-        navigate('/gameResults')
+        if(props.model.currentUser){
+            navigate("/gameResults")
+        } 
+        else{
+            navigate("/noUserView")
+        }
     }
 
     function getMyGamesCB(object) {
@@ -62,25 +67,25 @@ export default
     function findUserGamesCB(game){
         return game.player1==props.model.user.username || game.player2==props.model.user.username 
     }
-    /* if (!userLoggedIn) {
+    if (!userLoggedIn) {
         return <NoUserView />
-    } */
-        if(loading){
-            return <img src={loadingGif} className="Loading" />;
+    }
+    if(loading){
+        return <img src={loadingGif} className="Loading" />;
+    }
+    if(!loading && snapshots && props.model.counter<3){
+        props.model.increaseCounter()
+        return <div>
+            <HomeView onNewGame={initiateGameACB} />
+            <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} 
+            goToGameACB={gameButtonACB}/>
+            <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getActiveGames).filter(getOpponentsGamesCB)} turn={"Opponent's turn"} 
+            goToGameACB={gameButtonACB}/>
+            <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getInactiveGames)} turn={"Finished games"} 
+            goToGameACB={gameButtonACB}/>
+        </div>
         }
-        if(!loading && snapshots && props.model.counter<3){
-            props.model.increaseCounter()
-            return <div>
-                <HomeView onNewGame={initiateGameACB} />
-                <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} 
-                goToGameACB={gameButtonACB}/>
-                <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getActiveGames).filter(getOpponentsGamesCB)} turn={"Opponent's turn"} 
-                goToGameACB={gameButtonACB}/>
-                <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getInactiveGames)} turn={"Finished games"} 
-                goToGameACB={gameButtonACB}/>
-            </div>
-            }
-        else{
-            window.location.reload()
-        }
+    else{
+        window.location.reload()
+    }
     }

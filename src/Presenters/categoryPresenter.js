@@ -12,9 +12,23 @@ import music from '../Assets/Images/categoryCards/music.png';
 import science from '../Assets/Images/categoryCards/science.png';
 import society_and_culture from '../Assets/Images/categoryCards/society_and_culture.png';
 import sport_and_leisure from '../Assets/Images/categoryCards/sport_and_leisure.png';
+import NoUserView from '../Views/noUserView';
 
 export default function Category(props) {
     const navigate = useNavigate();
+    const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
+    
+    function wasCreatedACB() {
+        props.model.addObserver(observerACB);
+        return function isTakenDownACB() {
+            props.model.removeObserver(observerACB)
+        };
+    }
+    React.useEffect(wasCreatedACB, []);
+
+    function observerACB() {
+        setUserLogin(props.model.currentUser)
+    }
     const categories = shuffleArray([
         "film_and_tv",
         "food_and_drink",
@@ -44,6 +58,9 @@ export default function Category(props) {
         navigate("/game");
     }
 
+    if (!userLoggedIn) {
+        return <NoUserView />
+    }
     return (
         <div>
             <CategoryView 
