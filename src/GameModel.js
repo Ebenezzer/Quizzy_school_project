@@ -20,6 +20,7 @@ class GameModel{
         this.addAuthObserver();
         this.roundResults=[];
         this.currentOpponent = {};
+        this.counter = 0;
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
     
@@ -224,6 +225,10 @@ class GameModel{
 
     getGameList(){
         updateGameInfoFromFirebase(this)
+    }
+    
+    increaseCounter(){
+        this.counter += 1;
     }
 }
 

@@ -68,7 +68,8 @@ export default
         if(loading){
             return <img src={loadingGif} className="Loading" />;
         }
-        if(!loading && snapshots){
+        if(!loading && snapshots && props.model.counter<3){
+            props.model.increaseCounter()
             return <div>
                 <HomeView onNewGame={initiateGameACB} />
                 <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getActiveGames).filter(getMyGamesCB)} turn={"Your turn"} 
@@ -78,5 +79,8 @@ export default
                 <GameList currentGame={snapshots.map(makeListCB).filter(findUserGamesCB).filter(getInactiveGames)} turn={"Finished games"} 
                 goToGameACB={gameButtonACB}/>
             </div>
+            }
+        else{
+            window.location.reload()
         }
     }
