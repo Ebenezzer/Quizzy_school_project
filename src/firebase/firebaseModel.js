@@ -122,20 +122,7 @@ function getScoresFirebase(model){
     })
 }
 
-
-function getCurrentOpponent(model, opponentUsername) {
-    get(ref(db, REF + '/users/publicUsers/' + opponentUsername)).then((snapshot) => {
-        if (snapshot.exists()) {
-            model.setCurrentOpponent(snapshot.val())
-        } else {
-            console.log("No data available");
-        }
-    }).catch((error) => {
-        console.error(error);
-    });
-}
-
-function getCurrentOpponentTest(opponentUsername) {
+function getCurrentOpponent(opponentUsername) {
     function getResultValueACB(result){
         return result.val();
     }
@@ -279,7 +266,7 @@ function updateGameInfoFromFirebase(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, getScoresFirebase, 
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, getCurrentOpponent, updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponentTest
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponent
 }
 
 

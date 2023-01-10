@@ -1,7 +1,7 @@
 import "./gameResultsView.css"
 import correct from "../../Assets/Images/correct.png"
 import incorrect from "../../Assets/Images/incorrect.png"
-// check if resultPlayer1 & 2 is truthy, otherwise define as empty list
+
 export default
 function GameResultsView(props){
     function renderHeader(){
@@ -11,8 +11,7 @@ function GameResultsView(props){
     }
     function renderProfilePic(playerNum){
         return props.playerData.username==props.gameData[playerNum] ? 
-            <img src={props.playerData.profilePictureSrc} width="55" height="55"/> : 
-            <img src={props.opponentData.profilePictureSrc} width="55" height="55"/>
+            <img src={props.playerData.profilePictureSrc} width="55" height="55"/> : <img src={props.opponentData.profilePictureSrc} width="55" height="55"/>
     }
     function renderPlayerName(name){
         return <div className="name">{name}</div>
@@ -84,7 +83,7 @@ function GameResultsView(props){
                     }
                 } 
                 if (score === "correct"){ 
-                    return<div key={playerNr + counter.toString()} className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
+                    return <div key={playerNr + counter.toString()} className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
                 }
                 return <div key={playerNr + counter.toString()} className={pointBox}><img src={incorrect} widht="35" height="35" alt="text"/></div>            
             }
@@ -98,17 +97,22 @@ function GameResultsView(props){
     function renderScoreCounter(){
         return <div>{props.gameData.score.player1} : {props.gameData.score.player2}</div>
     }
-    function goToGameACB(){props.onClickGame()}
+    function goToGameACB(){
+        props.onClickGame()
+    }
     function renderPlayButton(){
         return props.playerData.username === props.gameData.turn && props.gameData.currentRound<6?
             <button onClick={goToGameACB} className="buttonPlay">Play</button> : null;
     }
-    function goBackACB(){props.onClickHome()}
+    function goBackACB(){
+        props.onClickHome()
+    }
     function renderBackButton(){
         return props.playerData.username === props.gameData.turn && props.gameData.currentRound<6?
             <button onClick={goBackACB} className="buttonBack">Back</button>:
             <button id="centerButton" onClick={goBackACB} className="buttonBack">Back</button>
-        }
+    }
+
     props.checkGameScore();
     props.checkGameResults();
     return (

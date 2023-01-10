@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, getCurrentOpponent,updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponentTest} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -19,7 +19,7 @@ class GameModel{
         this.currentUser = undefined; // to save data from firebase into
         this.addAuthObserver();
         this.roundResults=[];
-        this.currentOpponent = {};
+        this.currentOpponent = {};  //ta bort?
         this.counter = 0;
         //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
     }
@@ -110,23 +110,14 @@ class GameModel{
         this.user = user
     }
 
-    setCurrentOpponent(opponent){
-        debugger
-        this.currentOpponent=opponent;
-    }
-
-    updateCurrentOpponent(){
-        getCurrentOpponent(this, this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2)
-    }
-
-    setCurrentOpponentTest(){
+    setCurrentOpponent(){
         //använder någon this.currentOpponent ? Eller räcker det med this.opponentPromiseState.data
         //this.currentOpponent=
         function notifyACB(){    
             this.notifyObservers();
         }
 
-        resolvePromise(getCurrentOpponentTest(this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2), this.opponentPromiseState, notifyACB.bind(this));
+        resolvePromise(getCurrentOpponent(this.user.username !== this.currentGame.player1 ? this.currentGame.player1 : this.currentGame.player2), this.opponentPromiseState, notifyACB.bind(this));
     }
 
     setPlayers(playersObject){

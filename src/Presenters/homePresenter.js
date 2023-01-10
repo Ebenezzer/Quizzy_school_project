@@ -28,7 +28,7 @@ export default
 
     function initiateGameACB(username) {
         props.model.createNewGame(username)
-        props.model.setCurrentOpponentTest()
+        props.model.setCurrentOpponent()
         navigate('/gameResults')
     }
 
@@ -50,8 +50,7 @@ export default
 
     function gameButtonACB(game) {
         props.model.setCurrentGame(game)
-        //props.model.updateCurrentOpponent()
-        props.model.setCurrentOpponentTest()
+        props.model.setCurrentOpponent()
         navigate("/gameResults");
     } 
     function makeListCB(snapshot){
