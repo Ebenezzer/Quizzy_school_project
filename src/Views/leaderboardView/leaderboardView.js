@@ -47,19 +47,18 @@ function LeaderboardView(props) {
     }
 
     return (<div className="leaderboard-podium-box">
-        <img src={leaderboard} className="leaderboard-image" />
-        <div className="podium-box">
-            {props.second_player.map(renderSecondPlayer)}
-            {props.first_player.map(renderFirstPlayer)}
-            {props.third_player.map(renderThirdPlayer)}
-        </div>
-        <div className="leaderboard-box">
-            <h2 className="leaderboard-title">Leaderboard</h2>
-            {props.players.map(renderLeaderboard)}
-            <button onClick = {redirectACB} className="home-button">Home</button>
-        </div>
-    </div>
-
+                <img src={leaderboard} className="leaderboard-image" />
+                    <div className="podium-box">
+                        {props.second_player.map(renderSecondPlayer)}
+                        {props.first_player.map(renderFirstPlayer)}
+                        {props.third_player.map(renderThirdPlayer)}
+                    </div>
+                    <div className="leaderboard-box">
+                        <h2 className="leaderboard-title">Leaderboard</h2>
+                        {props.players.map(renderLeaderboard)}
+                        <button onClick = {redirectACB} className="home-button">Home</button>
+                    </div>
+                    </div>
     )
 }
 
