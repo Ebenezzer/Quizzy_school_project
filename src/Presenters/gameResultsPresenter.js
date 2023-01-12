@@ -29,11 +29,13 @@ function GameResults(props){
     React.useEffect(wasCreatedACB, []); 
 
     function checkScore(){
+        // makes sure that there is a score defined in the modedl
         if (!game.score){
             props.model.setInitialGameScore();
         }
     }
     function checkResults(){
+        // makes sure that resuslts are defined in the model
         if (!game.resultPlayer1){
             props.model.setInitialResult(1);
         }
@@ -43,12 +45,14 @@ function GameResults(props){
     }
 
     function goBackACB(){
+        //navigate to home page
         navigate("/home");
     }
     function startGameACB(){
+        //navigate to the game category page
         navigate("/category");
     }
-    console.log(opponentPromiseStateData)
+    //check state of promise from getting opponent data and render loading gif, error message or the result page based on that state
     return promiseNoData({promise: opponentPromiseStatePromise, data:opponentPromiseStateData, error: opponentPromiseStateError})
     ||<GameResultsView 
         playerData={player}
