@@ -10,24 +10,24 @@ import { useList } from 'react-firebase-hooks/database';
 
 export default
     function Home(props) {
+
     const navigate = useNavigate();
 
-    
     const [snapshots, loading] = useList(ref(db,"quizzy11" + '/games'));
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
-    
+
     function wasCreatedACB() {
         props.model.addObserver(observerACB);
         return function isTakenDownACB() {
             props.model.removeObserver(observerACB)
         };
     }
+
     React.useEffect(wasCreatedACB, []);
 
     function observerACB() {
         setUserLogin(props.model.currentUser)
     }
-
     function initiateGameACB(username) {
         props.model.createNewGame(username)
         props.model.setCurrentOpponentTest()
@@ -38,7 +38,6 @@ export default
             navigate("/noUserView")
         }
     }
-
     function getMyGamesCB(object) {
         return object.turn === props.model.user.username;
     }
@@ -54,10 +53,8 @@ export default
     function getInactiveGames(object) {
         return object.winner;
     }
-
     function gameButtonACB(game) {
         props.model.setCurrentGame(game)
-        //props.model.updateCurrentOpponent()
         props.model.setCurrentOpponentTest()
         navigate("/gameResults");
     } 
@@ -67,12 +64,15 @@ export default
     function findUserGamesCB(game){
         return game.player1==props.model.user.username || game.player2==props.model.user.username 
     }
+
     if (!userLoggedIn) {
         return <NoUserView />
     }
+
     if(loading){
         return <img src={loadingGif} className="Loading" />;
     }
+    
     if(!loading && snapshots && props.model.counter<3){
         props.model.increaseCounter()
         return <div>

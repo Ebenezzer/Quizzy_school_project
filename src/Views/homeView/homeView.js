@@ -2,7 +2,6 @@ import "./homeView.css"
 import quizzy_icon from "../../Assets/Images/q_icon.png";
 
 function HomeView(props) {
-
     function newGameButtonOnClick() {
         var model = document.getElementById('model');
         model.style.display = 'block';
@@ -11,12 +10,10 @@ function HomeView(props) {
         var model = document.getElementById('model');
         model.style.display = 'none';
     }
-
     function onInviteACB() {
         var username = document.getElementById('username').value;
         props.onNewGame(username);
     }
-
 
     return <div>
         <img src={quizzy_icon} className="logo" />

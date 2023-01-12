@@ -18,13 +18,13 @@ function Leaderboard(props){
             props.model.removeObserver(observerACB)
         };
     }
+
     React.useEffect(wasCreatedACB, []);
 
     function observerACB() {
         setLeaderboardPlayers(props.model.players)
         setUserLogin(props.model.currentUser)
     }
-
     function compareScores(a, b) {
         if(a.score < b.score) {
             return 1;
@@ -34,7 +34,6 @@ function Leaderboard(props){
         }
             return 0;
     }
-
     function redirectHome(){
         navigate('/home')
     }
