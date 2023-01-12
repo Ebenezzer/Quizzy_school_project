@@ -1,12 +1,12 @@
 import React from "react";
 import "./categoryView.css"
-import test from "../../Assets/Images/categoryCards/film_and_tv.png"
 
 export default
 function CategoryView(props){
     function getNewQuestionsACB(categoryCard){
         props.onGetNewQuestions(categoryCard.target.id)
     }
+    
     return(
         <div className="categoryGrid">
             <div className="categoryChoice">
