@@ -49,26 +49,17 @@ function signIn(email, password) {
     }
 
 function updateAccount(username) {
-    const auth = getAuth();
-    updateProfile(auth.currentUser, {
+    return updateProfile(auth.currentUser, {
         displayName: username
-    }).then(() => {
-        console.log("completed")
-    }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-        alert(errorCode)
-    });
+    })
 }
 
 function createAccount(email, password, username){
     const userREF = query(ref(db, REF + "/users/publicUsers/"),orderByChild("username"), equalTo(username))
     onValue(userREF, (snapshot) =>{
         if (snapshot.val() === null) {
-            createUserWithEmailAndPassword(auth, email, password, username)
-                .then((userCredential) => {
-                    const user = userCredential.user;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(()=>{
                     updateAccount(username)
                     console.log("created account")
                     set(ref(db, REF + "/users/publicUsers/" + username), {
@@ -77,7 +68,8 @@ function createAccount(email, password, username){
                         score: 0,
                         profilePictureSrc: "https://cdn-icons-png.flaticon.com/128/4128/4128176.png"
                     })
-                })
+                }
+                )
                 .catch((error) => {
                     if (error.code === 'auth/weak-password') {
                         const errorMessage = 'Password should be at least 6 characters';
@@ -221,6 +213,7 @@ function updateModelFromFirebase(model) {
     // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
 
+        console.log(model.currentUser.displayName)
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
             const usernameData= snapshot.val();
             if( model.currentUser){

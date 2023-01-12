@@ -7,6 +7,7 @@ import resolvePromise from "./resolvePromise";
 class GameModel{
     constructor(gameArray=[], playersArray = []){
         this.user = {};  //samma som currentPlayerObject ?
+        this.username =
         this.currentGame = {};
         this.currentGameId = "";
         this.observers=[];
@@ -36,12 +37,15 @@ class GameModel{
     }
     
     addAuthObserver(){
+
         function authUserACB(user){
            // run off() functions for firebase listeners + try catch for user presence
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
-                updateModelFromFirebase(this)
+                if (this.currentUser.displayName){
+                    updateModelFromFirebase(this)
+                }
                 try{updateGameInfoFromFirebase(this)}
                 catch{console.log("fetching issues")}
             }
@@ -131,9 +135,9 @@ class GameModel{
 
     createNewGame(username){
         this.notifyObservers({newGame: {
-            player1: this.currentUser.displayName,
+            player1: this.user.username,
             player2: username,
-            turn: this.currentUser.displayName,
+            turn: this.user.username,
             currentRound: 1,
             score: {
                 player1: 0,
@@ -206,7 +210,6 @@ class GameModel{
 
     setGameId(gameId){
         this.currentGame.gameId = gameId;
-        this.updateGame()
     }
 
     getGameList(){

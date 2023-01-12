@@ -3,7 +3,7 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { useNavigate } from 'react-router-dom'
-import { db, checkUsernameInviteACB, updateAccount } from "../firebase/firebaseModel";
+import { db, checkUsernameInviteACB} from "../firebase/firebaseModel";
 import loadingGif from "../Assets/Images/loadingGif.gif"
 import { ref} from 'firebase/database';
 import { useList } from 'react-firebase-hooks/database';
@@ -40,7 +40,7 @@ export default
                     setTimeout(()=>{notify.style.display = "none";  
                 }, 3 * 1000)        
                 }
-                else{ 
+                else{
                 props.model.createNewGame(username)
                 props.model.setCurrentOpponent()
                 navigate("/gameResults")
@@ -50,7 +50,7 @@ export default
     }
 
     function getMyGamesCB(object) {
-        return object.turn === props.model.currentUser.displayName;
+        return object.turn === props.model.user.username;
     }
 
     function getOpponentsGamesCB(object) {
@@ -76,7 +76,8 @@ export default
     }
 
     function findUserGamesCB(game){
-        return game.player1==props.model.currentUser.displayName || game.player2==props.model.currentUser.displayName 
+        //console.log(props.model.user.username)
+        return game.player1==props.model.user.username || game.player2==props.model.user.username 
     }
 
     if (!userLoggedIn) {

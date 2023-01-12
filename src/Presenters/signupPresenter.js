@@ -9,14 +9,14 @@ import profilePic from "../Assets/Images/woman.png"
 function Signup(props){
 
     const navigate = useNavigate();
-    const [email, setEmail ] = React.useState(props.model.email) // definiera email och password i modelen/application state för att kunna ändra det här
-    const [password, setPassword] = React.useState(props.model.password)
-    const [username, setUsername] = React.useState(props.model.username)
+    const [email, setEmail ] = React.useState() // definiera email och password i modelen/application state för att kunna ändra det här
+    const [password, setPassword] = React.useState()
+    const [username, setUsername] = React.useState()
     const [userSignedIn, setUserSignup] = React.useState(props.model.currentUser) // check that user logged in before showcase (props.model.loggedIn if others wish to reach it)
 
     React.useEffect(() => {
         if (userSignedIn) {
-            navigate("/home");
+            navigate("/home")
         }
       }, [userSignedIn]);
     
