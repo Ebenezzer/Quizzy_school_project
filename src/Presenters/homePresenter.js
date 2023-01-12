@@ -3,7 +3,7 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { useNavigate } from 'react-router-dom'
-import { db } from "../firebase/firebaseModel";
+import { db, checkUsernameInviteACB, updateAccount } from "../firebase/firebaseModel";
 import loadingGif from "../Assets/Images/loadingGif.gif"
 import { ref} from 'firebase/database';
 import { useList } from 'react-firebase-hooks/database';
@@ -28,18 +28,29 @@ export default
     function observerACB() {
         setUserLogin(props.model.currentUser)
     }
+
     function initiateGameACB(username) {
-        props.model.createNewGame(username)
-        props.model.setCurrentOpponent()
-        if(props.model.currentUser){
-            navigate("/gameResults")
-        } 
-        else{
-            navigate("/noUserView")
+        checkUsernameInviteACB(username).then(
+            (a)=> {
+                if (!a){
+                    let notify = document.getElementById("errInvite")
+                    const errorUsername = "No user with this username exists!"   
+                    notify.innerHTML = errorUsername; 
+                    notify.style.display = "block";    
+                    setTimeout(()=>{notify.style.display = "none";  
+                }, 3 * 1000)        
+                }
+                else{ 
+                props.model.createNewGame(username)
+                props.model.setCurrentOpponent()
+                navigate("/gameResults")
+            }
         }
+        )
     }
+
     function getMyGamesCB(object) {
-        return object.turn === props.model.user.username;
+        return object.turn === props.model.currentUser.displayName;
     }
 
     function getOpponentsGamesCB(object) {
@@ -53,16 +64,19 @@ export default
     function getInactiveGames(object) {
         return object.winner;
     }
+
     function gameButtonACB(game) {
         props.model.setCurrentGame(game)
         props.model.setCurrentOpponent()
         navigate("/gameResults");
     } 
+
     function makeListCB(snapshot){
         return snapshot.val()
     }
+
     function findUserGamesCB(game){
-        return game.player1===props.model.user.username || game.player2===props.model.user.username 
+        return game.player1==props.model.currentUser.displayName || game.player2==props.model.currentUser.displayName 
     }
 
     if (!userLoggedIn) {
@@ -88,4 +102,4 @@ export default
     else{
         window.location.reload()
     }
-    }
+}

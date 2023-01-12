@@ -1,39 +1,54 @@
 .container{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #contentCard{
-  position: relative;
-  background-color: rgb(255, 255, 255);
-  border-radius: 3%;
-  width: 60%;
-  height: 80%; 
-  padding: 40px;
+position: relative;
+background-color: rgb(255, 255, 255);
+border-radius: 3%;
+width: 60%;
+height: 80%; 
+padding: 40px;
 }
 
 input[type=email], input[type=password], input[type=username]{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-
-button {
-  background-color: #3904aa;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
   width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+
+#addBtn {
+background-color: #3904aa;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
 }
 
 button:hover {
-    opacity: 0.8;
-  }
+  opacity: 0.8;
+}
+
+#errEmail, #errPassword{
+  /* margin-top: 10px; */
+  color: #af0c0c;
+  background-color: #ffe0e0;
+  padding: 8px;
+  display: none;
+}
+
+.errUsername{
+  color: #af0c0c;
+  background-color: #ffe0e0;
+  padding: 8px;
+  display: none;
+}

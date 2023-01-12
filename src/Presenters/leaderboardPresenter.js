@@ -35,7 +35,7 @@ function Leaderboard(props){
             return 0;
     }
     function redirectHome(){
-        navigate('/home')
+        navigate("/home")
     }
     return !userLoggedIn ? <NoUserView/> : players ? 
         <div>

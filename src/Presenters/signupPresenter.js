@@ -16,12 +16,10 @@ function Signup(props){
 
     React.useEffect(() => {
         if (userSignedIn) {
-            updateAccount(username)
             navigate("/home");
         }
       }, [userSignedIn]);
-
-
+    
     function wasCreatedACB(){           // 1. the component has been created
         props.model.addObserver(observerACB);      
         return function isTakenDownACB(){

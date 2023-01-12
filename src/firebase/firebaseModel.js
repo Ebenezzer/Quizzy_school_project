@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth, updateProfile, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, get, onValue, push, update, query, orderByChild, equalTo, limitToLast, off, limitToFirst, connectDatabaseEmulator} from "firebase/database";
+import { getDatabase, ref, set, get, onValue, push, update, query, orderByChild, equalTo, limitToLast, off} from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
 import GameModel from "../GameModel";
 
@@ -14,7 +14,6 @@ const REF = "quizzy11";
 
 function signingOut(func) {
     signOut(auth).then(() => {
-        //off(onValue) // maybe just off() or off(db/app),either on this row or below func()
         func()
         console.log("Sign-out successful")
     }).catch((error) => {
@@ -29,28 +28,24 @@ function authChange(setUser) {
 }
 
 function signIn(email, password) {
+    setPersistence(auth, browserSessionPersistence).then( ()=> {
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {  // export
-        // Signed in 
+        .then((userCredential) => { 
         const user = userCredential.user;
         console.log("signed in")
-        //return true;    not yet sure if this should be done here or on line 53
-        // ...
         },    
         {
             onlyOnce: true
           },
-          
         )
         .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode,errorMessage)
-        alert(errorCode)
+            const errorMessage = error.message;
+            alert(errorMessage)
         })
         ;
         return true;
-        //get(child(ref(db), `users/publicUsers/${username}`))
+    }
+        )
     }
 
 function updateAccount(username) {
@@ -74,6 +69,7 @@ function createAccount(email, password, username){
             createUserWithEmailAndPassword(auth, email, password, username)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    updateAccount(username)
                     console.log("created account")
                     set(ref(db, REF + "/users/publicUsers/" + username), {
                         username: username,
@@ -83,24 +79,48 @@ function createAccount(email, password, username){
                     })
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode, errorMessage)
-                    alert(errorCode)
+                    if (error.code === 'auth/weak-password') {
+                        const errorMessage = 'Password should be at least 6 characters';
+                        let notify = document.getElementById("errPassword")
+                        notify.innerHTML = errorMessage;
+                        notify.style.display = "block"
+                        setTimeout(()=>{notify.style.display = "none";  
+                    }, 3 * 1000)         
+                      } else if (error.code === 'auth/email-already-in-use') {
+                        const errorMessage = 'An account already exists for that email.';
+                        let notify = document.getElementById("errEmail")
+                        notify.innerHTML = errorMessage;    
+                        notify.style.display = "block"
+                        setTimeout(()=>{notify.style.display = "none";  
+                    }, 3 * 1000)
+                      }
+                    //alert(errorMessage)
                 });
         }
         else {
             const errorUsername = "This username is already being used!"
+            let notify = document.getElementById("errUsername")
+            notify.innerHTML = errorUsername;
+            notify.style.display = "block"
+            setTimeout(()=>{notify.style.display = "none";  
+        }, 3 * 1000)       
             console.log(errorUsername)
-            alert(errorUsername)
+            //alert(errorUsername)
         }
     },
     {
         onlyOnce: true
-      }
+      },
     )
-    return true;
 
+    return true;
+}
+
+function checkUsernameInviteACB(username){
+    const userREF = query(ref(db, REF + "/users/publicUsers/"),orderByChild("username"), equalTo(username))
+    return get(ref(db, REF + '/users/publicUsers/' + username)).then((snapshot)=>{
+            return snapshot.exists()
+    })
 }
 
 function getScoresFirebase(model){
@@ -154,15 +174,7 @@ function firebaseModelPromise(userId) {
     }
 }
 
-function removeListenerFirebase(){
-    console.log("we're in")
-/*     const databaseREF = query(ref(db, REF))
-    off(databaseREF).then(
-        console.log("we're in")
-    ) */
-}
-
-function updateFirebaseFromModel(model, userId) {
+function updateFirebaseFromModel(model) {
     model.addObserver(observerACB)
     function observerACB(payload) {
 
@@ -183,18 +195,13 @@ function updateFirebaseFromModel(model, userId) {
             model.setGameId(gameId._path.pieces_[2])
         }
 
-        //make sure to unsubscribe from user after they log out (the same thing from firebase to model ) --> create an acb in firebasemodel
-        // to unsubscribe (similar syntax som rad 134)
-
         if (payload && payload.currentGame) {
             set(ref(db, REF + "/games/currentGame/"), model.currentGame)
         }
-        // create key values pairs mapping username : uid (not good for security)
 
         if (payload && payload.removeGame) {
             ref(REF + "/games/" + payload.removedGame.id).set(null)
-        }  //unsure how we would use this removeGame payload, as we want to remove a game id from
-        //currentGame path but want the object within that gameid to be available in the database under games
+        }
 
         if (payload && payload.winner) {
             update(ref(db, REF + '/games/' + model.currentGame.gameId), { winner: payload.winner })
@@ -215,22 +222,13 @@ function updateModelFromFirebase(model) {
     // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
 
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
-        const usernameData= snapshot.val();
-        if( model.currentUser){
-             // Do something with the snapshot data 
-             model.setUser(usernameData)
+            const usernameData= snapshot.val();
+            if( model.currentUser){
+                // Do something with the snapshot data 
+                model.setUser(usernameData)
+            }
         }
-    }
-    )
-/*         if (model.currentUser) {
-            onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName),
-                function retreivedUsernameACB(firebaseData) {
-                    model.setUser(firebaseData.val());})
-        }
-
-        return () => database().ref(`/users/${userId}`).off('value', onValueChange);
-        return () => ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName).off('value', onValueChange); */
-
+        )
     
 }
 
@@ -257,12 +255,10 @@ function updateGameInfoFromFirebase(model){
     }
 }
 
-// update model.user.games i modellen and make sure that you can render
-
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, getScoresFirebase, 
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponent
+    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameInfoFromFirebase, getCurrentOpponent, checkUsernameInviteACB
 }
 
 

@@ -38,7 +38,6 @@ class GameModel{
     addAuthObserver(){
         function authUserACB(user){
            // run off() functions for firebase listeners + try catch for user presence
-
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
@@ -132,9 +131,9 @@ class GameModel{
 
     createNewGame(username){
         this.notifyObservers({newGame: {
-            player1: this.user.username,
+            player1: this.currentUser.displayName,
             player2: username,
-            turn: this.user.username,
+            turn: this.currentUser.displayName,
             currentRound: 1,
             score: {
                 player1: 0,

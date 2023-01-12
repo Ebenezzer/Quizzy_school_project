@@ -1,6 +1,8 @@
 import "./homeView.css"
 import quizzy_icon from "../../Assets/Images/q_icon.png";
 
+//pop-up resource: www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
+
 function HomeView(props) {
     function newGameButtonOnClick() {
         var model = document.getElementById('model');
@@ -20,16 +22,17 @@ function HomeView(props) {
         <p className="quizzy-name">Quizzy</p>
         <button onClick={newGameButtonOnClick} className="new-game">New game</button>
         <div className="popup-model" id="model">
-            <form className="modal-content" onSubmit={onInviteACB}>
+            <div className="modal-content">
                 <span className="close" onClick={closeModel}>&times;</span>
                 <br></br>
                 <h2>New Game</h2>
                 <label>Invite friend</label> <br></br>
                 <input type="text" id="username" className="input-name" placeholder="Username"></input>
+                <div id = "errInvite"></div>
                 <div id="btn-incvite-wrapper">
-                    <button className="btn-invite" type="submit">Invite</button>
+                    <button className="btn-invite" type="submit" onClick={onInviteACB}>Start</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 }
