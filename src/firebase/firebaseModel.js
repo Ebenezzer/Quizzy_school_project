@@ -44,6 +44,7 @@ function updateAccount(username) {
     })
 }
 
+//custom html error message display resource: https://code-boxx.com/display-error-messages-javascript/
 function createAccount(email, password, username){
     const userREF = query(ref(db, REF + "/users/publicUsers/"),orderByChild("username"), equalTo(username))
     onValue(userREF, (snapshot) =>{
@@ -175,15 +176,13 @@ function updateFirebaseFromModel(model) {
 }
 
 function updateModelFromFirebase(model) {
-    // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
             const usernameData= snapshot.val();
             if( model.currentUser){
                 model.setUser(usernameData)
             }
         }
-        )
-    
+        ) 
 }
 
 

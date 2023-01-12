@@ -1,6 +1,8 @@
 import './signupView.css';
 import { NavLink } from 'react-router-dom'
 
+// password visibility resource: www.w3schools.com/howto/howto_js_toggle_password.asp?utm_source=pocket_saves
+
 
 function SignupView(props){
 
