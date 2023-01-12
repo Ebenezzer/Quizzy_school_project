@@ -2,13 +2,13 @@ function resolvePromise(promise, promiseState, notify){
     promiseState.promise=promise;
     promiseState.data= null;         
     promiseState.error= null;
-    if(notify){     // if a 3rd parameter was sent, we expect it to be a function (ACB)!
-        notify();   // so we can call it to notify every time promise, data, or error change
+    if(notify){     
+        notify();   
     }  
 
     function saveDataACB(result){ 
         if(promiseState.promise !== promise) return;
-        promiseState.data = result;  // solves race condition: only change state if promise hasn't changed = know that no later promise has already resolved and changed state
+        promiseState.data = result;  
         if (notify){notify()};
     } 
     function saveErrorACB(err){ 

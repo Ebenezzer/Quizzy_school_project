@@ -4,9 +4,6 @@ import './loginView.css';
 function LoginView(props){
 
     function clickLogInACB(){
-/*         if(props.model.currentUser === undefined || props.model.currentUser !== null){
-            console.log("user logged in already")
-        } */
         props.onLogin()
     }
 
@@ -41,7 +38,6 @@ function LoginView(props){
 
                 <button onClick = {clickLogInACB} id="addBtn">Log In</button>
                 <p className= "text-sm text-white text-center">No account yet?<NavLink to = "/signup">Sign up</NavLink></p>
-                {/*is it okay to use navlink in the view file*/}
             </div>
         </div>
 }

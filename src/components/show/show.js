@@ -12,6 +12,6 @@ function Show(props){
        }
        return isTakenDownACB; 
     }
-    React.useEffect( componentWasCreatedACB, [] );  // empty array!
+    React.useEffect( componentWasCreatedACB, [] );
     return <div className={hashState===props.hash?"":"hidden"}>{props.children}</div>;
 }

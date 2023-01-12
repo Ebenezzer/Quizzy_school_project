@@ -6,7 +6,7 @@ import resolvePromise from "./resolvePromise";
 
 class GameModel{
     constructor(gameArray=[], playersArray = []){
-        this.user = {};  //samma som currentPlayerObject ?
+        this.user = {};
         this.username =
         this.currentGame = {};
         this.observers=[];
@@ -16,7 +16,7 @@ class GameModel{
         this.currentGamePromiseState = {};
         this.questionsPromiseState = {};
         this.opponentPromiseState = {};
-        this.currentUser = undefined; // to save data from firebase into
+        this.currentUser = undefined;
         this.addAuthObserver();
         this.roundResults=[];
         this.counter = 0; 
@@ -59,7 +59,7 @@ class GameModel{
           }
     }
 
-    addGame(gameToAdd){ //to add game to game array and not firebase
+    addGame(gameToAdd){
         function testNoDuplicatesCB(object){ return object.gameId !== gameToAdd.gameId; };
 
         function testDuplicatesCB(obj){ return obj.gameId === gameToAdd.gameId; };
@@ -88,10 +88,6 @@ class GameModel{
         }
     }
 
-    getGameDetails(gameId) {
-        //TODO get game object from firebase
-    }
-
     setCurrentGame(game){     
         if (game && this.currentGame!==game){
             this.currentGame=game
@@ -104,7 +100,7 @@ class GameModel{
         this.notifyObservers({score: this.user.score});
     }
 
-    setUser(user){// call on login or create account
+    setUser(user){
         this.notifyObservers({user: user})
         this.user = user
     }

@@ -1,5 +1,4 @@
 function treatHTTPResponseACB(response){ 
-    /*TODO throw when the HTTP response is not 200, otherwise return response.json()*/
     if(response.status !== 200) throw new Error("API problem "+response.status);  // 200--> okej!
     return response.json(); 
  }

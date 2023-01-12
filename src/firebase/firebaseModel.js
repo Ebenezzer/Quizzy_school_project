@@ -14,13 +14,11 @@ const REF = "quizzy11";
 function signingOut(func) {
     signOut(auth).then(() => {
         func()
-        console.log("Sign-out successful")
     }).catch((error) => {
         console.log("An error happened", error)
     });
     return true;
 }
-
 
 function authChange(setUser) {
     onAuthStateChanged(auth, setUser)
@@ -53,7 +51,6 @@ function createAccount(email, password, username){
             createUserWithEmailAndPassword(auth, email, password)
                 .then(()=>{
                     updateAccount(username)
-                    console.log("created account")
                     set(ref(db, REF + "/users/publicUsers/" + username), {
                         username: username,
                         games: [null],
@@ -78,7 +75,6 @@ function createAccount(email, password, username){
                         setTimeout(()=>{notify.style.display = "none";  
                     }, 3 * 1000)
                       }
-                    //alert(errorMessage)
                 });
         }
         else {
@@ -88,13 +84,11 @@ function createAccount(email, password, username){
             notify.style.display = "block"
             setTimeout(()=>{notify.style.display = "none";  
         }, 3 * 1000)       
-            console.log(errorUsername)
-            //alert(errorUsername)
         }
     },
     {
         onlyOnce: true
-      },
+    },
     )
 
     return true;
@@ -119,7 +113,6 @@ function getScoresFirebase(model){
         model.setPlayers(playerArray)
         }
         else{
-            console.log("No data, leaderboard cannot be rendered")
             off()
         } 
     })
@@ -132,6 +125,7 @@ function getCurrentOpponent(opponentUsername) {
     return get(ref(db, REF + '/users/publicUsers/' + opponentUsername)).then(getResultValueACB);
 }
 
+// Console logging payload for debugging
 function observerRecap(model) {
     model.addObserver(observerACB)
     function observerACB(payload) {
@@ -176,20 +170,15 @@ function updateFirebaseFromModel(model) {
 
     }
     return function () {
-        model.removeObserver(observerACB) // save information from the return, and add try catch to check for user
+        model.removeObserver(observerACB)
     };
 }
 
 function updateModelFromFirebase(model) {
-
-    // subscribe and unsubscribe from observers
     // off() function to remove listeners from firebase that can then be called here: https://firebase.google.com/docs/database/web/read-and-write#detach_listeners
-
-        console.log(model.currentUser.displayName)
         onValue(ref(db, REF + "/users/publicUsers/" + model.currentUser.displayName), (snapshot) => {
             const usernameData= snapshot.val();
             if( model.currentUser){
-                // Do something with the snapshot data 
                 model.setUser(usernameData)
             }
         }
@@ -206,17 +195,13 @@ function updateGameInfoFromFirebase(model){
 
         function getUserGameCB(gameID) {
             return get(ref(db, REF + '/games/' + gameID)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    return snapshot.val()
-                } else {
-                    console.log("No data available");
-                }
+                return snapshot.val()
             }).catch((error) => {
                 console.log("Promise issues")
                 console.error(error);
             }); 
         }
-        Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB) // rerun every few seconds
+        Promise.all(Object.keys(model.user.games).map(getUserGameCB)).then(createModelACB)
     }
 }
 

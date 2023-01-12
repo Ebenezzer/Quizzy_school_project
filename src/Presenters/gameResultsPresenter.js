@@ -15,7 +15,7 @@ function GameResults(props){
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser);
 
     function observerACB(){   
-        setPlayer(props.model.user);    // when notified these will update states with current value in model
+        setPlayer(props.model.user);    
         setGame(props.model.currentGame);
         setOpponentPromiseStatePromise(props.model.opponentPromiseState.promise);
         setOpponentPromiseStateData(props.model.opponentPromiseState.data);
@@ -23,11 +23,11 @@ function GameResults(props){
         setUserLogin(props.model.currentUser)
     }
 
-    function wasCreatedACB(){           // 1. the component has been created
+    function wasCreatedACB(){           
         props.model.addObserver(observerACB);      
         return function isTakenDownACB(){
             props.model.removeObserver(observerACB);
-        };  // 2. the component is being taken down 
+        };
     }
     React.useEffect(wasCreatedACB, []); 
 
