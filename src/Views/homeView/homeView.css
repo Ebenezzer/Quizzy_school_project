@@ -62,14 +62,16 @@
 .btn-invite {
   font-family: "Varela Round";
   background-color: #6A5AE0;
-    color: white;
+  color: white;
   width: 5rem;
   height: 40px;
   border-radius: 20px;
   border-width: 1px ;
+  border: none;
   margin-left: 5px;
   box-shadow: #bbb 2.4px 2.4px 3.2px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #btn-invite-wrapper{
