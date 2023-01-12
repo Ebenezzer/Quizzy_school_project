@@ -86,7 +86,7 @@ export default
     if(loading){
         return <img src={loadingGif} className="Loading" alt=""/>;
     }
-    console.log(props.model.counter)
+    
     if(!loading && snapshots && props.model.counter<2){
         props.model.increaseCounter()
         return <div>
