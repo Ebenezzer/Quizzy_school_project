@@ -2,7 +2,6 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, get, onValue, push, update, query, orderByChild, equalTo, limitToLast, off} from "firebase/database";
 import firebaseConfig from "./firebaseConfig";
-import GameModel from "../GameModel";
 
 
 // Initialise firebase
@@ -30,14 +29,7 @@ function authChange(setUser) {
 function signIn(email, password) {
     setPersistence(auth, browserSessionPersistence).then( ()=> {
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => { 
-        const user = userCredential.user;
-        console.log("signed in")
-        },    
-        {
-            onlyOnce: true
-          },
-        )
+        .then({onlyOnce: true})
         .catch((error) => {
             const errorMessage = error.message;
             alert(errorMessage)
@@ -67,8 +59,7 @@ function createAccount(email, password, username){
     onValue(userREF, (snapshot) =>{
         if (snapshot.val() === null) {
             createUserWithEmailAndPassword(auth, email, password, username)
-                .then((userCredential) => {
-                    const user = userCredential.user;
+                .then(() => {
                     updateAccount(username)
                     console.log("created account")
                     set(ref(db, REF + "/users/publicUsers/" + username), {
@@ -117,7 +108,6 @@ function createAccount(email, password, username){
 }
 
 function checkUsernameInviteACB(username){
-    const userREF = query(ref(db, REF + "/users/publicUsers/"),orderByChild("username"), equalTo(username))
     return get(ref(db, REF + '/users/publicUsers/' + username)).then((snapshot)=>{
             return snapshot.exists()
     })
@@ -153,24 +143,6 @@ function observerRecap(model) {
     model.addObserver(observerACB)
     function observerACB(payload) {
         console.log(payload);
-    }
-}
-
-function firebaseModelPromise(userId) {
-    function makeBigPromiseACB(firebaseData) {
-        if (firebaseData.val() === undefined || Object.keys(firebaseData.val()).length === 0) {
-            return new GameModel()
-        }
-        function makeGamePromiseCB(gameId) {
-            return GameModel.getGameDetails(gameId);
-        }
-        const GamePromiseArray = Object.keys(firebaseData.val().addGame || []).map(makeGamePromiseCB);
-
-        function createModelACB(game) {
-            return new GameModel(firebaseData.val().score || 0, game)
-        }
-        return Promise.all(GamePromiseArray).then(createModelACB)
-
     }
 }
 
@@ -258,7 +230,7 @@ function updateGameInfoFromFirebase(model){
 
 export {
     app, db, REF, auth, authChange, signIn, signingOut, createAccount, updateAccount, updateModelFromFirebase, getScoresFirebase, 
-    observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateGameInfoFromFirebase, getCurrentOpponent, checkUsernameInviteACB
+    observerRecap, updateFirebaseFromModel, updateGameInfoFromFirebase, getCurrentOpponent, checkUsernameInviteACB
 }
 
 

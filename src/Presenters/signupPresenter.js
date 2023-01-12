@@ -1,8 +1,7 @@
 import SignupView from "../Views/signupView/signupView";
 import React from "react";
 import { useNavigate } from 'react-router-dom'
-import { createAccount, updateAccount} from "../firebase/firebaseModel";
-import profilePic from "../Assets/Images/woman.png"
+import { createAccount} from "../firebase/firebaseModel";
 
 
 

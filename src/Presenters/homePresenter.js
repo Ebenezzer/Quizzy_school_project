@@ -3,7 +3,7 @@ import HomeView from "../Views/homeView/homeView";
 import GameList from "../components/gameList/gameList";
 import NoUserView from "../Views/noUserView";
 import { useNavigate } from 'react-router-dom'
-import { db, checkUsernameInviteACB, updateAccount } from "../firebase/firebaseModel";
+import { db, checkUsernameInviteACB} from "../firebase/firebaseModel";
 import loadingGif from "../Assets/Images/loadingGif.gif"
 import { ref} from 'firebase/database';
 import { useList } from 'react-firebase-hooks/database';
@@ -76,7 +76,7 @@ export default
     }
 
     function findUserGamesCB(game){
-        return game.player1==props.model.currentUser.displayName || game.player2==props.model.currentUser.displayName 
+        return game.player1===props.model.currentUser.displayName || game.player2===props.model.currentUser.displayName 
     }
 
     if (!userLoggedIn) {
