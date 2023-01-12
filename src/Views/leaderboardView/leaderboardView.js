@@ -56,6 +56,7 @@ function LeaderboardView(props) {
                     <div className="leaderboard-box">
                         <h2 className="leaderboard-title">Leaderboard</h2>
                         {props.players.map(renderLeaderboard)}
+                        <h3>You have won {props.userScore} games</h3>
                         <button onClick = {redirectACB} className="home-button">Home</button>
                     </div>
                     </div>

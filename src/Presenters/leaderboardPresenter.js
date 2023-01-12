@@ -44,6 +44,7 @@ function Leaderboard(props){
             third_player = {players.sort(compareScores).slice(2,3)}
             players = {players.sort(compareScores)}
             onClickBackHome = {redirectHome}
+            userScore = {props.model.user.score}
             />
         </div> : <div></div>
 }

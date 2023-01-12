@@ -121,7 +121,7 @@ class GameModel{
     }
 
     setPlayers(playersObject){
-        this.players = [...playersObject]
+        this.players = playersObject
         this.notifyObservers()
     }
 
