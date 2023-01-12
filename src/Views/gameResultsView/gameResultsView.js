@@ -13,8 +13,8 @@ function GameResultsView(props){
     }
     function renderProfilePic(playerNum){
         //checks which player and renders the profile picture
-        return props.playerData.username==props.gameData[playerNum] ? 
-            <img src={props.playerData.profilePictureSrc} width="55" height="55"/> : <img src={props.opponentData.profilePictureSrc} width="55" height="55"/>
+        return props.playerData.username===props.gameData[playerNum] ? 
+            <img src={props.playerData.profilePictureSrc} width="55" height="55" alt=""/> : <img src={props.opponentData.profilePictureSrc} width="55" height="55" alt=""/>
     }
     function renderPlayerName(name){
         //renders the player's username
@@ -46,7 +46,7 @@ function GameResultsView(props){
                         }
                     }
                     if(playerNr==="player2"){
-                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length == props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
+                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length === props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
                             if(score === "correct"){ 
                                 return <div key={playerNr + counter.toString()} id='newResultQ1' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div>
                             } 
@@ -64,7 +64,7 @@ function GameResultsView(props){
                         }
                     }
                     if(playerNr==="player2"){
-                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length == props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
+                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length === props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
                             if(score === "correct"){
                                 return <div key={playerNr + counter.toString()} id='newResultQ2' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
                             }
@@ -82,7 +82,7 @@ function GameResultsView(props){
                         }
                     }
                     if(playerNr==="player2"){
-                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length == props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
+                        if(props.gameData.resultPlayer2.length > props.gameData.resultPlayer1.length || (props.gameData.resultPlayer1.length === props.gameData.resultPlayer2.length && latestResultRound%2!==0)){
                             if (score === "correct"){ 
                                 return <div key={playerNr + counter.toString()} id='newResultQ3' className={pointBox}><img src={correct} widht="35" height="35" alt="text"/></div> 
                             }

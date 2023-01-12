@@ -1,6 +1,5 @@
 import './App.css';
-import GameModel from './GameModel';
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const GameResults=require('./Presenters/gameResultsPresenter.js').default;

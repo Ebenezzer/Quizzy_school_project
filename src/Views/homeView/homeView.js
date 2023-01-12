@@ -16,7 +16,7 @@ function HomeView(props) {
     }
 
     return <div>
-        <img src={quizzy_icon} className="logo" />
+        <img src={quizzy_icon} className="logo" alt=""/>
         <p className="quizzy-name">Quizzy</p>
         <button onClick={newGameButtonOnClick} className="new-game">New game</button>
         <div className="popup-model" id="model">

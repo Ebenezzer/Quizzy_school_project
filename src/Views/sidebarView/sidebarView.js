@@ -1,7 +1,7 @@
 import React from 'react'
 import "./sidebarView.css"
 import {AiOutlineClose, AiOutlineHome} from 'react-icons/ai'
-import {MdOutlineLeaderboard, MdOutlineQuiz} from 'react-icons/md'
+import {MdOutlineLeaderboard} from 'react-icons/md'
 import {RxHamburgerMenu} from 'react-icons/rx'
 import { signingOut } from '../../firebase/firebaseModel'
 import { Outlet} from 'react-router'

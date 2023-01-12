@@ -9,7 +9,7 @@ import star from "../../Assets/Images/star (1).png";
 function LeaderboardView(props) {
     function renderFirstPlayer(player) {
         return <div className="podium-card" key={Math.random().toString()}>
-            <img className="player-icon" src={goldMedal}></img>
+            <img className="player-icon" src={goldMedal} alt=""></img>
             <figcaption>{player.username}<br></br>
             Games won:{player.score} </figcaption>
         </div>
@@ -17,7 +17,7 @@ function LeaderboardView(props) {
 
     function renderSecondPlayer(player) {
         return <div className="podium-card" key={Math.random().toString()}>
-            <img className="player-icon" src={silverMedal}></img>
+            <img className="player-icon" src={silverMedal} alt=""></img>
             <figcaption>{player.username}<br></br>
             Games won:{player.score} </figcaption>
         </div>
@@ -25,7 +25,7 @@ function LeaderboardView(props) {
 
     function renderThirdPlayer(player) {
         return <div className="podium-card" key={Math.random().toString()}>
-            <img className="player-icon" src={bronzeMedal}></img>
+            <img className="player-icon" src={bronzeMedal} alt=""></img>
             <figcaption>{player.username}<br></br>
                 Games won:{player.score} </figcaption>
         </div>
@@ -35,7 +35,7 @@ function LeaderboardView(props) {
         return <div className="leaderboard-card" key={Math.random().toString()}>
             <div className="leaderboard-name">
             {props.players.indexOf(player)+1}. &nbsp;&nbsp;
-                <img className="star" src={star}></img>
+                <img className="star" src={star} alt=""></img>
                 <span>{player.username}</span>
             </div>
             <span> &emsp;{player.score} games won</span>
@@ -47,7 +47,7 @@ function LeaderboardView(props) {
     }
 
     return (<div className="leaderboard-podium-box">
-                <img src={leaderboard} className="leaderboard-image" />
+                <img src={leaderboard} className="leaderboard-image" alt=""/>
                     <div className="podium-box">
                         {props.second_player.map(renderSecondPlayer)}
                         {props.first_player.map(renderFirstPlayer)}

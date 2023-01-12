@@ -1,8 +1,8 @@
 import GameResultsView from '../Views/gameResultsView/gameResultsView'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import promiseNoData from '../Views/promiseNoData/promiseNoData';
-import NoUserView from '../Views/noUserView';
+import promiseNoData from '../Views/promiseNoData/promiseNoData'
+import NoUserView from '../Views/noUserView'
 
 export default
 function GameResults(props){
@@ -55,10 +55,7 @@ function GameResults(props){
         //navigate to the game category page
         navigate("/category");
     }
-    if (!userLoggedIn) {
-        return <NoUserView />
-    }
-    return promiseNoData({promise: opponentPromiseStatePromise, data:opponentPromiseStateData, error: opponentPromiseStateError})
+    return !userLoggedIn ? <NoUserView /> : promiseNoData({promise: opponentPromiseStatePromise, data:opponentPromiseStateData, error: opponentPromiseStateError})
     ||<GameResultsView 
         playerData={player}
         opponentData={opponentPromiseStateData} 

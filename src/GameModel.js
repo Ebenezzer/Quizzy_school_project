@@ -1,4 +1,4 @@
-import { authChange, updateFirebaseFromModel, updateModelFromFirebase, updateGameInfoFromFirebase, removeListenerFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
+import { authChange, updateFirebaseFromModel, updateModelFromFirebase, updateGameInfoFromFirebase, getCurrentOpponent} from "./firebase/firebaseModel";
 import { getQuestions } from "./questionSource";
 import resolvePromise from "./resolvePromise";
 
@@ -161,10 +161,10 @@ class GameModel{
     }
 
     setInitialResult(playerNr){
-        if(playerNr==1){
+        if(playerNr===1){
             this.currentGame["resultPlayer1"] = [];
         }
-        if(playerNr==2){
+        if(playerNr===2){
             this.currentGame["resultPlayer2"] = [];
         }
     }

@@ -13,7 +13,7 @@ export default
 
     const navigate = useNavigate();
 
-    const [snapshots, loading] = useList(ref(db,"quizzy11" + '/games'));
+    const [snapshots, loading] = useList(ref(db,"quizzy11/games"));
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
 
     function wasCreatedACB() {
@@ -62,7 +62,7 @@ export default
         return snapshot.val()
     }
     function findUserGamesCB(game){
-        return game.player1==props.model.user.username || game.player2==props.model.user.username 
+        return game.player1===props.model.user.username || game.player2===props.model.user.username 
     }
 
     if (!userLoggedIn) {
@@ -70,7 +70,7 @@ export default
     }
 
     if(loading){
-        return <img src={loadingGif} className="Loading" />;
+        return <img src={loadingGif} className="Loading" alt=""/>;
     }
     
     if(!loading && snapshots && props.model.counter<3){
