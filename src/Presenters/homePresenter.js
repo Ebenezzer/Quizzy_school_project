@@ -86,8 +86,8 @@ export default
     if(loading){
         return <img src={loadingGif} className="Loading" alt=""/>;
     }
-    
-    if(!loading && snapshots && props.model.counter<3){
+    console.log(props.model.counter)
+    if(!loading && snapshots && props.model.counter<2){
         props.model.increaseCounter()
         return <div>
             <HomeView onNewGame={initiateGameACB} />
