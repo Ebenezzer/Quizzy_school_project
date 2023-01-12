@@ -55,7 +55,7 @@ export default
     }
     function gameButtonACB(game) {
         props.model.setCurrentGame(game)
-        props.model.setCurrentOpponentTest()
+        props.model.setCurrentOpponent()
         navigate("/gameResults");
     } 
     function makeListCB(snapshot){
