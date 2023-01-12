@@ -1,6 +1,5 @@
 import React from "react";
 import LeaderboardView from "../Views/leaderboardView/leaderboardView";
-import { getScoresFirebase } from "../firebase/firebaseModel";
 import { useNavigate } from 'react-router-dom'
 import NoUserView from "../Views/noUserView";
 
@@ -39,11 +38,7 @@ function Leaderboard(props){
     function redirectHome(){
         navigate('/home')
     }
-    if (!userLoggedIn) {
-        return <NoUserView />
-    }
-    if (players){
-        return(
+    return !userLoggedIn ? <NoUserView/> : players ? 
         <div>
             <LeaderboardView first_player = {players.sort(compareScores).slice(0,1)}
             second_player = {players.sort(compareScores).slice(1,2)}
@@ -51,7 +46,5 @@ function Leaderboard(props){
             players = {players.sort(compareScores)}
             onClickBackHome = {redirectHome}
             />
-        </div>)
-    }
-    else {console.log(players)}
+        </div> : <div></div>
 }

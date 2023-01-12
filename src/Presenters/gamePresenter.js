@@ -16,6 +16,7 @@ function Game(props){
     const [answers, setAnswers] = useState()
     const [userLoggedIn, setUserLogin] = React.useState(props.model.currentUser)
 
+    // Creating observer to update questionPromiseState, reset currentAnswer, reset currentQuestionIndex and check if user is signed out
     function observerACB(){
         setquestionsPromiseStatePromise(props.model.questionsPromiseState.promise);
         setquestionsPromiseStateData(props.model.questionsPromiseState.data);
@@ -24,7 +25,14 @@ function Game(props){
         setCurrentQuestionIndex(0);
         setUserLogin(props.model.currentUser)
     }
+
+    function componentWasCreatedACB(){   //   1. the component has been created
+        props.model.addObserver(observerACB)
+        return function isTakenDownACB(){props.model.removeObserver(observerACB)}
+    }   
+    React.useEffect( componentWasCreatedACB, [] );
     
+    // Setting round results based on the answer chosen
     function updateRoundResults(currentAnswer){
         if (currentAnswer === questionsPromiseStateData[currentQuestionIndex].correctAnswer){
             props.model.setRoundResults([...props.model.roundResults, "correct"])
@@ -34,6 +42,7 @@ function Game(props){
         }
     }
 
+    // Show next question when clicking the questionCard for previous question
     function updateQuestionACB(){
         if (currentQuestionIndex<questionsPromiseStateData.length-1){
             setCurrentQuestionIndex(currentQuestionIndex+1);
@@ -46,24 +55,21 @@ function Game(props){
         }
     }
 
+    // When choosing an answer set that answer as the current answer to check if it was correct or not
     function updateCurrentAnswerACB(answer) {
         setCurrentAnswer(answer);
         updateRoundResults(answer);
     }
 
-    function componentWasCreatedACB(){   //   1. the component has been created
-        props.model.addObserver(observerACB)
-        return function isTakenDownACB(){props.model.removeObserver(observerACB)}
-    }   
-    React.useEffect( componentWasCreatedACB, [] );
-
+    // If there is no current answer and the answers have not been set but there is data, then the answers should be shuffled
+    // Otherwise they should not be shuffled so they do not confuse the user.
     if(!currentAnswer && !answers && questionsPromiseStateData){
         setAnswers(shuffleArray([questionsPromiseStateData[currentQuestionIndex].correctAnswer, ...questionsPromiseStateData[currentQuestionIndex].incorrectAnswers]));
     }
-    if (!userLoggedIn) {
-        return <NoUserView />
-    }
-    return (<div className="wrapper">
+
+    // If user is signed out the NoUserView should be returned otherwise the GameView should be returned
+    return (!userLoggedIn ? <NoUserView /> : 
+    <div className="wrapper">
         {promiseNoData({promise: questionsPromiseStatePromise, data:questionsPromiseStateData, error: questionsPromiseStateError})
         || <GameView question={questionsPromiseStateData[currentQuestionIndex]}
             currentAnswer={currentAnswer}
