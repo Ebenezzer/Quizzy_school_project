@@ -174,6 +174,7 @@ class GameModel{
     }
 
     updateResults(playerNr){
+    if (this.roundResults.length === 3){
         function checkAnswerCB(sum, answer){
             return answer === "correct" ? sum+1 : sum; 
         }
@@ -198,7 +199,8 @@ class GameModel{
             this.currentGame.turn = playerNr === "player1" ? this.currentGame.player2 : this.currentGame.player1
         }
         this.roundResults = [];
-        this.updateGame();
+        this.notifyObservers({updatedGame : this.currentGame})
+    }
     } 
 
     setCurrentGameId(gameId){
@@ -208,10 +210,6 @@ class GameModel{
     setGameId(gameId){
         this.currentGame.gameId = gameId;
         this.updateGame()
-    }
-
-    updateGame(){
-        this.notifyObservers({updatedGame : this.currentGame})
     }
 
     getGameList(){

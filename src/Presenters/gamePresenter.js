@@ -50,6 +50,10 @@ function Game(props){
             setAnswers(null);
         }
         else{
+            if(props.model.roundResults.length>3){
+                alert("screw you cheater! You get no points for this round.")
+                props.model.setRoundResults(["incorrect", "incorrect", "incorrect"])
+            }
             props.model.updateResults(props.model.currentGame.player1===props.model.currentGame.turn?"player1":"player2")
             navigate("/gameResults");
         }
