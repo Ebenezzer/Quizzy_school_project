@@ -174,33 +174,31 @@ class GameModel{
     }
 
     updateResults(playerNr){
-    if (this.roundResults.length === 3){
-        function checkAnswerCB(sum, answer){
-            return answer === "correct" ? sum+1 : sum; 
-        }
-        if (playerNr === "player1"){
-            this.currentGame.resultPlayer1=[...this.currentGame.resultPlayer1, this.roundResults]
-            this.currentGame.score.player1+=this.roundResults.reduce(checkAnswerCB, 0)
-        }
-        if (playerNr === "player2"){
-            this.currentGame.resultPlayer2=[...this.currentGame.resultPlayer2, this.roundResults]
-            this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)
-        }
-        if (this.currentGame.resultPlayer2.length === 5){
-            this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 : this.currentGame.score.player1 === this.currentGame.score.player2 ? "tie" : this.currentGame.player2;
-            if (this.currentGame.winner === this.user.username){
-                this.updateScore();
+        if (this.roundResults.length === 3){
+            function checkAnswerCB(sum, answer){
+                return answer === "correct" ? sum+1 : sum; 
             }
-        }
-        if (this.currentGame.resultPlayer1.length === this.currentGame.resultPlayer2.length){
-            this.currentGame.currentRound++ ;
-        }
-        if (this.currentGame.resultPlayer1.length !== this.currentGame.resultPlayer2.length){
+            if (playerNr === "player1"){
+                this.currentGame.resultPlayer1=[...this.currentGame.resultPlayer1, this.roundResults]
+                this.currentGame.score.player1+=this.roundResults.reduce(checkAnswerCB, 0)
+            }
+            if (playerNr === "player2"){
+                this.currentGame.resultPlayer2=[...this.currentGame.resultPlayer2, this.roundResults]
+                this.currentGame.score.player2+=this.roundResults.reduce(checkAnswerCB, 0)
+            }
+            if (this.currentGame.resultPlayer2.length === 5){
+                this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 : this.currentGame.score.player1 === this.currentGame.score.player2 ? "tie" : this.currentGame.player2;
+                if (this.currentGame.winner === this.user.username){
+                    this.updateScore();
+                }
+            }
+            if (this.currentGame.resultPlayer1.length === this.currentGame.resultPlayer2.length){
+                this.currentGame.currentRound++ ;
+            }
             this.currentGame.turn = playerNr === "player1" ? this.currentGame.player2 : this.currentGame.player1
+            this.roundResults = [];
+            this.notifyObservers({updatedGame : this.currentGame})
         }
-        this.roundResults = [];
-        this.notifyObservers({updatedGame : this.currentGame})
-    }
     } 
 
     setCurrentGameId(gameId){
