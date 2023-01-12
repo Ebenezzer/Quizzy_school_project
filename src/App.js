@@ -25,11 +25,11 @@ function App(props) {
           <Route path ="category" element= {<Category model={props.model}/>}/>
           <Route path ="game" element= {<Game model={props.model}/>}/>
           <Route path ="home" element= {<Home model = {props.model}/>}/>
-          <Route path ="login" element= {<LogIn model = {props.model}/>}/> {/* what if I want path to be "/" so that's the first thing that is rendered when app is passed */}
+          <Route path ="login" element= {<LogIn model = {props.model}/>}/>
           <Route path ="signup" element= {<Signup model = {props.model}/>}/>
           <Route path ="leaderboard" element ={<Leaderboard model = {props.model}/>}/>
-          <Route path="*" element={<Navigate to="home" />} />
-          <Route path="" element={<Navigate to="home" />} />
+          <Route path ="*" element={<Navigate to="home" />} />
+          <Route path ="" element={<Navigate to="home" />} />
         </Route>
       </Routes>
     </BrowserRouter>
