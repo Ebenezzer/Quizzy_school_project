@@ -30,7 +30,7 @@ export default
     }
     function initiateGameACB(username) {
         props.model.createNewGame(username)
-        props.model.setCurrentOpponentTest()
+        props.model.setCurrentOpponent()
         if(props.model.currentUser){
             navigate("/gameResults")
         } 
