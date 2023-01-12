@@ -9,7 +9,6 @@ class GameModel{
         this.user = {};  //samma som currentPlayerObject ?
         this.username =
         this.currentGame = {};
-        this.currentGameId = "";
         this.observers=[];
         this.players = playersArray;
         this.games = gameArray;
@@ -20,9 +19,7 @@ class GameModel{
         this.currentUser = undefined; // to save data from firebase into
         this.addAuthObserver();
         this.roundResults=[];
-        this.currentOpponent = {};  //ta bort?
-        this.counter = 0;
-        //if you want to reach email, username etc.. user currentuser object, only if user is actually logged in 
+        this.counter = 0; 
     }
     
     addObserver(addObserverCB){
@@ -39,7 +36,6 @@ class GameModel{
     addAuthObserver(){
 
         function authUserACB(user){
-           // run off() functions for firebase listeners + try catch for user presence
             this.currentUser = user;
             if(this.currentUser){
                 updateFirebaseFromModel(this)
@@ -114,8 +110,6 @@ class GameModel{
     }
 
     setCurrentOpponent(){
-        //använder någon this.currentOpponent ? Eller räcker det med this.opponentPromiseState.data
-        //this.currentOpponent=
         function notifyACB(){    
             this.notifyObservers();
         }
@@ -146,11 +140,6 @@ class GameModel{
             resultPlayer1:[],
             resultPlayer2:[]
         }});
-    }
-    
-    //TODO samma som setUser?
-    getPlayerCurrentObject(playerObject){
-        this.currentPlayerObject = playerObject;
     }
 
     getNewQuestions(category){
@@ -203,10 +192,6 @@ class GameModel{
             this.notifyObservers({updatedGame : this.currentGame})
         }
     } 
-
-    setCurrentGameId(gameId){
-        this.currentGameId=gameId;
-    }
 
     setGameId(gameId){
         this.currentGame.gameId = gameId;
