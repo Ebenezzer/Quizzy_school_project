@@ -1,19 +1,33 @@
 {
   "files": {
-    "main.css": "/static/css/main.58f37ee0.css",
-    "main.js": "/static/js/main.29fc1774.js",
+    "main.css": "/static/css/main.4609e172.css",
+    "main.js": "/static/js/main.5829eb9f.js",
     "static/js/787.efb32cde.chunk.js": "/static/js/787.efb32cde.chunk.js",
     "static/media/loadingGif.gif": "/static/media/loadingGif.febcb3664dc30d35903f.gif",
-    "static/media/profile_pic.png": "/static/media/profile_pic.b23b2f839ee21ecb5f53.png",
+    "static/media/food_and_drink.png": "/static/media/food_and_drink.194c69c3a39d2a98c2b4.png",
+    "static/media/society_and_culture.png": "/static/media/society_and_culture.6dc3558e6e6b2c818f60.png",
+    "static/media/sport_and_leisure.png": "/static/media/sport_and_leisure.f3c62a72399fd50faf43.png",
+    "static/media/geography.png": "/static/media/geography.0a671c034d8116f3a4a5.png",
+    "static/media/science.png": "/static/media/science.87711a791a25ddd5ff49.png",
+    "static/media/music.png": "/static/media/music.2cecd543c053f9e3567f.png",
+    "static/media/bronze_medal.png": "/static/media/bronze_medal.a6118719e0113ec6d7da.png",
+    "static/media/general_knowledge.png": "/static/media/general_knowledge.44588ff78efcca01ce6c.png",
+    "static/media/silver_medal.png": "/static/media/silver_medal.9053554246601536d55a.png",
+    "static/media/film_and_tv.png": "/static/media/film_and_tv.b024d05be3e87688f93c.png",
     "static/media/correct.png": "/static/media/correct.61a4d385780acd4783f4.png",
+    "static/media/gold_medal.png": "/static/media/gold_medal.3955d47eb1819c82dc98.png",
+    "static/media/history.png": "/static/media/history.117c3a557a8f2731dbd4.png",
+    "static/media/leaderboard.png": "/static/media/leaderboard.2b46545aac08c6b2f486.png",
     "static/media/incorrect.png": "/static/media/incorrect.3d90f93a85814506549b.png",
+    "static/media/star (1).png": "/static/media/star (1).0fd28a6ea8f1655111f3.png",
+    "static/media/q_icon.png": "/static/media/q_icon.b6477c0d58bab58bc28a.png",
     "index.html": "/index.html",
-    "main.58f37ee0.css.map": "/static/css/main.58f37ee0.css.map",
-    "main.29fc1774.js.map": "/static/js/main.29fc1774.js.map",
+    "main.4609e172.css.map": "/static/css/main.4609e172.css.map",
+    "main.5829eb9f.js.map": "/static/js/main.5829eb9f.js.map",
     "787.efb32cde.chunk.js.map": "/static/js/787.efb32cde.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.58f37ee0.css",
-    "static/js/main.29fc1774.js"
+    "static/css/main.4609e172.css",
+    "static/js/main.5829eb9f.js"
   ]
 }

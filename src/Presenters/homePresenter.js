@@ -40,7 +40,7 @@ export default
                     setTimeout(()=>{notify.style.display = "none";  
                 }, 3 * 1000)        
                 }
-                else{
+                else{ 
                 props.model.createNewGame(username)
                 props.model.setCurrentOpponent()
                 navigate("/gameResults")
@@ -50,7 +50,7 @@ export default
     }
 
     function getMyGamesCB(object) {
-        return object.turn === props.model.user.username;
+        return object.turn === props.model.currentUser.displayName;
     }
 
     function getOpponentsGamesCB(object) {
@@ -76,7 +76,7 @@ export default
     }
 
     function findUserGamesCB(game){
-        return game.player1===props.model.user.username || game.player2===props.model.user.username 
+        return game.player1===props.model.currentUser.displayName || game.player2===props.model.currentUser.displayName 
     }
 
     if (!userLoggedIn) {
