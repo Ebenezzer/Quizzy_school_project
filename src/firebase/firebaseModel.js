@@ -139,7 +139,9 @@ function updateFirebaseFromModel(model) {
     function observerACB(payload) {
 
         if (payload && payload.score) {
-            update(ref(db, REF + '/users/publicUsers/' + model.currentUser.displayName), { score: payload.score })
+            get(ref(db, REF + '/users/publicUsers/' + payload.score + "/score")).then((snapshot)=>
+                update(ref(db, REF + '/users/publicUsers/' + payload.score), snapshot.val()+1)
+            )
         }
 
         if (payload && payload.user) {

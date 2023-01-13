@@ -95,9 +95,8 @@ class GameModel{
         }
     }
 
-    updateScore(){
-        this.user.score ++;
-        this.notifyObservers({score: this.user.score});
+    updateScore(username){
+        this.notifyObservers({score: username});
     }
 
     setUser(user){
@@ -176,9 +175,7 @@ class GameModel{
             }
             if (this.currentGame.resultPlayer2.length === 5){
                 this.currentGame.winner = this.currentGame.score.player1 > this.currentGame.score.player2 ? this.currentGame.player1 : this.currentGame.score.player1 === this.currentGame.score.player2 ? "tie" : this.currentGame.player2;
-                if (this.currentGame.winner === this.user.username){
-                    this.updateScore();
-                }
+                this.updateScore(this.currentGame.winner);
             }
             if (this.currentGame.resultPlayer1.length === this.currentGame.resultPlayer2.length){
                 this.currentGame.currentRound++ ;
