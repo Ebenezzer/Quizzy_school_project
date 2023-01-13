@@ -96,7 +96,7 @@ class GameModel{
     }
 
     updateScore(username){
-        this.notifyObservers({score: username});
+        this.notifyObservers({incrementScoreForUser: username});
     }
 
     setUser(user){
